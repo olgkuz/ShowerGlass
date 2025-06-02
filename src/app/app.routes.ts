@@ -1,3 +1,7 @@
 import { Routes } from '@angular/router';
 
-export const routes: Routes = [];
+import { DesauthComponent } from './pages/desauth/desauth.component';
+
+export const routes: Routes = [
+    {path:'desauth',component:DesauthComponent}
+];
