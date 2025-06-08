@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IUser, IUserRegister, UserStorageKey } from '../models/user';
+import { IUser} from '../models/user';
 import { HttpClient, JsonpInterceptor } from '@angular/common/http';
 import { API } from '../shared/api';
 import { Observable, Observer } from 'rxjs';
@@ -15,7 +15,7 @@ export class UserService {
 
   constructor(private http:HttpClient) {}
   
-  registerUser  (user: IUserRegister): Observable<string> {
+  registerUser  (): Observable<string> {
     return this.http.post(API.registration, user,{responseType:'text'});
   }
  
