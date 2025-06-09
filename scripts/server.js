@@ -46,7 +46,7 @@ app.post('/reg', (req, res) => {
 })
  
 //************** */ auth**************************************
-app.post('/auth', (req, res) => { 
+app.post('/desauth', (req, res) => { 
   log('req.body',req.body);
  
     if (req.body?.login && req.body.password) {

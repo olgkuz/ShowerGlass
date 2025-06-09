@@ -5,6 +5,7 @@ import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
 import { InputTextModule } from 'primeng/inputtext';
 import { UserService } from '../../../services/user.service';
+import { IUserReg } from '../../../models/user';
 
 
 
@@ -31,7 +32,9 @@ export class RegComponent implements OnInit {
     
   }
   onAuth(ev:Event): void {
-    
+    console.log ('ev',ev);
+    const postObj = {login: this.login,password: this.password, email: this.email} as IUserReg;
+    this.userService.registerUser (postObj)
 
   }
  

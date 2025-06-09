@@ -3,3 +3,8 @@ export interface IUser {
     password?:string
 
  }
+ export interface IUserReg {
+    login: string;
+    password?: string;
+    email: string;
+}

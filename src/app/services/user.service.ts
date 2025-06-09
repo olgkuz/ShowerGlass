@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { IUser} from '../models/user';
+import { IUser, IUserReg} from '../models/user';
 import { HttpClient, JsonpInterceptor } from '@angular/common/http';
 import { API } from '../shared/api';
-import { Observable, Observer } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,27 +9,35 @@ import { Observable, Observer } from 'rxjs';
 export class UserService {
   
  
-
+  private userStorage:IUser[]=[];
   private currentUser: IUser | null = null;
 
   constructor(private http:HttpClient) {}
+
+  private getUser(login:string): IUser|null {
+    return this.userStorage.find((user)=> login === user.login ) ||null;
+  }
+
+  addUser(user:IUser,isRememberMe?:boolean): true | string {
+    if (this.getUser(user.login)) {
+      return 'user already exists'
+    }
+    this.userStorage.push(user);
+    return true;
+  }
+
+  checkUser(login:string):boolean{
+    return !!this.getUser(login)
+  }
   
-  registerUser  (): Observable<string> {
-    return this.http.post(API.registration, user,{responseType:'text'});
+  registerUser  (user:IUserReg): void {
+     this.http.post(API.reg, user).subscribe();
   }
  
 
-  authUser(user: IUser): Observable<string>{
-   return this.http.post<string>(API.auth,user);
+  authUser(user: IUser):void {
+    this.http.post(API.desauth,user).subscribe();
   }
 
-  getUser(): IUser {
-    const userFromStorage = sessionStorage.getItem(UserStorageKey);
-    return this.currentUser || JSON.parse(userFromStorage);
-   }
-    
-  setUser (user:IUser): void {
-    this.currentUser = user;
-    sessionStorage.setItem(UserStorageKey,JSON.stringify({login:user.login}))
-  }
+  
 }

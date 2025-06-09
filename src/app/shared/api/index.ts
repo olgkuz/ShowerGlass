@@ -1,5 +1,6 @@
 import { environment } from "../../../environments/environment.development";
 const serverIp = environment.apiUrl;
 export const API = {
-    auth: serverIp,
-    reg: serverIp}
+    desauth: `${serverIp}/desauth`,
+    reg: `${serverIp}/reg`
+}

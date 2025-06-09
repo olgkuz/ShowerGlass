@@ -3,6 +3,7 @@ import {  Router, RouterModule } from '@angular/router';
 import { FooterComponent } from './footer/footer.component';
 
 import { HeaderComponent } from './header/header.component';
+import { AsideComponent } from './aside/aside.component';
 
 
 
@@ -14,6 +15,7 @@ import { HeaderComponent } from './header/header.component';
       RouterModule,
        FooterComponent,
        HeaderComponent, 
+       AsideComponent
        
        
       
