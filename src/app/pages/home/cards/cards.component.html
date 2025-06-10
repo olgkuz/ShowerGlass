@@ -1,1 +1,26 @@
-<p>cards works!</p>,
+<div class="cards-list flex flex-wrap justify-content-around align-items-stretch">
+
+  @for (item of cards; track item.id) {
+      
+      
+      <div class="m-2 col-2 card-item align-self-stretch">
+          <p-card 
+          header ="{{item.name}}"
+          styleClass="card-p-card"
+          >
+           <ng-template #header>
+            <img alt="Card" class="w-full" src="/img/{{item.img}}">
+           </ng-template>
+            <ng-template #footer>
+        
+            
+            <p-button label="Подробнее" class="w-full" styleClass="w-full" />
+        
+            </ng-template>
+              
+
+             
+          </p-card>
+        </div>
+     }
+    </div>

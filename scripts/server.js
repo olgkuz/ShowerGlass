@@ -4,7 +4,8 @@ const express = require('express');
 const { log } = require('console');
  
 // user
-const userJson = "./src/app/shared/mocks/users.json";
+const userJson = "./server-data/users.json";
+const toursJson = "./server-data/cards.json";
 const jsonFileData =  fs.readFileSync(userJson, 'utf-8');
 let  parseJsonData = JSON.parse(jsonFileData);
  
@@ -79,7 +80,14 @@ app.post('/desauth', (req, res) => {
     }
   })
  
+   //************** */ cards**************************************
  
+  app.get('/cards', (req, res) => { 
+    const jsonFileData =  fs.readFileSync(toursJson, 'utf-8', (err, data) => {}, (err) => {
+      console.log('err read file cards', err);});
+    res.send(jsonFileData);
+  }); 
+
 // run and listen serve
 app.listen(port, () => {
   console.log(`app listening on port ${port}`)
