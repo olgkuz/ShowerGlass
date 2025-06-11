@@ -13,7 +13,7 @@ export class CardsService {
   constructor(private http:HttpClient) { }
 
   getCards(): Observable<ICards[]> {
-    return this.http.get(API.cards);
+    return this.http.get<ICards[]>(API.cards);
   }
 
 }

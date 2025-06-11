@@ -15,6 +15,6 @@ export const routes: Routes = [
         ]
     },
     { path: 'designer', component:DesignerComponent},
-    { path: '**', redirectTo: '/desauth', pathMatch: 'full'},
+    { path: '**', redirectTo: '/home', pathMatch: 'full'},
 
 ];

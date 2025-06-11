@@ -18,10 +18,10 @@ export class CardsComponent implements OnInit {
 
   ngOnInit(): void {
     
-    this.cardService.getCards().subscribe((data) =>{
-      if (Array.isArray(data?.cards)) {
-        this.cards = data.cards;
+    this.cardService.getCards().subscribe((data: ICards[]) =>
+       {
+        this.cards = data;
       }
-    });
+    );
   }
 }
