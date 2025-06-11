@@ -16,6 +16,12 @@
           "-webkit-mask-image"
         ]
       }
+    ],
+    "axe/name-role-value": [
+      "default",
+      {
+        "button-name": "off"
+      }
     ]
   }
 }
