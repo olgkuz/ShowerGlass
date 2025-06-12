@@ -4,7 +4,7 @@ import { ButtonModule } from 'primeng/button/button';
 
 @Component({
   selector: 'app-hero',
-  imports: [CommonModule, ButtonModule],
+  imports: [CommonModule],
   templateUrl: './hero.component.html',
   styleUrl: './hero.component.scss',
 })

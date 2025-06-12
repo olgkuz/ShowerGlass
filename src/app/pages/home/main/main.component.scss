@@ -1,0 +1,28 @@
+:host {
+  display: block;
+}
+
+.main-banner{
+  position: relative;
+  background: url('/assets/img/hero-banner.jpg') center/cover no-repeat;
+  height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+
+  .main-content {
+    text-align: center;
+    color: #fff;
+
+    h1 {
+      font-size: 3.5rem;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .main-button {
+      margin-top: 2rem;
+    }
+  }
+}

@@ -3,10 +3,11 @@ import { HeroComponent } from './hero/hero.component';
 import { CardsComponent } from './cards/cards.component';
 import { AccordionComponent } from './accordion/accordion.component';
 import { ContactformComponent } from './contactform/contactform.component';
+import { MainComponent } from './main/main.component';
 
 @Component({
   selector: 'app-home',
-  imports: [HeroComponent,
+  imports: [MainComponent,HeroComponent,
     CardsComponent,
     AccordionComponent,
     ContactformComponent],
