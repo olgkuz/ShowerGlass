@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TabsModule } from 'primeng/tabs';
-import { AuthComponent } from './auth/auth.component';
+import { AuthorizationComponent } from './auth/auth.component';
 import { RegComponent } from './reg/reg.component';
 @Component({
   selector: 'app-desauth',
-  imports: [AuthComponent,RegComponent, TabsModule],
+  imports: [AuthorizationComponent,RegComponent, TabsModule],
   templateUrl: './desauth.component.html',
   styleUrl: './desauth.component.scss',
 })

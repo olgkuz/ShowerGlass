@@ -1,1 +1,17 @@
-<p>contactform works!</p>,
+<section class="contact-form-section">
+  <h2>Оставьте заявку</h2>
+  <p>Наш специалист свяжется с вами в ближайшее время</p>
+
+  <form [formGroup]="contactForm" (ngSubmit)="submitForm()">
+    <div class="form-group">
+      <input type="text" pInputText placeholder="Ваше имя" formControlName="name" />
+    </div>
+    <div class="form-group">
+      <input type="text" pInputText placeholder="Телефон" formControlName="phone" />
+    </div>
+    <div class="form-group">
+      <textarea pInputTextarea rows="4" placeholder="Сообщение" formControlName="message"></textarea>
+    </div>
+    <button pButton type="submit" label="Отправить" [disabled]="!contactForm.valid"></button>
+  </form>
+</section>

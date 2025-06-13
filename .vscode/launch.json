@@ -4,11 +4,12 @@
   "configurations": [
   
      {
-      "command": "npm start serverWithNg",
-      "name": "Run serverWithNg",
-      "request": "launch",
-      "type": "node-terminal"
-    },
+  "command": "npm run serverWithNg",
+  "name": "Run serverWithNg",
+  "request": "launch",
+  "type": "node-terminal"
+}
+,
 
 
     {

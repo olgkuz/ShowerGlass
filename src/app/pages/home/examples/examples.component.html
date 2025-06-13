@@ -1,1 +1,11 @@
-<p>examples works!</p>,
+<section class="examples">
+  <h2>Душевые ограждения, которые мы уже установили</h2>
+  <p-carousel [value]="examples" [numVisible]="3" [numScroll]="1" circular>
+    <ng-template let-item pTemplate="item">
+      <div class="example-item">
+        <img [src]="item.image" alt="Установленное ограждение" />
+        <div class="example-title">{{ item.title }}</div>
+      </div>
+    </ng-template>
+  </p-carousel>
+</section>
