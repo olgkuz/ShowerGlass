@@ -88,6 +88,25 @@ app.post('/desauth', (req, res) => {
     res.send(jsonFileData);
   }); 
 
+  
+ 
+  /*******************get cards*/
+  app.get('/card/:id', (req, res) => { 
+    const jsonFileData =  fs.readFileSync(toursJson, 'utf-8', (err, data) => {}, (err) => {
+      console.log('err read file cards', err);});
+              // parse data
+      const  parseJsonData = JSON.parse(jsonFileData);
+      const paramId = req.params.id;
+ 
+ 
+      const item = parseJsonData.cards.find((card) => tour.id === paramId);
+      if (item) {
+        res.send(item);
+      } else {
+        throw new Error(' не найден по id:', paramId);
+      }
+  });
+
 // run and listen serve
 app.listen(port, () => {
   console.log(`app listening on port ${port}`)

@@ -1,10 +1,71 @@
-import { Component } from '@angular/core';
+import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
+import { ButtonModule } from 'primeng/button';
+import { MenubarModule } from 'primeng/menubar';
+import  {MenuItem } from 'primeng/api'
+import { IUser } from '../../models/user';
+import { UserService } from '../../services/user.service';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-header',
-  imports: [],
+  imports: [
+    MenubarModule, 
+    ButtonModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
   
 })
-export class HeaderComponent { }
+export class HeaderComponent implements OnInit,OnDestroy { 
+
+
+  menuItems: MenuItem []=[];
+  user:IUser;
+  logoutIcon ='pi pi-user';
+
+  constructor(
+    private userService: UserService, 
+    private router: Router, 
+    )  {}
+   
+
+  ngOnInit(): void {
+
+  
+
+    this.user =  this.userService.getUser();
+    this.menuItems = this.initMenuItems();
+
+    
+     
+  }
+  ngOnDestroy(){}
+
+  initMenuItems(): MenuItem  []{
+    return [
+      {
+        label: 'Главная ',
+        routerLink:['/home'],
+
+      },
+      {
+        label: 'Дизайнерам',
+        routerLink:['desauth'],
+      },
+      {
+        label: 'Контакты ',
+        routerLink:['/contacts'],
+      },
+    ];
+  }
+  logOut(): void {
+    this.userService.setUser(null);
+    this.router.navigate(['/home']);
+  }
+
+   hoverLogoutBtn(val: boolean): void {
+   this.logoutIcon =val ? 'pi pi-sign-out' : 'pi pi-user'
+}
+
+  
+}

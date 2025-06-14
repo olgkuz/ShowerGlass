@@ -30,4 +30,4 @@ export const routes: Routes = [
 
   // Маршрут-шаблон для несуществующих путей (редирект на главную)
   { path: '**', redirectTo: 'home' }
-];
+]; 

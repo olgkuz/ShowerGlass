@@ -22,8 +22,9 @@ export class AuthorizationComponent implements OnInit, OnDestroy {
  
 
 constructor(private userService:UserService,
-private router: Router) { }
 
+private router: Router,
+private messageService: MessageService ) { }
 
 ngOnInit(): void {}
 
@@ -34,7 +35,16 @@ const user:IUser = {
   login: this.login,
   password:this.password,
 }
-this.userService.authUser(user);
-this.router.navigate(['designer']);
+this.userService.authUser(user).subscribe(
+
+  ()=>{
+    this.userService.setUser(user);
+    this.router.navigate(['designer']);
+  },
+  ()=> {this.initToast('error',  'Произошла ошибка' );}
+  )
+}
+initToast(type:'error'| 'success', text:string ):void {
+  this.messageService.add({ severity: type,  detail: text, life:3000 });
  }
 }

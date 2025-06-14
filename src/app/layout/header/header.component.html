@@ -1,10 +1,22 @@
 <div class="layout-header">
     <div class="layout-header__menu">
-        
+        <p-menubar [model] = "menuItems" />
     </div>
     <div class="layout-header__right-block">
 
         <div class="contacts"></div>
+         <div class="logoout">
+            <p-button
+            [icon]="logoutIcon"
+            label="{{user?.login}}"
+            pTooltip="Logout"
+            (mouseenter) = "hoverLogoutBtn(true)"
+            (mouseleave) = "hoverLogoutBtn(false)"
+            (onClick)="logOut()"
+            severity="secondary"
+            >
+        </p-button>
+        </div>
         
     </div>
 </div>

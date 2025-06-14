@@ -3,7 +3,8 @@
   @for (item of cards; track item.id) {
       
       
-      <div class="m-2 col-2 card-item align-self-stretch">
+      <div (click)="goToCard(item)"
+      class="m-2 col-2 card-item align-self-stretch">
           <p-card 
           header ="{{item.name}}"
           styleClass="card-p-card"
@@ -11,9 +12,9 @@
            <ng-template #header>
             <img alt="Card" class="w-full" src="/img/{{item.img}}">
            </ng-template>
+
             <ng-template #footer>
         
-            
             <p-button label="Подробнее" class="w-full" styleClass="w-full" />
         
             </ng-template>

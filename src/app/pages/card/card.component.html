@@ -1,1 +1,28 @@
-<p>card works!</p>,
+
+<p-button
+label="Back"
+styleClass="p-button-link"
+routerLink="/cards"
+></p-button>
+
+<div class="flex flex-1 card-item-wrap">
+    @if (card) {
+    <div>
+    <p-card 
+    header="{{card.name}}"
+   
+    styleClass="p-card-shadow col-10 overflow-hidden card-item"
+    >
+    <ng-template pTemplate="header">
+        <img alt="Card"  src="/img/{{card.img}}">
+    </ng-template>
+    
+    </p-card>
+    </div>
+}
+   
+    
+
+<ng-template #noData>
+    нет данных 
+</ng-template>
