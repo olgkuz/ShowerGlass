@@ -1,33 +1,44 @@
 import { Routes } from '@angular/router';
-
 import { DesauthComponent } from './pages/desauth/desauth.component';
 import { LayoutComponent } from './layout/layout.component';
 import { DesignerComponent } from './pages/designer/designer.component';
 import { CardComponent } from './pages/card/card.component';
 import { HomeComponent } from './pages/home/home.component';
 import { ContactsComponent } from './pages/contacts/contacts.component';
+import { authGuard } from './shared/guards/auth.guard';
+import { inject } from '@angular/core';
+import { UserService } from './services/user.service';
 
 export const routes: Routes = [
-  // Родительский маршрут с общим макетом (LayoutComponent)
   {
-    path: '', 
+    path: '',
     component: LayoutComponent,
     children: [
-      { path: 'home', component: HomeComponent },              // Главная страница (Hero, Cards, Accordion, ContactForm)
-      { path: 'card/:id', component: CardComponent },          // Страница отдельной карточки
-      { path: 'contacts', component: ContactsComponent },      // Страница контактов
-      { 
-        path: 'designer', 
-        component: DesignerComponent, 
-       // canActivate: [AuthGuard]                               // Страница дизайнеров (защищена AuthGuard)
-      },
-      { path: '', redirectTo: 'home', pathMatch: 'full' }      // Переход на /home при пустом пути
+      // Открытые маршруты
+      { path: 'home', component: HomeComponent },
+      { path: 'card/:id', component: CardComponent },
+      { path: 'contacts', component: ContactsComponent },
+      
+      // Дефолтный редирект
+      { path: '', redirectTo: 'home', pathMatch: 'full' }
     ]
   },
-
-  // Отдельный маршрут для страницы авторизации (не вложен в LayoutComponent)
-  { path: 'desauth', component: DesauthComponent },
-
-  // Маршрут-шаблон для несуществующих путей (редирект на главную)
+  
+  // Страница авторизации (не использует LayoutComponent)
+  { 
+    path: 'desauth', 
+    component: DesauthComponent,
+    // Запрещаем доступ если уже авторизован
+    canActivate: [() => !inject(UserService).isAuthenticated()] 
+  },
+  
+  // Защищенный маршрут
+  { 
+    path: 'designer',
+    component: DesignerComponent,
+    canActivate: [authGuard] // Проверка через UserService
+  },
+  
+  // Fallback маршрут
   { path: '**', redirectTo: 'home' }
-]; 
+];

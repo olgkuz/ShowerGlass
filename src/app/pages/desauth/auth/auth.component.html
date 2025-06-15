@@ -1,29 +1,43 @@
+<div class="auth-form">
+  <!-- Поле логина -->
+  <div class="field">
+    <label for="login" class="block mb-2">Логин</label>
+    <input
+      id="login"
+      type="text"
+      pInputText
+      [(ngModel)]="login"
+      [ngClass]="{'p-invalid': login && login.length < 3}"
+      class="w-full"
+      placeholder="Введите ваш логин"
+    >
+    @if (login && login.length < 3) {
+      <small class="p-error">Логин должен содержать минимум 3 символа</small>
+    }
+  </div>
 
-<div class="flex flex-column m-auto">
-    <div class="flex justify-content-between align-content-center flex-wrap">
-        <span class= "mx-3"> Login </span>
-        <input 
-        type="text"
-        pInputText
-        [ngClass]="{'input-error': !login|| login.length< 3}"
-        [(ngModel)]="login"
-        />
-    </div>
-    <div class="mt-3 flex justify-content-between align-content-center flex-wrap">
-        <span class="mx-3"> Password </span>
-        <input 
-        type="password"
-        pInputText
-        [ngClass]="{'input-error': !password|| password.length< 6}"
-        [(ngModel)]="password"
-        />
-    </div>
-    <div class="mt-3 flex justify-content-between align-content-center flex-wrap">
-        <p-button
-           label = "Войти" 
-           [disabled]=" login?.length< 3|| password?.length < 6 " 
-           (click)="onAuth()"
-           ></p-button>
-   
-       </div>
+  <!-- Поле пароля -->
+  <div class="field mt-4">
+    <label for="password" class="block mb-2">Пароль</label>
+    <input
+      id="password"
+      type="password"
+      pInputText
+      [(ngModel)]="password"
+      [ngClass]="{'p-invalid': password && password.length < 6}"
+      class="w-full"
+      placeholder="Введите пароль"
+    >
+    @if (password && password.length < 6) {
+      <small class="p-error">Пароль должен содержать минимум 6 символов</small>
+    }
+  </div>
+
+  <!-- Кнопка входа -->
+  <p-button
+    label="Войти"
+    [disabled]="!isFormValid()"
+    (click)="onAuth()"
+    class="w-full mt-4"
+  ></p-button>
 </div>

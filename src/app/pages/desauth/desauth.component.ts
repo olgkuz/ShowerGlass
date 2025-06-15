@@ -1,19 +1,36 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { TabsModule } from 'primeng/tabs';
+import { Component } from '@angular/core';
+import { UserService } from '../../services/user.service';
+import { Router } from '@angular/router';
+import { TabViewModule } from 'primeng/tabview';
 import { AuthorizationComponent } from './auth/auth.component';
 import { RegComponent } from './reg/reg.component';
+import { CommonModule } from '@angular/common';
+
 @Component({
   selector: 'app-desauth',
-  imports: [AuthorizationComponent,RegComponent, TabsModule],
+  standalone: true,
+  imports: [
+    CommonModule,
+    TabViewModule,
+    AuthorizationComponent,
+    RegComponent
+  ],
   templateUrl: './desauth.component.html',
-  styleUrl: './desauth.component.scss',
+  styleUrls: ['./desauth.component.scss']
 })
-export class DesauthComponent implements OnInit,OnDestroy {
-  ngOnDestroy(): void {
-    
-  }
-  ngOnInit(): void {
-    
+export class DesauthComponent {
+  constructor(
+    private userService: UserService,
+    private router: Router
+  ) {
+    if (this.userService.isAuthenticated()) {
+      const returnUrl = localStorage.getItem('returnUrl') || '/designer';
+      
+      // Вставка обработки ошибок навигации
+      this.router.navigateByUrl(returnUrl).catch(() => {
+        this.router.navigate(['/designer']); // Fallback если URL невалидный
+        localStorage.removeItem('returnUrl'); // Очищаем сохраненный URL
+      });
+    }
   }
 }
-

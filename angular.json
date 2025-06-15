@@ -9,6 +9,10 @@
         "@schematics/angular:component": {
           "style": "scss",
           "skipTests": true
+        },
+         "@schematics/angular:guard": {
+         
+          "skipTests": true
         }
       },
       "root": "",
