@@ -1,1 +1,43 @@
-<p>blog works!</p>,
+<div class="blog-container">
+  <div class="search-section">
+    <h2>Блог о дизайне</h2>
+    <div class="p-inputgroup">
+      <span class="p-inputgroup-addon">
+        <i class="pi pi-search"></i>
+      </span>
+      <input 
+        type="text" 
+        pInputText 
+        placeholder="Поиск по статьям..." 
+        (input)="onSearchInput($event)"
+        [(ngModel)]="searchQuery"
+      />
+    </div>
+  </div>
+
+  <div class="search-info" *ngIf="searchQuery && filteredArticles.length === 0">
+    <p>Ничего не найдено по запросу "{{ searchQuery }}"</p>
+  </div>
+
+  <div class="articles-grid">
+    <p-card 
+      *ngFor="let article of filteredArticles" 
+      [header]="article.title"
+      [subheader]="formatDate(article.createdAt) + ' · ' + article.readingTime + ' мин.'"
+      class="article-card"
+    >
+      <p>{{ article.previewText }}</p>
+      <div class="tags" *ngIf="article.tags?.length">
+        <span class="tag" *ngFor="let tag of article.tags">{{ tag }}</span>
+      </div>
+      <ng-template pTemplate="footer">
+        <button 
+          pButton 
+          label="Читать далее" 
+          icon="pi pi-book"
+          class="p-button-text"
+        ></button>
+      </ng-template>
+    </p-card>
+  </div>
+</div>
