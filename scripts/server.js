@@ -6,6 +6,7 @@ const { log } = require('console');
 // user
 const userJson = "./server-data/users.json";
 const toursJson = "./server-data/cards.json";
+const articlesJson = "./server-data/articles.json";
 const jsonFileData =  fs.readFileSync(userJson, 'utf-8');
 let  parseJsonData = JSON.parse(jsonFileData);
  
@@ -106,6 +107,25 @@ app.post('/desauth', (req, res) => {
         throw new Error(' не найден по id:', paramId);
       }
   });
+      //******************* Получить все статьи
+app.get('/articles', (req, res) => {
+  const jsonFileData = fs.readFileSync(articlesJson, 'utf-8');
+  res.send(jsonFileData);
+});
+
+// *******************Получить статью по ID
+app.get('/articles/:id', (req, res) => {
+  const jsonFileData = fs.readFileSync(articlesJson, 'utf-8');
+  const parseJsonData = JSON.parse(jsonFileData);
+  const paramId = req.params.id;
+
+  const article = parseJsonData.articles.find((item) => item.id === paramId);
+  if (article) {
+    res.send(article);
+  } else {
+    res.status(404).send({ error: `Статья с id ${paramId} не найдена` });
+  }
+});
 
 // run and listen serve
 app.listen(port, () => {

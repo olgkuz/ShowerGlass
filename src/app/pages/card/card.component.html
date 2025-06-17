@@ -6,23 +6,20 @@ routerLink="/cards"
 ></p-button>
 
 <div class="flex flex-1 card-item-wrap">
-    @if (card) {
-    <div>
+  @if (card; as currentCard) {
     <p-card 
-    header="{{card.name}}"
-   
-    styleClass="p-card-shadow col-10 overflow-hidden card-item"
+      header="{{ currentCard.name }}"
+      styleClass="p-card-shadow col-10 overflow-hidden card-item"
     >
-    <ng-template pTemplate="header">
-        <img alt="Card"  src="/img/{{card.img}}">
-    </ng-template>
-    
+      <ng-template pTemplate="header">
+        <img alt="Card" src="/img/{{ currentCard.img }}" />
+      </ng-template>
+      <p>{{ currentCard.description }}</p>
     </p-card>
-    </div>
-}
+  } @else {
+    <p>нет данных</p>
+  }
+</div>
+
    
     
-
-<ng-template #noData>
-    нет данных 
-</ng-template>

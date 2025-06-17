@@ -4,12 +4,13 @@ import { CardsService } from '../../services/cards.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-card',
   imports: [ ButtonModule,
     CardModule,
-    RouterLink],
+    RouterLink, CommonModule],
   templateUrl: './card.component.html',
   styleUrl: './card.component.scss',
 })

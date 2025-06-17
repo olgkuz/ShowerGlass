@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { InputTextModule } from 'primeng/inputtext';
 import { CardModule } from 'primeng/card';
@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { IArticle } from '../../models/article';
 import { BlogService } from '../../services/blog.service';
 import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
+import { ArticleService } from '../../services/Article.service';
 
 @Component({
   selector: 'app-blog',
@@ -14,28 +15,28 @@ import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
   templateUrl: './blog.component.html',
   styleUrls: ['./blog.component.scss']
 })
-export class BlogComponent {
+export class BlogComponent implements OnInit {
   searchQuery: string = '';
   searchSubject = new Subject<string>();
-  
+
   articles: IArticle[] = [];
-  articlesStore: IArticle[] = [];
   filteredArticles: IArticle[] = [];
 
-  constructor(private blogService: BlogService) {
-    // Инициализация с debounce для поиска (300мс)
+  constructor(
+    private articleService: ArticleService,
+    private blogService: BlogService
+  ) {
     this.searchSubject.pipe(
       debounceTime(300),
       distinctUntilChanged()
-    ).subscribe(searchTerm => {
-      this.performSearch(searchTerm);
-    });
+    ).subscribe(searchTerm => this.performSearch(searchTerm));
   }
 
   ngOnInit(): void {
-    // Загрузка статей (пример)
-    this.articlesStore = this.getMockArticles();
-    this.filteredArticles = [...this.articlesStore];
+    this.articleService.getArticles().subscribe((articles) => {
+      this.articles = articles;
+      this.filteredArticles = [...articles];
+    });
   }
 
   onSearchInput(event: Event): void {
@@ -44,30 +45,10 @@ export class BlogComponent {
   }
 
   performSearch(searchTerm: string): void {
-    if (!searchTerm) {
-      this.filteredArticles = [...this.articlesStore];
-      return;
-    }
-
-    this.filteredArticles = this.blogService.searchArticles(this.articlesStore, searchTerm);
+    this.filteredArticles = this.blogService.searchArticles(this.articles, searchTerm);
   }
 
-  getMockArticles(): IArticle[] {
-    return [
-      {
-        id: '1',
-        title: 'Основы дизайна интерьера',
-        content: 'Полное руководство по основам дизайна интерьера. Включает цветовые схемы, расстановку мебели и выбор материалов...',
-        previewText: 'В этой статье мы рассмотрим базовые принципы создания гармоничного интерьера...',
-        createdAt: new Date('2023-10-15'),
-        readingTime: 5,
-        tags: ['дизайн', 'интерьер', 'базовые принципы']
-      },
-      // ... другие статьи
-    ];
-  }
-
-  formatDate(date: Date): string {
-    return date.toLocaleDateString('ru-RU');
+  formatDate(date: string): string {
+    return new Date(date).toLocaleDateString('ru-RU');
   }
 }

@@ -5,4 +5,8 @@ export const API = {
     reg: `${serverIp}/reg`,
     cards:`${serverIp}/cards`,
     card:`${serverIp}/card`,
-    config: `/config/config.json`,}
+    config: `/config/config.json`,
+    articles: `${serverIp}/articles`,
+    articleById: (id: string) => `${serverIp}/articles/${id}`,
+
+}
