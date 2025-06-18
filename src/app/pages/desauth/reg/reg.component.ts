@@ -8,6 +8,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { CheckboxModule } from 'primeng/checkbox';
 import { CommonModule } from '@angular/common';
 import { IUserReg } from '../../../models/user';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-reg',
@@ -32,7 +33,6 @@ export class RegComponent {
 
   constructor(
     private userService: UserService,
-    private router: Router,
     private messageService: MessageService
   ) {}
 
@@ -47,22 +47,13 @@ export class RegComponent {
     if (!this.isFormValid()) return;
 
     this.isLoading = true;
-
-    const userData: IUserReg = {
+    this.userService.registerUser({
       login: this.login,
       email: this.email,
       password: this.password
-    };
-
-    this.userService.registerUser(userData).subscribe({
-      next: (token) => {
-        this.userService.setUser({ login: this.login }, this.rememberMe);
-        this.router.navigate(['/designer']);
-      },
-      error: (err) => {
-        this.showError(err.error?.message || 'Ошибка регистрации');
-        this.isLoading = false;
-      },
+    }).subscribe({
+      next: () => this.router.navigate(['/designer']),
+      error: () => this.isLoading = false,
       complete: () => this.isLoading = false
     });
   }

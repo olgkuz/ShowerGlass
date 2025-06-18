@@ -23,10 +23,10 @@ import { MessageService } from 'primeng/api';
 export class AuthorizationComponent {
   login: string = '';
   password: string = '';
+  isLoading: boolean = false;
 
   constructor(
     private userService: UserService,
-    private router: Router,
     private messageService: MessageService
   ) {}
 
@@ -35,23 +35,14 @@ export class AuthorizationComponent {
   }
 
   onAuth(): void {
-    const user = {
+    if (!this.isFormValid()) return;
+    
+    this.isLoading = true;
+    this.userService.authUser({
       login: this.login,
       password: this.password
-    };
-
-    this.userService.authUser(user).subscribe({
-      next: () => {
-        this.userService.setUser(user);
-        this.router.navigate(['designer']);
-      },
-      error: () => {
-        this.messageService.add({
-          severity: 'error',
-          detail: 'Ошибка авторизации',
-          life: 3000
-        });
-      }
+    }).subscribe({
+      complete: () => this.isLoading = false
     });
   }
 }

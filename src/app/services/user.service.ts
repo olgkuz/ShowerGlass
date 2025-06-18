@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import { IUser, IUserReg } from '../models/user';
 import { HttpClient } from '@angular/common/http';
 import { API } from '../shared/api';
-import { Observable, tap } from 'rxjs';
+import { Observable, tap, catchError, throwError } from 'rxjs';
+import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 
 @Injectable({
   providedIn: 'root'
@@ -11,29 +13,55 @@ export class UserService {
   private readonly TOKEN_KEY = 'auth_token';
   private readonly USER_KEY = 'current_user';
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private messageService: MessageService
+  ) {}
 
-  registerUser(user: IUserReg): Observable<string> {
-    return this.http.post(API.reg, user, { responseType: 'text' }).pipe(
-      tap((token: string) => {
-        this.saveAuthData(token, user.login, true);
+  // Регистрация пользователя
+  registerUser(user: IUserReg): Observable<any> {
+    return this.http.post(API.reg, user).pipe(
+      tap((response: any) => {
+        this.saveAuthData(response.token, user.login, true);
         this.setUser({
           login: user.login,
-          email: user.email
-          // Добавьте другие поля при необходимости
+          email: user.email,
+          id: response.user.id
         }, true);
+      }),
+      catchError(error => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Ошибка регистрации',
+          detail: error.error?.message || 'Неизвестная ошибка',
+          life: 3000
+        });
+        return throwError(() => error);
       })
     );
   }
 
-  authUser(user: IUser): Observable<string> {
-    return this.http.post<string>(API.desauth, user).pipe(
-      tap((token: string) => {
-        this.saveAuthData(token, user.login, true);
+  // Аутентификация пользователя
+  authUser(user: IUser): Observable<any> {
+    return this.http.post(API.auth, user).pipe(
+      tap((response: any) => {
+        this.saveAuthData(response.token, user.login, true);
         this.setUser({
-          login: user.login
-          // Добавьте другие поля после авторизации
+          login: user.login,
+          email: response.user?.email,
+          id: response.user.id
         }, true);
+        this.router.navigate(['/designer']);
+      }),
+      catchError(error => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Ошибка авторизации',
+          detail: error.error?.message || 'Неверный логин или пароль',
+          life: 3000
+        });
+        return throwError(() => error);
       })
     );
   }
@@ -41,9 +69,10 @@ export class UserService {
   private saveAuthData(token: string, login: string, remember: boolean = true): void {
     const storage = remember ? localStorage : sessionStorage;
     storage.setItem(this.TOKEN_KEY, token);
+    storage.setItem('user_login', login);
   }
 
-  setUser(user: { login: string; email?: string; /* другие поля */ }, remember: boolean = true): void {
+  setUser(user: { login: string; email?: string; id?: string }, remember: boolean = true): void {
     const storage = remember ? localStorage : sessionStorage;
     storage.setItem(this.USER_KEY, JSON.stringify(user));
   }
@@ -64,21 +93,10 @@ export class UserService {
   }
 
   logout(): void {
-    localStorage.removeItem(this.TOKEN_KEY);
-    localStorage.removeItem(this.USER_KEY);
-    localStorage.removeItem('returnUrl');
-    sessionStorage.removeItem(this.TOKEN_KEY);
-    sessionStorage.removeItem(this.USER_KEY);
-  }
-
-  private decodeToken(token: string): any {
-    try {
-      const base64Url = token.split('.')[1];
-      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-      return JSON.parse(atob(base64));
-    } catch (e) {
-      console.error('Error decoding token', e);
-      return null;
-    }
+    ['auth_token', 'current_user', 'user_login', 'returnUrl'].forEach(key => {
+      localStorage.removeItem(key);
+      sessionStorage.removeItem(key);
+    });
+    this.router.navigate(['/auth']);
   }
 }

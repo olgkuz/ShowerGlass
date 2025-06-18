@@ -19,18 +19,22 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./desauth.component.scss']
 })
 export class DesauthComponent {
+  activeTabIndex: number = 0;
+
   constructor(
-    private userService: UserService,
+    public userService: UserService,
     private router: Router
   ) {
     if (this.userService.isAuthenticated()) {
-      const returnUrl = localStorage.getItem('returnUrl') || '/designer';
-      
-      // Вставка обработки ошибок навигации
-      this.router.navigateByUrl(returnUrl).catch(() => {
-        this.router.navigate(['/designer']); // Fallback если URL невалидный
-        localStorage.removeItem('returnUrl'); // Очищаем сохраненный URL
-      });
+      this.redirectAuthenticatedUser();
     }
+  }
+
+  private redirectAuthenticatedUser(): void {
+    const returnUrl = localStorage.getItem('returnUrl') || '/designer';
+    this.router.navigateByUrl(returnUrl).catch(() => {
+      this.router.navigate(['/designer']);
+    });
+    localStorage.removeItem('returnUrl');
   }
 }
