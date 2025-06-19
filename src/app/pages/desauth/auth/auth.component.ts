@@ -11,10 +11,10 @@ import { MessageService } from 'primeng/api';
   selector: 'app-authorization',
   standalone: true,
   imports: [
-    CommonModule,  // Нужен для NgClass
+    CommonModule,
     NgClass,
-    FormsModule,   // Для ngModel
-    ButtonModule,  // Компоненты PrimeNG
+    FormsModule,
+    ButtonModule,
     InputTextModule
   ],
   templateUrl: './auth.component.html',
@@ -27,7 +27,8 @@ export class AuthorizationComponent {
 
   constructor(
     private userService: UserService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private router: Router
   ) {}
 
   isFormValid(): boolean {
@@ -35,14 +36,17 @@ export class AuthorizationComponent {
   }
 
   onAuth(): void {
-    if (!this.isFormValid()) return;
-    
-    this.isLoading = true;
-    this.userService.authUser({
-      login: this.login,
-      password: this.password
-    }).subscribe({
-      complete: () => this.isLoading = false
-    });
-  }
+  if (!this.isFormValid()) return;
+  
+  this.isLoading = true;
+  this.userService.authUser({
+    login: this.login,
+    password: this.password
+  }).subscribe({
+    error: (err) => {
+      this.isLoading = false;
+    },
+    complete: () => this.isLoading = false
+  });
+}
 }

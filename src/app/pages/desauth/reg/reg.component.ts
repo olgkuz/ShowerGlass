@@ -7,8 +7,6 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { CheckboxModule } from 'primeng/checkbox';
 import { CommonModule } from '@angular/common';
-import { IUserReg } from '../../../models/user';
-import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-reg',
@@ -33,7 +31,8 @@ export class RegComponent {
 
   constructor(
     private userService: UserService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private router: Router
   ) {}
 
   isFormValid(): boolean {
@@ -43,20 +42,21 @@ export class RegComponent {
            this.password === this.repeatPassword;
   }
 
-  onRegister(): void {
-    if (!this.isFormValid()) return;
+ onRegister(): void {
+  if (!this.isFormValid()) return;
 
-    this.isLoading = true;
-    this.userService.registerUser({
-      login: this.login,
-      email: this.email,
-      password: this.password
-    }).subscribe({
-      next: () => this.router.navigate(['/designer']),
-      error: () => this.isLoading = false,
-      complete: () => this.isLoading = false
-    });
-  }
+  this.isLoading = true;
+  this.userService.registerUser({
+    login: this.login,
+    email: this.email,
+    password: this.password
+  }).subscribe({
+    error: (err) => {
+      this.isLoading = false;
+    },
+    complete: () => this.isLoading = false
+  });
+}
 
   private showError(message: string): void {
     this.messageService.add({
