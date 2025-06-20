@@ -28,7 +28,8 @@ export class CardsComponent implements OnInit {
       }
     );
   }
-  goToCard (item:ICards): void {
-    this.router.navigate(['card',item.id],{relativeTo: this.route})
-  }
+  goToCard(item: ICards): void {
+  this.router.navigate(['/card', item.id]);
+}
+
 }

@@ -41,27 +41,28 @@ export class HeaderComponent implements OnInit,OnDestroy {
   }
   ngOnDestroy(){}
 
-  initMenuItems(): MenuItem  []{
+initMenuItems(): MenuItem[] {
     return [
       {
-        label: 'Главная ',
-        routerLink:['/home'],
-
+        label: 'Галерея',
+        routerLink: ['/gallery']
+      },
+      {
+        label: 'Информация',
+        routerLink: ['/blog']
       },
       {
         label: 'Дизайнерам',
-        routerLink:['desauth'],
-      },
-      {
-        label: 'Контакты ',
-        routerLink:['/contacts'],
-      },
+        routerLink: ['/desauth']
+      }
     ];
-  }
+}
+
   logOut(): void {
-    this.userService.setUser(null);
-    this.router.navigate(['/home']);
-  }
+  this.userService.setUser(null, true);   
+  this.router.navigate(['/home']);
+}
+
 
    hoverLogoutBtn(val: boolean): void {
    this.logoutIcon =val ? 'pi pi-sign-out' : 'pi pi-user'

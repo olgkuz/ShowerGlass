@@ -1,6 +1,8 @@
 <div class="blog-container">
+
+  <!-- Заголовок + поиск -->
   <div class="search-section">
-    <h2>Блог о дизайне</h2>
+    <h2>Полезная информация</h2>
     <div class="p-inputgroup">
       <span class="p-inputgroup-addon">
         <i class="pi pi-search"></i>
@@ -15,11 +17,25 @@
     </div>
   </div>
 
-  <div class="search-info" *ngIf="searchQuery && filteredArticles.length === 0">
+  <!-- Спиннер загрузки -->
+ <p-progressSpinner 
+  *ngIf="isLoading" 
+  styleClass="blog-spinner">
+</p-progressSpinner>
+
+
+  <!-- Ошибка при загрузке -->
+  <div class="error-text" *ngIf="error && !isLoading">
+    {{ error }}
+  </div>
+
+  <!-- Сообщение "ничего не найдено" -->
+  <div class="search-info" *ngIf="!isLoading && searchQuery && filteredArticles.length === 0">
     <p>Ничего не найдено по запросу "{{ searchQuery }}"</p>
   </div>
 
-  <div class="articles-grid">
+  <!-- Сетка статей -->
+  <div class="articles-grid" *ngIf="!isLoading && filteredArticles.length > 0">
     <p-card 
       *ngFor="let article of filteredArticles" 
       [header]="article.title"
@@ -27,9 +43,11 @@
       class="article-card"
     >
       <p>{{ article.previewText }}</p>
+
       <div class="tags" *ngIf="article.tags?.length">
         <span class="tag" *ngFor="let tag of article.tags">{{ tag }}</span>
       </div>
+
       <ng-template pTemplate="footer">
         <button 
           pButton 
@@ -40,4 +58,5 @@
       </ng-template>
     </p-card>
   </div>
+
 </div>

@@ -88,7 +88,8 @@ export class UserService {
       sessionStorage.removeItem(key);
     });
     this.showSuccess('Выход выполнен');
-    this.router.navigate(['/auth']);
+    this.router.navigate(['/desauth']);
+
   }
 
   private handleError(error: any, defaultMessage: string): Observable<never> {

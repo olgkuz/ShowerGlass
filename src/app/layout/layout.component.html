@@ -1,18 +1,17 @@
-<div class="flex flex-column h-full">
-  <header>
-    <app-header></app-header>
-  </header>
+<app-header></app-header>
 
-  <div class="main-component flex flex-1 p-3 overflow-hidden">
-    <div class="flex-grow-1 overflow-auto">
-      <router-outlet></router-outlet>
-    </div>
-
-    <!-- ❗️ Показываем только на /card/:id -->
-    <app-aside *ngIf="showAside"></app-aside>
-  </div>
-
-  <footer>
-    <app-footer></app-footer>
-  </footer>
+<!-- Loader -->
+<div *ngIf="isLoading" class="global-loader">
+  <p-progressSpinner styleClass="custom-spinner"></p-progressSpinner>
 </div>
+
+<!-- Aside -->
+<aside *ngIf="showAside">
+  <app-aside></app-aside>
+</aside>
+
+<!-- Основной контент -->
+<router-outlet></router-outlet>
+
+<app-footer></app-footer>
+
