@@ -6,6 +6,7 @@ import Aura from '@primeng/themes/aura';
 import { routes } from './app.routes';
 import { provideHttpClient } from '@angular/common/http';
 import { ConfigService } from './services/config.service';
+import { MessageService } from 'primeng/api';
 
 function initializeApp(config:ConfigService) {
   return config.loadObservable();
@@ -16,6 +17,7 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection(),
     provideRouter(routes),
       provideAnimationsAsync(),
+      MessageService,
         providePrimeNG({
             theme: {
                 preset: Aura
