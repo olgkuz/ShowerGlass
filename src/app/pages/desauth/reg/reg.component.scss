@@ -1,3 +1,43 @@
 :host {
   display: block;
 }
+
+.reg-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 1rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+
+  label {
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+  }
+
+  input {
+    width: 100%;
+  }
+}
+
+.checkbox-field {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+
+  .checkbox-label {
+    margin-left: 0.5rem;
+    font-weight: 500;
+    cursor: pointer;
+  }
+}
+
+.card {
+  padding: 2rem;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}

@@ -42,28 +42,28 @@ export class RegComponent {
            this.password === this.repeatPassword;
   }
 
- onRegister(): void {
-  if (!this.isFormValid()) return;
+  onRegister(): void {
+    if (!this.isFormValid()) return;
 
-  this.isLoading = true;
-  this.userService.registerUser({
-    login: this.login,
-    email: this.email,
-    password: this.password
-  }).subscribe({
-    error: (err) => {
-      this.isLoading = false;
-    },
-    complete: () => this.isLoading = false
-  });
-}
-
-  private showError(message: string): void {
-    this.messageService.add({
-      severity: 'error',
-      summary: 'Ошибка',
-      detail: message,
-      life: 3000
+    this.isLoading = true;
+    this.userService.registerUser({
+      login: this.login,
+      email: this.email,
+      password: this.password
+    }).subscribe({
+      next: () => {
+        this.isLoading = false;
+        // Форма очищается
+        this.login = '';
+        this.email = '';
+        this.password = '';
+        this.repeatPassword = '';
+        this.rememberMe = false;
+        // Переход на /designer делает UserService
+      },
+      error: (err) => {
+        this.isLoading = false;
+      }
     });
   }
 }

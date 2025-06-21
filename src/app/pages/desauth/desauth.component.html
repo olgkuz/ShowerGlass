@@ -1,4 +1,19 @@
 <div class="desauth-container">
+  
+  <!-- Кнопка выхода справа вверху -->
+  <div class="logout-btn">
+    <p-button
+      [icon]="logoutIcon"
+      [label]="user?.login ? user.login : 'На главную'"
+      pTooltip="Вернуться на главную"
+      (mouseenter)="hoverLogoutBtn(true)"
+      (mouseleave)="hoverLogoutBtn(false)"
+      (onClick)="logOut()"
+      severity="secondary"
+    ></p-button>
+  </div>
+
+  <!-- Таб-панели -->
   <p-tabView>
     <p-tabPanel header="Вход">
       <app-authorization></app-authorization>
@@ -7,5 +22,7 @@
       <app-reg></app-reg>
     </p-tabPanel>
   </p-tabView>
+
 </div>
+
 

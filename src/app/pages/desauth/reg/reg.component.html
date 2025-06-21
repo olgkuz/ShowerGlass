@@ -1,82 +1,93 @@
 <div class="reg-container">
   <div class="card">
     <h2>Регистрация дизайнера</h2>
-    
-    <div class="input-group">
+
+    <!-- Логин -->
+    <div class="field">
       <label for="reg-login">Логин</label>
-      <input 
+      <input
         id="reg-login"
-        type="text" 
-        pInputText 
+        type="text"
+        pInputText
         [(ngModel)]="login"
         [disabled]="isLoading"
         placeholder="Минимум 3 символа"
+        [ngClass]="{'p-invalid': login && login.length < 3}"
       >
       @if (login && login.length < 3) {
         <small class="p-error">Логин слишком короткий</small>
       }
     </div>
 
-    <div class="input-group">
+    <!-- Email -->
+    <div class="field">
       <label for="email">Email</label>
-      <input 
+      <input
         id="email"
-        type="email" 
-        pInputText 
+        type="email"
+        pInputText
         [(ngModel)]="email"
         [disabled]="isLoading"
         placeholder="example@mail.com"
+        [ngClass]="{'p-invalid': email && !email.includes('@')}"
       >
       @if (email && !email.includes('@')) {
         <small class="p-error">Некорректный email</small>
       }
     </div>
 
-    <div class="input-group">
+    <!-- Пароль -->
+    <div class="field">
       <label for="reg-password">Пароль</label>
-      <input 
+      <input
         id="reg-password"
-        type="password" 
-        pInputText 
+        type="password"
+        pInputText
         [(ngModel)]="password"
         [disabled]="isLoading"
         placeholder="Минимум 6 символов"
+        [ngClass]="{'p-invalid': password && password.length < 6}"
       >
       @if (password && password.length < 6) {
         <small class="p-error">Пароль слишком короткий</small>
       }
     </div>
 
-    <div class="input-group">
+    <!-- Повтор пароля -->
+    <div class="field">
       <label for="repeat-password">Повторите пароль</label>
-      <input 
+      <input
         id="repeat-password"
-        type="password" 
-        pInputText 
+        type="password"
+        pInputText
         [(ngModel)]="repeatPassword"
         [disabled]="isLoading"
+        [ngClass]="{'p-invalid': repeatPassword && password !== repeatPassword}"
       >
       @if (repeatPassword && password !== repeatPassword) {
         <small class="p-error">Пароли не совпадают</small>
       }
     </div>
 
-    <div class="remember-me">
+    <!-- Запомнить меня (чекбокс с подписью справа) -->
+    <div class="checkbox-field mt-3">
       <p-checkbox
         [(ngModel)]="rememberMe"
         [binary]="true"
-        label="Запомнить меня"
         [disabled]="isLoading"
+        inputId="rememberMe"
       ></p-checkbox>
+      <label for="rememberMe" class="checkbox-label">Запомнить меня</label>
     </div>
 
-    <p-button 
+    <!-- Кнопка регистрации -->
+    <p-button
       label="Зарегистрироваться"
       (click)="onRegister()"
       [loading]="isLoading"
       [disabled]="!isFormValid()"
       icon="pi pi-user-plus"
-      class="w-full"
+      class="w-full mt-4"
     ></p-button>
   </div>
 </div>

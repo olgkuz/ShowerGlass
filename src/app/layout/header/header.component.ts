@@ -1,48 +1,45 @@
-import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { MenubarModule } from 'primeng/menubar';
-import  {MenuItem } from 'primeng/api'
+import { MenuItem } from 'primeng/api';
 import { IUser } from '../../models/user';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
 
-
 @Component({
   selector: 'app-header',
+  standalone: true,
   imports: [
-    MenubarModule, 
-    ButtonModule],
+    MenubarModule,
+    ButtonModule
+  ],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.scss',
-  
+  styleUrl: './header.component.scss'
 })
-export class HeaderComponent implements OnInit,OnDestroy { 
+export class HeaderComponent implements OnInit, OnDestroy {
 
-
-  menuItems: MenuItem []=[];
-  user:IUser;
-  logoutIcon ='pi pi-user';
+  menuItems: MenuItem[] = [];
+  user: IUser;
+  logoutIcon = 'pi pi-user';
 
   constructor(
-    private userService: UserService, 
-    private router: Router, 
-    )  {}
-   
+    private userService: UserService,
+    private router: Router,
+  ) {}
 
   ngOnInit(): void {
-
-  
-
-    this.user =  this.userService.getUser();
+    this.user = this.userService.getUser();
     this.menuItems = this.initMenuItems();
-
-    
-     
   }
-  ngOnDestroy(){}
 
-initMenuItems(): MenuItem[] {
+  ngOnDestroy() {}
+
+  initMenuItems(): MenuItem[] {
     return [
+      {
+        label: 'Главная',
+        routerLink: ['/home']
+      },
       {
         label: 'Галерея',
         routerLink: ['/gallery']
@@ -56,17 +53,9 @@ initMenuItems(): MenuItem[] {
         routerLink: ['/desauth']
       }
     ];
-}
+  }
 
-  logOut(): void {
-  this.userService.setUser(null, true);   
-  this.router.navigate(['/home']);
-}
-
-
-   hoverLogoutBtn(val: boolean): void {
-   this.logoutIcon =val ? 'pi pi-sign-out' : 'pi pi-user'
-}
-
-  
+  goToContacts(): void {
+    this.router.navigate(['/contacts']);
+  }
 }
