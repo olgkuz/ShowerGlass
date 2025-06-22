@@ -1,6 +1,7 @@
 :host {
   display: block;
 }
+
 .faq-section {
   padding: 3rem 1rem;
   max-width: 900px;
@@ -29,5 +30,9 @@
   ::ng-deep .p-accordion .p-accordion-content {
     padding: 1rem;
     background-color: #fff;
+    font-size: 1.125rem;
+    line-height: 1.6;
+    color: #444;
   }
 }
+

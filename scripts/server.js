@@ -81,32 +81,28 @@ app.post('/desauth', (req, res) => {
     }
   })
  
-   //************** */ cards**************************************
- 
-  app.get('/cards', (req, res) => { 
-    const jsonFileData =  fs.readFileSync(toursJson, 'utf-8', (err, data) => {}, (err) => {
-      console.log('err read file cards', err);});
-    res.send(jsonFileData);
-  }); 
+//************** */ cards **************************************
 
-  
- 
-  /*******************get cards*/
-  app.get('/card/:id', (req, res) => { 
-    const jsonFileData =  fs.readFileSync(toursJson, 'utf-8', (err, data) => {}, (err) => {
-      console.log('err read file cards', err);});
-              // parse data
-      const  parseJsonData = JSON.parse(jsonFileData);
-      const paramId = req.params.id;
- 
- 
-      const item = parseJsonData.cards.find((card) => tour.id === paramId);
-      if (item) {
-        res.send(item);
-      } else {
-        throw new Error(' не найден по id:', paramId);
-      }
-  });
+app.get('/cards', (req, res) => { 
+  const jsonFileData = fs.readFileSync(toursJson, 'utf-8');
+  const parseJsonData = JSON.parse(jsonFileData);
+  res.json(parseJsonData.cards);
+});
+
+app.get('/card/:id', (req, res) => { 
+  const jsonFileData = fs.readFileSync(toursJson, 'utf-8');
+  const parseJsonData = JSON.parse(jsonFileData);
+  const paramId = req.params.id;
+
+  const item = parseJsonData.cards.find((card) => card.id === paramId);
+
+  if (item) {
+    res.json(item);
+  } else {
+    res.status(404).send({ error: `Карточка с id ${paramId} не найдена` });
+  }
+});
+
       //******************* Получить все статьи
 app.get('/articles', (req, res) => {
   const jsonFileData = fs.readFileSync(articlesJson, 'utf-8');

@@ -1,8 +1,7 @@
 export interface ICards {
-    
-    id: string;
-    name: string;
-   description:string;
-    img?: string;
-    
+  id: string;
+  name: string;
+  img: string;
+  description: string;
 }
+

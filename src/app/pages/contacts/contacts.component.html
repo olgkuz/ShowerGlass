@@ -10,21 +10,21 @@
         <i class="pi pi-phone contact-icon"></i>
         <h3>Телефон</h3>
         <p>+7 (123) 456-78-90</p>
-        <button pButton label="Позвонить" class="p-button-outlined"></button>
+        <button pButton type="button" label="Позвонить" class="p-button-text"></button>
       </div>
 
       <div class="contact-card">
         <i class="pi pi-envelope contact-icon"></i>
         <h3>Email</h3>
-        <p>info&#64;designstudio.ru</p> <!-- Исправленный email -->
-        <button pButton label="Написать" class="p-button-outlined"></button>
+        <p>info&#64;designstudio.ru</p>
+        <button pButton type="button" label="Написать" class="p-button-text"></button>
       </div>
 
       <div class="contact-card">
         <i class="pi pi-map-marker contact-icon"></i>
         <h3>Адрес</h3>
         <p>г. Москва, ул. Дизайнеров, д. 15</p>
-        <button pButton label="На карте" class="p-button-outlined"></button>
+        <button pButton type="button" label="На карте" class="p-button-text"></button>
       </div>
     </div>
 
@@ -46,7 +46,7 @@
           <textarea pInputTextarea id="message" [(ngModel)]="contactForm.message" name="message" rows="5" required></textarea>
         </div>
 
-        <button pButton type="submit" label="Отправить" class="p-button-primary" [disabled]="!contactForm.name || !contactForm.email || !contactForm.message"></button>
+        <button pButton type="submit" label="Отправить" class="p-button-primary big-button" [disabled]="!contactForm.name || !contactForm.email || !contactForm.message"></button>
       </form>
     </div>
   </div>

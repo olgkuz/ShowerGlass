@@ -1,1 +1,33 @@
-<p>designer works!</p>,
+<section class="designer-page">
+
+  <!-- Кнопка "Выйти" -->
+  <div class="logout-button">
+    <button pButton type="button" label="Выйти" (click)="logout()"></button>
+  </div>
+
+  <h2>Здравствуйте, дорогой друг!</h2>
+  <p class="welcome-text">
+    Мы рады работать вместе и предлагаем вам комфортные условия сотрудничества.  
+    В таблице ниже вы можете увидеть заказы, которые мы уже отработали вместе.
+  </p>
+
+  <p-table [value]="orders" class="orders-table">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Номер</th>
+        <th>Адрес</th>
+        <th>Сумма договора</th>
+        <th>Бонус</th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-row>
+      <tr>
+        <td>{{ row.number }}</td>
+        <td>{{ row.address }}</td>
+        <td>{{ row.contractSum }}</td>
+        <td>{{ row.bonus }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</section>

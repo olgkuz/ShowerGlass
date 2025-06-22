@@ -4,23 +4,28 @@ import { CardsComponent } from './cards/cards.component';
 import { AccordionComponent } from './accordion/accordion.component';
 import { ContactformComponent } from './contactform/contactform.component';
 import { MainComponent } from './main/main.component';
+import { ExamplesComponent } from './examples/examples.component';
 import { CardsService } from '../../services/cards.service';
 import { LoaderService } from '../../services/loader.service';
 import { MessageService } from 'primeng/api';
 import { ICards } from '../../models/cards';
+import { RouterModule } from '@angular/router'; 
 
 @Component({
   selector: 'app-home',
+  standalone: true,
   imports: [
     MainComponent,
     HeroComponent,
     CardsComponent,
     AccordionComponent,
-    ContactformComponent
+    ContactformComponent,
+    ExamplesComponent,
+    RouterModule 
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
-  providers: [MessageService]  // нужно для showError
+  providers: [MessageService]
 })
 export class HomeComponent implements OnInit {
   cards: ICards[] = [];
@@ -60,4 +65,3 @@ export class HomeComponent implements OnInit {
     });
   }
 }
-

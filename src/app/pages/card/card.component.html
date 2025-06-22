@@ -1,25 +1,38 @@
+<!-- Кнопка Назад -->
+<button
+  pButton
+  type="button"
+  class="mb-3"
+  routerLink="/home"
+>
+  Назад
+</button>
 
-<p-button
-label="Back"
-styleClass="p-button-link"
-routerLink="/cards"
-></p-button>
+<!-- Контент карточки -->
+<div class="card-detail-wrap">
+  <div *ngIf="card as currentCard; else noData">
+    <div class="card-detail-grid">
+      <!-- Левая колонка — картинка -->
+      <div class="card-image">
+        <img
+          alt="{{ currentCard.name }}"
+          src="assets/img/cards/{{ currentCard.img }}"
+        />
+      </div>
 
-<div class="flex flex-1 card-item-wrap">
-  @if (card; as currentCard) {
-    <p-card 
-      header="{{ currentCard.name }}"
-      styleClass="p-card-shadow col-10 overflow-hidden card-item"
-    >
-      <ng-template pTemplate="header">
-        <img alt="Card" src="/img/{{ currentCard.img }}" />
-      </ng-template>
-      <p>{{ currentCard.description }}</p>
-    </p-card>
-  } @else {
-    <p>нет данных</p>
-  }
+      <!-- Правая колонка — описание -->
+      <div class="card-description">
+        <h2>{{ currentCard.name }}</h2>
+        <p>{{ currentCard.description }}</p>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #noData>
+    <p>Нет данных</p>
+  </ng-template>
 </div>
 
-   
+
+
     

@@ -8,15 +8,20 @@
   .text-block {
     text-align: center;
     margin-bottom: 2rem;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
 
     h2 {
-      font-size: 2rem;
+      font-size: 2.2rem;
+      font-weight: 700;
       margin-bottom: 1rem;
     }
 
     p {
       font-size: 1.125rem;
       color: #444;
+      line-height: 1.5;
     }
   }
 
@@ -56,8 +61,10 @@
 @media (max-width: 768px) {
   .hero-detail .annotation {
     font-size: 0.8rem;
+
     .arrow {
       width: 35px;
     }
   }
 }
+

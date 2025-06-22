@@ -2,27 +2,113 @@
   display: block;
 }
 
-.main-banner{
-  position: relative;
-  background: url('/assets/img/hero-banner.jpg') center/cover no-repeat;
-  height: 90vh;
+.main-banner {
   display: flex;
-  align-items: center;
+  height: 90vh;
+  width: 100%;
+  position: relative;
+}
+
+.main-image {
+  flex: 1;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+}
+
+.main-content {
+  flex: 1;
+  background-color: #9bb3dd;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
-  padding: 2rem;
+  align-items: flex-start;
+  padding: 3rem;
+  font-family: 'Roboto', sans-serif;
+  text-transform: uppercase;
+  color: #fff;
+  position: relative;
+
+  .main-title {
+    position: relative;
+    margin-bottom: auto;
+
+    .title-top,
+    .title-bottom {
+      font-size: 3rem;
+      font-weight: 700;
+    }
+
+    .title-top {
+      position: relative;
+      left: -50%;
+      white-space: nowrap;
+    }
+
+    .title-bottom {
+      margin-top: 1rem;
+    }
+  }
+
+  .main-button {
+    margin-top: auto;
+    align-self: flex-end;
+    margin-right: 2rem;
+
+    font-size: 1.2rem;
+    padding: 1rem 2rem;
+
+    border-radius: 8px;
+    font-weight: 600;
+  }
+}
+
+/* Адаптив для мобильных экранов (например, ширина < 768px) */
+@media (max-width: 768px) {
+  .main-banner {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .main-image {
+    flex: none;
+    width: 100%;
+
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
 
   .main-content {
+    background-color: transparent; /* убираем фон */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 1rem;
+    align-items: center;
     text-align: center;
-    color: #fff;
 
-    h1 {
-      font-size: 3.5rem;
-      font-weight: 700;
-      line-height: 1.2;
+    .main-title {
+      margin-bottom: 1rem;
+
+      .title-top,
+      .title-bottom {
+        font-size: 2rem;
+        position: static;
+        white-space: normal;
+      }
     }
 
     .main-button {
-      margin-top: 2rem;
+      margin: 0;
+      align-self: center;
     }
   }
 }
+

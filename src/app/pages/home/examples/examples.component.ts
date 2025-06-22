@@ -16,9 +16,10 @@ interface ExampleItem {
   styleUrl: './examples.component.scss'
 })
 export class ExamplesComponent {
-  examples: ExampleItem[] = [
-    { image: '/img/example1.jpg', title: 'Пример 1' },
-    { image: '/img/example2.jpg', title: 'Пример 2' },
-    { image: '/img/example3.jpg', title: 'Пример 3' }
-  ];
+ examples: ExampleItem[] = [
+  { image: 'assets/img/examples/example1.jpg', title: 'Пример 1' },
+  { image: 'assets/img/examples/example2.jpg', title: 'Пример 2' },
+  { image: 'assets/img/examples/example3.jpg', title: 'Пример 3' }
+];
+
 }

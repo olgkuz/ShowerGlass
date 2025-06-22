@@ -1,4 +1,3 @@
-
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -9,16 +8,14 @@ import { ICards } from '../models/cards';
   providedIn: 'root'
 })
 export class CardsService {
-
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getCards(): Observable<ICards[]> {
     return this.http.get<ICards[]>(API.cards);
   }
-  
-  getCardById(id: string): Observable<ICards> {
-    const tourApi = API.card;
-    return this.http.get<ICards>(`${tourApi}/${id}`);
-  }
 
+  getCardById(id: string): Observable<ICards> {
+    return this.http.get<ICards>(`${API.card}/${id}`);
+  }
 }
+

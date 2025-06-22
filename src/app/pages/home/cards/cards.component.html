@@ -1,27 +1,32 @@
-<div class="cards-list flex flex-wrap justify-content-around align-items-stretch">
+<h2 class="cards-title text-center mb-4">Основные типы душевых ограждений</h2>
 
+<div class="cards-list">
   @for (item of cards; track item.id) {
-      
-      
-      <div (click)="goToCard(item)"
-      class="m-2 col-2 card-item align-self-stretch">
-          <p-card 
-          header ="{{item.name}}"
-          styleClass="card-p-card"
-          >
-           <ng-template #header>
-            <img alt="Card" class="w-full" src="/img/{{item.img}}">
-           </ng-template>
+    <div class="card-item">
+      <p-card styleClass="card-p-card">
+        <ng-template pTemplate="header">
+          <img
+            alt="{{ item.name }}"
+            src="assets/img/cards/{{ item.img }}"
+            (load)="onImageLoad($event)"
+          />
+        </ng-template>
 
-            <ng-template #footer>
-        
-            <p-button label="Подробнее" class="w-full" styleClass="w-full" />
-        
-            </ng-template>
-              
+        <ng-template pTemplate="title">
+          <h3 class="card-title">{{ item.name }}</h3>
+        </ng-template>
 
-             
-          </p-card>
-        </div>
-     }
+        <ng-template pTemplate="footer">
+          <p-button
+            label="Подробнее"
+            class="w-full"
+            (click)="goToCard(item)"
+          ></p-button>
+        </ng-template>
+      </p-card>
     </div>
+  }
+</div>
+
+
+

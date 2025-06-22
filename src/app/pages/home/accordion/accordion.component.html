@@ -1,8 +1,10 @@
 <section class="faq-section">
-  <h2 class="section-title">Часто задаваемые вопросы</h2>
+  <h2 class="section-title">Как заказать душевое ограждение из стекла</h2>
+  
   <p-accordion [multiple]="true">
-    <p-accordionTab *ngFor="let item of faqList" [header]="item.question">
-      {{ item.answer }}
+    <p-accordionTab *ngFor="let item of stepsList" [header]="item.step">
+      <p>{{ item.text }}</p>
     </p-accordionTab>
   </p-accordion>
 </section>
+

@@ -1,37 +1,35 @@
 import { Component, OnInit } from '@angular/core';
 import { ICards } from '../../models/cards';
 import { CardsService } from '../../services/cards.service';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { CardModule } from 'primeng/card';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-card',
-  imports: [ ButtonModule,
-    CardModule,
-    RouterLink, CommonModule],
+  standalone: true,
+  imports: [ButtonModule, CommonModule, RouterModule],
   templateUrl: './card.component.html',
-  styleUrl: './card.component.scss',
+  styleUrl: './card.component.scss'
 })
-export class CardComponent implements OnInit{ 
+export class CardComponent implements OnInit {
+  cardId: string;
+  card: ICards;
 
-  cardId:string ;
-  card:ICards ;
-  
   constructor(
-    private cardService: CardsService, 
-    private route:ActivatedRoute,
-    private router:Router
-   ){}
+    private cardService: CardsService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
-  ngOnInit():void {
+  ngOnInit(): void {
     this.cardId = this.route.snapshot.paramMap.get('id');
-    this.cardService.getCardById(this.cardId).subscribe((card)=>{
-  
-    this.card = card;
- 
-  });
+    this.cardService.getCardById(this.cardId).subscribe((card) => {
+      this.card = card;
+    });
+  }
 }
- 
-}
+
+
+

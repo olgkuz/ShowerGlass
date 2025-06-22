@@ -1,9 +1,47 @@
 :host {
   display: block;
 }
-.card-item-wrap {
-  & > div {
-    width: 50%;
+
+.card-detail-wrap {
+  padding: 2rem;
+}
+
+.card-detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* две колонки */
+  gap: 2rem;
+  align-items: center;
+}
+
+.card-image img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 8px;
+  transition: transform 0.4s ease;
+
+  /* Лёгкий зум при наведении */
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+.card-description {
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
   }
 
+  p {
+    font-size: 1.125rem;
+    color: #444;
+  }
 }
+
+@media (max-width: 768px) {
+  .card-detail-grid {
+    grid-template-columns: 1fr; /* на мобилке — одна колонка */
+  }
+}
+
+

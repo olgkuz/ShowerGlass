@@ -1,3 +1,54 @@
 :host {
   display: block;
 }
+
+.designer-page {
+  max-width: 1000px;
+  margin: 3rem auto;
+  padding: 2rem;
+  position: relative;
+
+  .logout-button {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+
+    button {
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+    }
+  }
+
+  h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #333;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .welcome-text {
+    text-align: center;
+    font-size: 1.25rem;
+    color: #555;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+  }
+
+  .orders-table {
+    text-align: left;
+
+    ::ng-deep .p-datatable-thead > tr > th {
+      font-weight: 600;
+      background-color: #f6f6f6;
+      padding: 1rem;
+      font-size: 1.1rem;
+    }
+
+    ::ng-deep .p-datatable-tbody > tr > td {
+      padding: 1rem;
+      font-size: 1rem;
+      border-bottom: 1px solid #eee;
+    }
+  }
+}

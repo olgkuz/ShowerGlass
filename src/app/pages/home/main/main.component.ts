@@ -9,4 +9,11 @@ import { ButtonModule } from 'primeng/button';
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss',
 })
-export class MainComponent { }
+export class MainComponent {
+  scrollToContact() {
+    const el = document.getElementById('contactform');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+}

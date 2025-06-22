@@ -1,6 +1,21 @@
 <section class="main-banner">
+  <div class="main-image">
+    <img src="/assets/img/main-banner.jpg" alt="Душевые ограждения" />
+  </div>
+
   <div class="main-content">
-    <h1>СОВРЕМЕННЫЕ <br> ОГРАЖДЕНИЯ ИЗ СТЕКЛА</h1>
-    <button pButton type="button" label="Вызвать мастера на замер" class="main-button"></button>
+    <div class="main-title">
+      <div class="title-top">ДУШЕВЫЕ ОГРАЖДЕНИЯ</div>
+      <div class="title-bottom">ИЗ СТЕКЛА НА ЗАКАЗ</div>
+    </div>
+
+    <button
+      pButton
+      type="button"
+      label="Вызвать мастера на замер"
+      class="main-button"
+      (click)="scrollToContact()"
+    ></button>
   </div>
 </section>
+
