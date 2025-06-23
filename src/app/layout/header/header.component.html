@@ -1,13 +1,24 @@
 <div class="layout-header">
-  <div class="layout-header__menu">
+
+  <!-- Бургер (мобилка) -->
+  <div class="burger-menu" *ngIf="isMobile">
+    <button pButton type="button" icon="pi pi-bars" (click)="menuVisible = !menuVisible"></button>
+    <div class="burger-panel" *ngIf="menuVisible">
+      <ul>
+        <li *ngFor="let item of menuItems" (click)="navigate(item.routerLink)">
+          {{ item.label }}
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Меню (десктоп) -->
+  <div class="layout-header__menu" *ngIf="!isMobile">
     <p-menubar [model]="menuItems"></p-menubar>
   </div>
 
+  <!-- Кнопка Контакты -->
   <div class="layout-header__right-block">
-    <!-- Кнопка Контакты справа -->
-    <p-button
-      label="Контакты"
-      (click)="goToContacts()"
-    ></p-button>
+    <p-button label="Контакты" (click)="goToContacts()"></p-button>
   </div>
 </div>

@@ -1,6 +1,26 @@
 :host {
   display: block;
 }
+
+/* Фиксированный header */
+.layout-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+/* Фиксированный footer */
+.layout-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+/* Loader (твой код остаётся) */
 .global-loader {
   position: fixed;
   top: 0;
@@ -18,3 +38,11 @@
     height: 80px;
   }
 }
+
+/* Основной контент */
+.main-content {
+  padding-top: 80px; /* высота header */
+  padding-bottom: 60px; /* высота footer */
+  min-height: calc(100vh - 140px); /* чтобы контент не был обрезан */
+}
+
