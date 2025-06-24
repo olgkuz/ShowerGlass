@@ -59,12 +59,8 @@
 }
 
 @media (max-width: 768px) {
-  .hero-detail .annotation {
-    font-size: 0.8rem;
-
-    .arrow {
-      width: 35px;
-    }
+  :host {
+    display: none;
   }
 }
 

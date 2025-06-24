@@ -1,6 +1,7 @@
 :host {
   display: block;
 }
+
 .examples {
   padding: 3rem 2rem;
   h2 {
@@ -23,4 +24,11 @@
     }
   }
 }
+
+@media (max-width: 768px) {
+  :host {
+    display: none;
+  }
+}
+
 
