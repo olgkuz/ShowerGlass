@@ -1,15 +1,17 @@
 import { inject } from '@angular/core';
+import { Routes } from '@angular/router';
 import { LayoutComponent } from './layout/layout.component';
-import { BlogComponent } from './pages/blog/blog.component';    
+import { BlogComponent } from './pages/blog/blog.component';
 import { CardComponent } from './pages/card/card.component';
 import { ContactsComponent } from './pages/contacts/contacts.component';
 import { DesauthComponent } from './pages/desauth/desauth.component';
-import { GalleryComponent } from './pages/gallery/gallery.component'; 
+import { GalleryComponent } from './pages/gallery/gallery.component';
 import { HomeComponent } from './pages/home/home.component';
-import { UserService } from './services/user.service';
 import { DesignerComponent } from './pages/designer/designer.component';
+import { UserService } from './services/user.service';
 import { authGuard } from './shared/guards/auth.guard';
-import { Routes } from '@angular/router';
+import { SettingsComponent } from './pages/settings/settings.component'; 
+
 
 export const routes: Routes = [
   {
@@ -17,21 +19,32 @@ export const routes: Routes = [
     component: LayoutComponent,
     children: [
       { path: 'home', component: HomeComponent },
-      { path: 'gallery', component: GalleryComponent },  
-      { path: 'blog', component: BlogComponent },        
+      { path: 'gallery', component: GalleryComponent },
+      { path: 'blog', component: BlogComponent },
       { path: 'card/:id', component: CardComponent },
       { path: 'contacts', component: ContactsComponent },
+
+      // Только для admin
+      {
+        path: 'settings',
+        component: SettingsComponent,
+        canActivate: [() => {
+          const user = inject(UserService).getUser();
+          return user?.login === 'admin';
+        }]
+      },
+
       { path: '', redirectTo: 'home', pathMatch: 'full' }
     ]
   },
 
-  { 
-    path: 'desauth', 
+  {
+    path: 'desauth',
     component: DesauthComponent,
-    canActivate: [() => !inject(UserService).isAuthenticated()] 
+    canActivate: [() => !inject(UserService).isAuthenticated()]
   },
 
-  { 
+  {
     path: 'designer',
     component: DesignerComponent,
     canActivate: [authGuard]

@@ -1,0 +1,39 @@
+:host {
+  display: block;
+}
+.article-form {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+
+  h3 {
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: #333;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    label {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+    }
+  }
+
+  button {
+    display: block;
+    margin: 0 auto;
+    padding: 0.75rem 1.5rem;
+  }
+}

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
 import { IArticle } from '../models/article';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment.development';
@@ -16,6 +16,10 @@ export class ArticleService {
 
   getArticleById(id: string): Observable<IArticle> {
     return this.http.get<IArticle>(`${this.apiUrl}/${id}`);
+  }
+
+  createArticle(article: Omit<IArticle, 'id' | 'createdAt'>): Observable<IArticle> {
+    return this.http.post<IArticle>(this.apiUrl, article);
   }
 }
 

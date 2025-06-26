@@ -1,10 +1,10 @@
-// src/app/models/user.ts
+
 
 export interface IUser {
   login: string;
-  password?: string;  // Опционально, так как не хранится на клиенте
+  password?: string;  
   email?: string;
-  id?: string;        // Для хранения ID
+  id?: string;        
 }
 
 export interface IUserReg {
@@ -13,7 +13,7 @@ export interface IUserReg {
   password: string;
 }
 
-// Новые интерфейсы, вынесенные из UserService
+
 export interface AuthResponse {
   token: string;
   user: {

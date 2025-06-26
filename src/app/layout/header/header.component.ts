@@ -40,13 +40,20 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnDestroy() {}
 
   initMenuItems(): MenuItem[] {
-    return [
-      { label: 'Главная', routerLink: ['/home'] },
-      { label: 'Галерея', routerLink: ['/gallery'] },
-      { label: 'Информация', routerLink: ['/blog'] },
-      { label: 'Дизайнерам', routerLink: ['/desauth'] }
-    ];
+  const items: MenuItem[] = [
+    { label: 'Главная', routerLink: ['/home'] },
+    { label: 'Галерея', routerLink: ['/gallery'] },
+    { label: 'Информация', routerLink: ['/blog'] },
+    { label: 'Дизайнерам', routerLink: ['/desauth'] }
+  ];
+
+  if (this.user?.login === 'admin') {
+    items.push({ label: 'Настройки', routerLink: ['/settings'] });
   }
+
+  return items;
+}
+
 
   goToContacts(): void {
     this.router.navigate(['/contacts']);

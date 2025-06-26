@@ -1,0 +1,12 @@
+<h2>Панель настроек администратора</h2>
+<p *ngIf="user">Добро пожаловать, {{ user.login }}</p>
+
+<p-tabView>
+  <p-tabPanel header="Загрузка статьи">
+    <app-articleupload></app-articleupload>
+  </p-tabPanel>
+
+  <p-tabPanel header="Загрузка фото">
+    <app-photoupload></app-photoupload>
+  </p-tabPanel>
+</p-tabView>

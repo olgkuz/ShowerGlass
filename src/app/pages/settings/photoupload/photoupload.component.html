@@ -1,0 +1,28 @@
+
+<div class="article-form" [formGroup]="cardForm">
+  <h3>Загрузка изображения карточки</h3>
+
+  <div class="form-group">
+    <label>Название</label>
+    <input type="text" pInputText formControlName="name" />
+  </div>
+
+  <div class="form-group mt-3">
+    <label>Описание</label>
+    <input type="text" pInputText formControlName="description" />
+  </div>
+
+  <div class="form-group mt-3">
+    <label>Изображение</label>
+    <input type="file" (change)="onFileSelected($event)" />
+  </div>
+
+  <div class="image-preview" *ngIf="imagePreviewUrl">
+    <p>Предпросмотр:</p>
+    <img [src]="imagePreviewUrl" alt="Preview" />
+  </div>
+
+  <div class="mt-4">
+    <button pButton label="Загрузить" (click)="uploadCard()" [disabled]="!cardForm.valid || !selectedFile"></button>
+  </div>
+</div>
