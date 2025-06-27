@@ -41,7 +41,7 @@ export const routes: Routes = [
   {
     path: 'desauth',
     component: DesauthComponent,
-    canActivate: [() => !inject(UserService).isAuthenticated()]
+
   },
 
   {
