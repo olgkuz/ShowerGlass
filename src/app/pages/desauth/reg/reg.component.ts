@@ -53,13 +53,16 @@ export class RegComponent {
     }).subscribe({
       next: () => {
         this.isLoading = false;
+
         // Форма очищается
+        
         this.login = '';
         this.email = '';
         this.password = '';
         this.repeatPassword = '';
         this.rememberMe = false;
-        // Переход на /designer делает UserService
+
+        // Переход на /designer в UserService
       },
       error: (err) => {
         this.isLoading = false;

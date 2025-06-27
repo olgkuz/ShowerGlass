@@ -22,7 +22,7 @@ export class DesignerComponent {
   constructor(private router: Router) {}
 
   logout() {
-    // Здесь можешь добавить логику "очистить токен", если понадобится
+  
     this.router.navigate(['/home']);
   }
 }

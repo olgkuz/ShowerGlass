@@ -50,11 +50,11 @@ submitArticle() {
     next: (res) => {
       this.isSubmitting = false;
       this.articleForm.reset();
-      console.log('✅ Статья успешно создана:', res);
+      console.log(' Статья успешно создана:', res);
     },
     error: (err) => {
       this.isSubmitting = false;
-      console.error('❌ Ошибка при создании статьи:', err);
+      console.error(' Ошибка при создании статьи:', err);
     }
   });
 }

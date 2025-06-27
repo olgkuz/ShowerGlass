@@ -1,6 +1,6 @@
 <div class="layout-header">
 
-  <!-- Бургер (мобилка) -->
+  <!-- Бургер  -->
   <div class="burger-menu" *ngIf="isMobile">
     <button pButton type="button" icon="pi pi-bars" (click)="menuVisible = !menuVisible"></button>
     <div class="burger-panel" *ngIf="menuVisible">
@@ -12,12 +12,12 @@
     </div>
   </div>
 
-  <!-- Меню (десктоп) -->
+  <!-- Меню десктоп -->
   <div class="layout-header__menu" *ngIf="!isMobile">
     <p-menubar [model]="menuItems"></p-menubar>
   </div>
 
-  <!-- Кнопка Контакты -->
+  
   <div class="layout-header__right-block">
     <p-button label="Контакты" (click)="goToContacts()"></p-button>
   </div>

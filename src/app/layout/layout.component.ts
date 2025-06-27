@@ -4,9 +4,9 @@ import { Router, NavigationEnd, RouterModule } from '@angular/router';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { AsideComponent } from './aside/aside.component';
-import { LoaderService } from '../services/loader.service';  // <-- добавим
+import { LoaderService } from '../services/loader.service';  
 import { filter } from 'rxjs/operators';
-import { Subscription } from 'rxjs';  // <-- для отписки
+import { Subscription } from 'rxjs';  
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @Component({
@@ -30,7 +30,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
-    private loaderService: LoaderService  // <-- добавили
+    private loaderService: LoaderService  
   ) {}
 
   ngOnInit(): void {

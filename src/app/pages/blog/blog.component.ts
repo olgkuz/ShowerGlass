@@ -51,7 +51,7 @@ export class BlogComponent implements OnInit {
       catchError(err => {
         this.error = 'Не удалось загрузить статьи';
         this.showError(this.error);
-        return of([]);  // Вернём пустой массив при ошибке
+        return of([]);  
       })
     ).subscribe((articles) => {
       this.articles = articles.sort((a, b) => {

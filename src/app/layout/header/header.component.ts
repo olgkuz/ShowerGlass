@@ -64,7 +64,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.menuVisible = false;
   }
 
-  @HostListener('window:resize', [])
+  @HostListener('window:resize', []) // изменение размера окна браузера
   onResize() {
     this.checkScreenSize();
   }

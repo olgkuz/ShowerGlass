@@ -25,7 +25,7 @@ export class CardsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loaderService.setLoader(true); // включаем Loader при старте
+    this.loaderService.setLoader(true); //  Loader при старте
 
     this.cardService.getCards().subscribe((data: ICards[]) => {
       this.cards = data;

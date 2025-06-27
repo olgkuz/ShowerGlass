@@ -49,7 +49,7 @@ export class AuthorizationComponent {
         this.login = '';
         this.password = '';
         this.rememberMe = false;
-        // Переход на /designer делает UserService
+        // Переход на /designer в UserService
       },
       error: (err) => {
         this.isLoading = false;

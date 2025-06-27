@@ -36,7 +36,7 @@ export class UserService {
   }
 
   authUser(credentials: IUser): Observable<AuthResponse> {
-    // Используем новый эндпоинт API.auth вместо API.desauth
+    
     return this.http.post<AuthResponse>(API.auth, credentials).pipe(
       tap((response) => {
         this.handleAuthSuccess(response, credentials.login);

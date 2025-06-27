@@ -1,16 +1,16 @@
 <app-header class="layout-header"></app-header>
 
-<!-- Loader -->
+
 <div *ngIf="isLoading" class="global-loader">
   <p-progressSpinner styleClass="custom-spinner"></p-progressSpinner>
 </div>
 
-<!-- Aside -->
+
 <aside *ngIf="showAside">
   <app-aside></app-aside>
 </aside>
 
-<!-- Основной контент -->
+
 <div class="main-content">
   <router-outlet></router-outlet>
 </div>

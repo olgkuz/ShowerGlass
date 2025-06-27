@@ -4,9 +4,8 @@
   background: var.$background;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start; // 👈 опускаем контент чуть вниз
-  align-items: flex-start;
-  padding: 5rem 3rem; // 👈 чуть больше верхний padding
+  justify-content: flex-start; 
+  padding: 5rem 3rem; 
   font-family: 'Roboto', sans-serif;
   text-transform: uppercase;
   color: #fff;
