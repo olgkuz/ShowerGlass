@@ -1,20 +1,21 @@
 // services/cards.service.ts
 import { Injectable } from '@angular/core';
+import { Observable, of } from 'rxjs';
 import { ICards } from '../models/cards';
-import cardsData from '../../assets/cards/'; // Путь к JSON
+import cardsData from '../../assets/img/cards/cards.json';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CardsService {
-  private cards: ICards[] = cardsData.cards; // Загружаем данные из JSON
+  private cards: ICards[] = cardsData.cards;
 
-  getCards(): ICards[] {
-    return this.cards; // Возвращаем массив напрямую
+  getCards(): Observable<ICards[]> {
+    return of(this.cards); // Возвращаем Observable
   }
 
-  getCardById(id: string): ICards | undefined {
-    return this.cards.find((card) => card.id === id); // Ищем карточку в массиве
+  getCardById(id: string): Observable<ICards | undefined> {
+    const card = this.cards.find(c => c.id === id);
+    return of(card); // Возвращаем Observable
   }
 }
-

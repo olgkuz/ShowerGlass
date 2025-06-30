@@ -3,45 +3,36 @@ import { CardsService } from '../../../services/cards.service';
 import { ICards } from '../../../models/cards';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
-import { ActivatedRoute, Router } from '@angular/router';
-
+import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @Component({
   selector: 'app-cards',
   standalone: true,
-  imports: [CardModule, ButtonModule],
+  imports: [CardModule, ButtonModule, CommonModule,ProgressSpinnerModule],
   templateUrl: './cards.component.html',
   styleUrl: './cards.component.scss'
 })
 export class CardsComponent implements OnInit {
   cards: ICards[] = [];
-  loadingImages: { [key: string]: boolean } = {};
+  loading = true;
 
   constructor(
     private cardService: CardsService,
-    private route: ActivatedRoute,
     private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.cards = this.cardService.getCards(); // Просто присваиваем массив
-
-    this.cards.forEach(card => {
-      this.loadingImages[card.id] = true;
+    this.cardService.getCards().subscribe({
+      next: (data) => {
+        this.cards = data;
+        this.loading = false;
+      },
+      error: () => {
+        this.loading = false;
+      }
     });
-  }
-
-  onImageLoad(event: Event): void {
-    const imgEl = event.target as HTMLImageElement;
-    const src = imgEl.src;
-
-    const id = this.cards.find(card =>
-      src.includes(card.img)
-    )?.id;
-
-    if (id) {
-      this.loadingImages[id] = false;
-    }
   }
 
   goToCard(item: ICards): void {

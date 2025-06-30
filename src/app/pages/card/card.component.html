@@ -1,34 +1,27 @@
-<button
-  pButton
-  type="button"
-  class="mb-3"
-  routerLink="/home"
->
-  Назад
+<button pButton type="button" routerLink="/cards" class="mb-3">
+  Назад к списку
 </button>
 
-<div class="card-detail-wrap">
-  <div *ngIf="card as currentCard; else noData">
+@if (loading) {
+  <p-progressSpinner></p-progressSpinner>
+} @else if (card) {
+  <div class="card-detail-wrap">
     <div class="card-detail-grid">
       <div class="card-image">
         <img
-          alt="{{ currentCard.name }}"
-          src="assets/img/cards/{{ currentCard.img }}"
+          alt="{{ card.name }}"
+          src="assets/img/cards/{{ card.img }}"
         />
       </div>
 
       <div class="card-description">
-        <h2>{{ currentCard.name }}</h2>
-        <p>{{ currentCard.description }}</p>
+        <h2>{{ card.name }}</h2>
+        <p>{{ card.description }}</p>
       </div>
     </div>
   </div>
-
-  <ng-template #noData>
-    <p class="text-center text-gray-600">Нет данных</p>
-  </ng-template>
-</div>
-
-
+} @else {
+  <p class="text-center text-gray-600">Карточка не найдена</p>
+}
 
     

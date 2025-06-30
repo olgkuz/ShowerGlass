@@ -1,32 +1,37 @@
 <h2 class="cards-title text-center mb-4">Основные типы душевых ограждений</h2>
 
-<div class="cards-list">
-  @for (item of cards; track item.id) {
-    <div class="card-item">
-      <p-card styleClass="card-p-card">
-        <ng-template pTemplate="header">
-          <img
-            alt="{{ item.name }}"
-            src="assets/img/cards/{{ item.img }}"
-            (load)="onImageLoad($event)"
-          />
-        </ng-template>
+@if (loading) {
+  <p-progressSpinner></p-progressSpinner>
+} @else {
+  <div class="cards-list">
+    @for (item of cards; track item.id) {
+      <div class="card-item">
+        <p-card styleClass="card-p-card">
+          <ng-template pTemplate="header">
+            <img
+              alt="{{ item.name }}"
+              src="assets/img/cards/{{ item.img }}"
+            />
+          </ng-template>
 
-        <ng-template pTemplate="title">
-          <h3 class="card-title">{{ item.name }}</h3>
-        </ng-template>
+          <ng-template pTemplate="title">
+            <h3 class="card-title">{{ item.name }}</h3>
+          </ng-template>
 
-        <ng-template pTemplate="footer">
-          <p-button
-            label="Подробнее"
-            class="w-full"
-            (click)="goToCard(item)"
-          ></p-button>
-        </ng-template>
-      </p-card>
-    </div>
-  }
-</div>
+          <ng-template pTemplate="footer">
+            <p-button
+              label="Подробнее"
+              class="w-full"
+              (click)="goToCard(item)"
+            ></p-button>
+          </ng-template>
+        </p-card>
+      </div>
+    }
+  </div>
+}
+
+
 
 
 

@@ -11,6 +11,7 @@ import { DesignerComponent } from './pages/designer/designer.component';
 import { UserService } from './services/user.service';
 import { authGuard } from './shared/guards/auth.guard';
 import { SettingsComponent } from './pages/settings/settings.component'; 
+import { CardsComponent } from './pages/home/cards/cards.component';
 
 
 export const routes: Routes = [
@@ -19,6 +20,7 @@ export const routes: Routes = [
     component: LayoutComponent,
     children: [
       { path: 'home', component: HomeComponent },
+      { path: 'cards', component: CardsComponent },
       { path: 'gallery', component: GalleryComponent },
       { path: 'blog', component: BlogComponent },
       { path: 'card/:id', component: CardComponent },
