@@ -21,22 +21,15 @@ export class CardComponent implements OnInit {
     private router: Router
   ) {}
 
-  ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id) {
-      this.cardService.getCardById(id).subscribe({
-        next: (data) => {
-          this.card = data;
-        },
-        error: (err) => {
-          console.error('Ошибка загрузки карточки:', err);
-          this.card = null;
-        }
-      });
-    } else {
-      this.card = null;
+ngOnInit(): void {
+  const id = this.route.snapshot.paramMap.get('id');
+  if (id) {
+    this.card = this.cardService.getCardById(id); // Просто берём из сервиса
+    if (!this.card) {
+      console.error('Карточка не найдена');
     }
   }
+}
 }
 
 

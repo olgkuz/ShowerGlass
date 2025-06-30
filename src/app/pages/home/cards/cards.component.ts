@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CardsService } from '../../../services/cards.service';
-import { LoaderService } from '../../../services/loader.service';
 import { ICards } from '../../../models/cards';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { ActivatedRoute, Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-cards',
@@ -19,24 +19,15 @@ export class CardsComponent implements OnInit {
 
   constructor(
     private cardService: CardsService,
-    private loaderService: LoaderService,
     private route: ActivatedRoute,
     private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.loaderService.setLoader(true); //  Loader при старте
+    this.cards = this.cardService.getCards(); // Просто присваиваем массив
 
-    this.cardService.getCards().subscribe((data: ICards[]) => {
-      this.cards = data;
-
-      this.cards.forEach(card => {
-        this.loadingImages[card.id] = true;
-      });
-
-      if (this.cards.length === 0) {
-        this.loaderService.setLoader(false);
-      }
+    this.cards.forEach(card => {
+      this.loadingImages[card.id] = true;
     });
   }
 
@@ -50,12 +41,6 @@ export class CardsComponent implements OnInit {
 
     if (id) {
       this.loadingImages[id] = false;
-
-      const allLoaded = Object.values(this.loadingImages).every(val => !val);
-
-      if (allLoaded) {
-        this.loaderService.setLoader(false); // выключаем Loader
-      }
     }
   }
 

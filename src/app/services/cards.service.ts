@@ -1,21 +1,20 @@
-import { HttpClient } from '@angular/common/http';
+// services/cards.service.ts
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { API } from '../shared/api';
 import { ICards } from '../models/cards';
+import cardsData from '../../assets/cards/'; // Путь к JSON
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CardsService {
-  constructor(private http: HttpClient) {}
+  private cards: ICards[] = cardsData.cards; // Загружаем данные из JSON
 
-  getCards(): Observable<ICards[]> {
-    return this.http.get<ICards[]>(API.cards);
+  getCards(): ICards[] {
+    return this.cards; // Возвращаем массив напрямую
   }
 
-  getCardById(id: string): Observable<ICards> {
-    return this.http.get<ICards>(`${API.card}/${id}`);
+  getCardById(id: string): ICards | undefined {
+    return this.cards.find((card) => card.id === id); // Ищем карточку в массиве
   }
 }
 

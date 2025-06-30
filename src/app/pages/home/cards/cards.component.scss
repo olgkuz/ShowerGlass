@@ -14,7 +14,7 @@
 
 .cards-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(3, 1fr); 
   gap: 2rem;
   justify-items: center;
 }
@@ -54,7 +54,7 @@
     }
 
     ::ng-deep .p-card-content {
-      padding: 0; // убираем внутренние отступы
+      padding: 0; 
     }
   }
 
