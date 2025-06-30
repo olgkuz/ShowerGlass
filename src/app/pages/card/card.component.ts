@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ICards } from '../../models/cards';
 import { CardsService } from '../../services/cards.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-card',
@@ -14,8 +13,7 @@ import { RouterModule } from '@angular/router';
   styleUrl: './card.component.scss'
 })
 export class CardComponent implements OnInit {
-  cardId: string;
-  card: ICards;
+  card: ICards | null = null;
 
   constructor(
     private cardService: CardsService,
@@ -24,10 +22,20 @@ export class CardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.cardId = this.route.snapshot.paramMap.get('id');
-    this.cardService.getCardById(this.cardId).subscribe((card) => {
-      this.card = card;
-    });
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id) {
+      this.cardService.getCardById(id).subscribe({
+        next: (data) => {
+          this.card = data;
+        },
+        error: (err) => {
+          console.error('Ошибка загрузки карточки:', err);
+          this.card = null;
+        }
+      });
+    } else {
+      this.card = null;
+    }
   }
 }
 

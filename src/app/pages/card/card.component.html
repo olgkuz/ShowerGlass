@@ -1,4 +1,3 @@
-
 <button
   pButton
   type="button"
@@ -8,11 +7,9 @@
   Назад
 </button>
 
-
 <div class="card-detail-wrap">
   <div *ngIf="card as currentCard; else noData">
     <div class="card-detail-grid">
-     
       <div class="card-image">
         <img
           alt="{{ currentCard.name }}"
@@ -20,7 +17,6 @@
         />
       </div>
 
-     
       <div class="card-description">
         <h2>{{ currentCard.name }}</h2>
         <p>{{ currentCard.description }}</p>
@@ -29,7 +25,7 @@
   </div>
 
   <ng-template #noData>
-    <p>Нет данных</p>
+    <p class="text-center text-gray-600">Нет данных</p>
   </ng-template>
 </div>
 
