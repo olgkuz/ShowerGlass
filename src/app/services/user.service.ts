@@ -25,36 +25,41 @@ export class UserService {
     private messageService: MessageService
   ) {}
 
-  registerUser(userData: IUserReg): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(API.reg, userData).pipe(
-      tap((response) => {
-        this.handleAuthSuccess(response, userData.login);
-        this.showSuccess('Регистрация прошла успешно');
-      }),
-      catchError(error => this.handleError(error, 'Ошибка регистрации'))
-    );
-  }
+  registerUser(userData: IUserReg, remember: boolean): Observable<AuthResponse> {
+  return this.http.post<AuthResponse>(API.reg, userData).pipe(
+    tap((response) => {
+      this.handleAuthSuccess(response, userData.login, remember); // ✅ добавлен аргумент remember
+      this.showSuccess('Регистрация прошла успешно');
+    }),
+    catchError(error => this.handleError(error, 'Ошибка регистрации'))
+  );
+}
 
-  authUser(credentials: IUser): Observable<AuthResponse> {
+
+
+  authUser(credentials: IUser, remember: boolean): Observable<AuthResponse>
+{
     
     return this.http.post<AuthResponse>(API.auth, credentials).pipe(
       tap((response) => {
-        this.handleAuthSuccess(response, credentials.login);
-        this.showSuccess('Вход выполнен успешно');
-      }),
+  this.handleAuthSuccess(response, credentials.login, remember);
+  this.showSuccess('Вход выполнен успешно');
+}),
+
       catchError(error => this.handleError(error, 'Ошибка авторизации'))
     );
   }
 
-  private handleAuthSuccess(response: AuthResponse, login: string): void {
-    this.saveAuthData(response.token, login, true);
-    this.setUser({
-      login: response.user.login,
-      email: response.user.email,
-      id: response.user.id
-    }, true);
-    this.router.navigate(['/designer']);
-  }
+  private handleAuthSuccess(response: AuthResponse, login: string, remember: boolean): void {
+  this.saveAuthData(response.token, login, remember);
+  this.setUser({
+    login: response.user.login,
+    email: response.user.email,
+    id: response.user.id
+  }, remember);
+  this.router.navigate(['/designer']);
+}
+
 
   private saveAuthData(token: string, login: string, remember: boolean): void {
     const storage = remember ? localStorage : sessionStorage;
@@ -62,10 +67,16 @@ export class UserService {
     storage.setItem(this.LOGIN_KEY, login);
   }
 
-  setUser(user: UserStorage, remember: boolean): void {
-    const storage = remember ? localStorage : sessionStorage;
+  setUser(user: UserStorage | null, remember: boolean): void {
+  const storage = remember ? localStorage : sessionStorage;
+
+  if (user) {
     storage.setItem(this.USER_KEY, JSON.stringify(user));
+  } else {
+    storage.removeItem(this.USER_KEY); 
   }
+}
+
 
   getToken(): string | null {
     return localStorage.getItem(this.TOKEN_KEY) || 

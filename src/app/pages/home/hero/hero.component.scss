@@ -1,3 +1,4 @@
+@use "variables" as var;
 :host {
   display: block;
 }
@@ -27,7 +28,7 @@
 
   .image-container {
     position: relative;
-    width: 100%;
+    width: 40%;
     max-width: 1000px;
     margin: 0 auto;
 
@@ -43,12 +44,12 @@
       align-items: center;
 
       .arrow {
-        width: 50px;
+        width: 120px;
         margin-right: 0.5rem;
       }
 
       .label {
-        background: rgba(25, 88, 51, 0.8);
+        background:var.$background;
         color: white;
         padding: 0.4rem 0.8rem;
         border-radius: 0.25rem;

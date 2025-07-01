@@ -17,9 +17,9 @@ interface ExampleItem {
 })
 export class ExamplesComponent {
  examples: ExampleItem[] = [
-  { image: 'assets/img/examples/example1.jpg', title: 'Пример 1' },
-  { image: 'assets/img/examples/example2.jpg', title: 'Пример 2' },
-  { image: 'assets/img/examples/example3.jpg', title: 'Пример 3' }
+  { image: 'assets/img/examples/example1.jpg', title: 'Душевая с откатной дверью Piuma' },
+  { image: 'assets/img/examples/example2.jpg', title: 'Дшевая раздвижные двери с угла' },
+  { image: 'assets/img/examples/example3.jpg', title: 'Душевая с распашной дверью ' }
 ];
 
 }

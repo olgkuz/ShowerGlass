@@ -1,3 +1,5 @@
+@use "variables" as var;
+
 :host {
   display: block;
 }
@@ -8,7 +10,7 @@
 
 .card-detail-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr; 
+  grid-template-columns: 1fr 1fr;
   gap: 2rem;
   align-items: center;
 }
@@ -19,14 +21,13 @@
   object-fit: cover;
   border-radius: 4px;
   transition: transform 0.4s ease;
-
-  
 }
 
 .card-description {
   h2 {
     font-size: 2rem;
     margin-bottom: 1rem;
+    color: var.$background;
   }
 
   p {
@@ -35,10 +36,21 @@
   }
 }
 
-@media (max-width: 768px) {
-  .card-detail-grid {
-    grid-template-columns: 1fr; 
+button[pButton] {
+  background-color: var.$background !important;
+  border: none !important;
+  color: #fff !important;
+
+  &:hover {
+    opacity: 0.9;
   }
 }
+
+@media (max-width: 768px) {
+  .card-detail-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 
 

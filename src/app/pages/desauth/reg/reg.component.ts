@@ -47,10 +47,10 @@ export class RegComponent {
 
     this.isLoading = true;
     this.userService.registerUser({
-      login: this.login,
-      email: this.email,
-      password: this.password
-    }).subscribe({
+  login: this.login,
+  email: this.email,
+  password: this.password
+}, this.rememberMe).subscribe({
       next: () => {
         this.isLoading = false;
 

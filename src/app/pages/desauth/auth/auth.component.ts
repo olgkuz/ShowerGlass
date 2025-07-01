@@ -40,20 +40,20 @@ export class AuthorizationComponent {
     if (!this.isFormValid()) return;
 
     this.isLoading = true;
-    this.userService.authUser({
-      login: this.login,
-      password: this.password
-    }).subscribe({
-      next: () => {
-        this.isLoading = false;
-        this.login = '';
-        this.password = '';
-        this.rememberMe = false;
-        // Переход на /designer в UserService
-      },
-      error: (err) => {
-        this.isLoading = false;
-      }
-    });
+  this.userService.authUser({
+  login: this.login,
+  password: this.password
+}, this.rememberMe).subscribe({
+  next: () => {
+    this.isLoading = false;
+    this.login = '';
+    this.password = '';
+    this.rememberMe = false;
+  },
+  error: (err) => {
+    this.isLoading = false;
+  }
+});
+
   }
 }
