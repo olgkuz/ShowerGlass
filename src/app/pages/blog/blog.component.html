@@ -1,12 +1,7 @@
 <div class="blog-container">
-
- 
   <div class="search-section">
     <h2>Полезная информация</h2>
     <div class="p-inputgroup">
-      <span class="p-inputgroup-addon">
-        <i class="pi pi-search"></i>
-      </span>
       <input 
         type="text" 
         pInputText 
@@ -14,26 +9,22 @@
         (input)="onSearchInput($event)"
         [(ngModel)]="searchQuery"
       />
+      <span class="p-inputgroup-addon" (click)="performSearch(searchQuery)" style="cursor: pointer;" title="Найти">
+        <i class="pi pi-search"></i>
+      </span>
     </div>
   </div>
 
- 
- <p-progressSpinner 
-  *ngIf="isLoading" 
-  styleClass="blog-spinner">
-</p-progressSpinner>
-
+  <p-progressSpinner *ngIf="isLoading" styleClass="blog-spinner"></p-progressSpinner>
 
   <div class="error-text" *ngIf="error && !isLoading">
     {{ error }}
   </div>
 
-  
   <div class="search-info" *ngIf="!isLoading && searchQuery && filteredArticles.length === 0">
     <p>Ничего не найдено по запросу "{{ searchQuery }}"</p>
   </div>
 
- 
   <div class="articles-grid" *ngIf="!isLoading && filteredArticles.length > 0">
     <p-card 
       *ngFor="let article of filteredArticles" 
@@ -57,5 +48,5 @@
       </ng-template>
     </p-card>
   </div>
-
 </div>
+

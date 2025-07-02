@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { RouterModule, Router } from '@angular/router';
+import { UserService } from '../../services/user.service'; 
 
 @Component({
   selector: 'app-designer',
@@ -19,11 +20,14 @@ export class DesignerComponent {
     { number: 4, address: 'г. Одинцово, ул. Гагарина, д. 5', contractSum: '120 000 ₽', bonus: '12 000 ₽' }
   ];
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private userService: UserService 
+  ) {}
 
   logout() {
-  
-    this.router.navigate(['/home']);
+    this.userService.logout(); 
+    this.router.navigateByUrl('/home');
   }
 }
 
