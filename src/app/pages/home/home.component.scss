@@ -1,9 +1,20 @@
+@use "variables" as var;
+
 :host {
   display: block;
 }
+
 .big-button {
   font-size: 1.25rem;
   padding: 1rem 2rem;
   font-weight: 600;
   border-radius: 8px;
+  color: var.$background !important; 
+  background-color: transparent;
+  border: 2px solid var.$background;
+
+  &:hover {
+    background-color: var.$background;
+    color: #fff !important;
+  }
 }

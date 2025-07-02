@@ -14,7 +14,7 @@
 
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
-    grid-template-rows: auto auto;
+    grid-template-rows: 1fr;
   }
 }
 
@@ -27,6 +27,48 @@
     object-fit: cover;
     display: block;
   }
+
+  .main-overlay-mobile {
+    display: none;
+
+    @media (max-width: 768px) {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+
+      .title-mobile {
+        font-size: 2rem;
+        font-weight: 700;
+        line-height: 1.2;
+        margin-top: 2rem;
+      }
+
+      .main-button {
+        margin-top: auto;
+        margin-bottom: 15%;
+        font-size: 1.2rem;
+        padding: 1rem 1.5rem;
+        border-radius: 8px;
+        font-weight: 600;
+        background-color: white;
+        color: var.$background;
+        border: none;
+        transition: background 0.3s;
+
+        &:hover {
+          background-color: #f0f0f0;
+        }
+      }
+    }
+  }
 }
 
 .main-content {
@@ -36,27 +78,29 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: flex-сenter;
+  justify-content: center;
   height: 100%;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 
   .main-title {
     position: absolute;
     top: 5rem;
     left: -50%;
-    width: 100%; 
+    width: 100%;
     pointer-events: none;
 
-    .title-top {
+    .title-top,
+    .title-bottom {
       font-size: 4.5rem;
       font-weight: 700;
-      text-align: left;
+      text-align: center;
       white-space: nowrap;
     }
 
     .title-bottom {
-      font-size: 4.5rem;
-      font-weight: 700;
-      text-align: right;
       margin-top: 1rem;
       margin-right: 2rem;
     }
@@ -69,11 +113,9 @@
     padding: 2rem 2.5rem;
     border-radius: 8px;
     font-weight: 600;
-    font-family: 'Roboto', sans-serif;
     background-color: #fff;
     color: var.$background;
     border: none;
-    transition: background 0.3s;
 
     &:hover {
       background-color: #f0f0f0;

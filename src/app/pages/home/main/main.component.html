@@ -2,8 +2,24 @@
   <div class="main-grid">
     <div class="main-image">
       <img src="/assets/img/main-banner.jpg" alt="Душевые ограждения" />
+
+      <!-- Добавлено для мобильной версии -->
+      <div class="main-overlay-mobile">
+        <div class="title-mobile">
+          ДУШЕВЫЕ ОГРАЖДЕНИЯ<br />
+          ИЗ СТЕКЛА НА ЗАКАЗ
+        </div>
+        <button
+          pButton
+          type="button"
+          label="Вызвать мастера на замер"
+          class="main-button"
+          (click)="scrollToContact()"
+        ></button>
+      </div>
     </div>
 
+    <!-- Desktop content -->
     <div class="main-content">
       <div class="main-title">
         <div class="title-top">ДУШЕВЫЕ ОГРАЖДЕНИЯ</div>
@@ -20,6 +36,5 @@
     </div>
   </div>
 </section>
-
 
   

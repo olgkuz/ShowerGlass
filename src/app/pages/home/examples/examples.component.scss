@@ -1,17 +1,22 @@
+@use "variables" as var;
+
 :host {
   display: block;
 }
 
 .examples {
   padding: 3rem 2rem;
+
   h2 {
     text-align: center;
     font-size: 2rem;
     margin-bottom: 2rem;
+    color: var.$background; 
   }
 
   .example-item {
     text-align: center;
+
     img {
       width: 100%;
       border-radius: 0.5rem;
@@ -21,7 +26,13 @@
     .example-title {
       margin-top: 1rem;
       font-weight: 500;
+      color: var.$background; 
     }
+  }
+
+  
+  ::ng-deep .p-carousel-indicators {
+    display: none !important;
   }
 }
 

@@ -1,6 +1,9 @@
+@use "variables" as var;
+
 :host {
   display: block;
 }
+
 .contact-form-section {
   background-color: #f6f6f6;
   padding: 3rem 2rem;
@@ -9,11 +12,12 @@
   h2 {
     font-size: 2rem;
     margin-bottom: 0.5rem;
+    color: var.$background; // ✅ перекрашен заголовок
   }
 
   p {
     margin-bottom: 2rem;
-    color: #666;
+    color: var.$background; // ✅ перекрашен подзаголовок
   }
 
   form {
@@ -23,7 +27,8 @@
     .form-group {
       margin-bottom: 1.5rem;
 
-      input, textarea {
+      input,
+      textarea {
         width: 100%;
         padding: 0.75rem;
         border: 1px solid #ccc;
@@ -31,8 +36,17 @@
       }
     }
 
-    button {
+    ::ng-deep button.p-button {
       width: 100%;
+      background-color: var.$background !important;
+      border: none !important;
+      color: #fff !important;
+      font-weight: 600;
+
+      &:hover {
+        opacity: 0.9;
+      }
     }
   }
 }
+
