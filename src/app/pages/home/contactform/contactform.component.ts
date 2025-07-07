@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
-  FormsModule,
   ReactiveFormsModule,
   FormGroup,
   FormControl,
@@ -18,7 +17,6 @@ import { MessageService } from 'primeng/api';
   standalone: true,
   imports: [
     CommonModule,
-    FormsModule,
     ReactiveFormsModule,
     InputTextModule,
     TextareaModule,

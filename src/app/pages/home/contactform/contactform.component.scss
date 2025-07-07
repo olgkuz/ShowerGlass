@@ -12,13 +12,13 @@
   h2 {
     font-size: 2rem;
     margin-bottom: 0.5rem;
-    color: var.$background; 
+    color: var.$background;
     font-family: var.$font-family-base;
   }
 
   p {
     margin-bottom: 2rem;
-    color: var.$background; 
+    color: var.$background;
     font-family: var.$font-family-base;
   }
 
@@ -28,13 +28,24 @@
 
     .form-group {
       margin-bottom: 1.5rem;
-      
+
       input,
       textarea {
         width: 100%;
         padding: 0.75rem;
         border: 1px solid #ccc;
         border-radius: 0.25rem;
+        font-family: var.$font-family-base;
+
+        &:focus {
+          outline: none;
+          border-color: var.$background;
+          box-shadow: 0 0 0 2px rgba(52, 144, 220, 0.2);
+        }
+
+        &:hover {
+          border-color: var.$background;
+        }
       }
     }
 
@@ -51,4 +62,3 @@
     }
   }
 }
-
