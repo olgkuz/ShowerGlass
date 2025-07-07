@@ -15,6 +15,7 @@
     margin-bottom: 2rem;
     font-weight: 600;
     color: var.$background;
+    font-family: var.$font-family-base;
   }
 
   ::ng-deep .p-accordion .p-accordion-tab {
@@ -48,7 +49,7 @@
 
   
   ::ng-deep .p-accordion-header .p-accordion-toggle-icon {
-    color: var.$background;
+    color: var.$background ;
   }
 }
 

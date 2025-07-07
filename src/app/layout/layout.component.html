@@ -1,20 +1,21 @@
 <app-header class="layout-header"></app-header>
 
-
 <div *ngIf="isLoading" class="global-loader">
   <p-progressSpinner styleClass="custom-spinner"></p-progressSpinner>
 </div>
 
 
-<aside *ngIf="showAside">
-  <app-aside></app-aside>
-</aside>
+<div class="layout-container">
 
+  <aside *ngIf="showAside">
+    <app-aside></app-aside>
+  </aside>
 
-<div class="main-content">
-  <router-outlet></router-outlet>
+  <div class="main-content">
+    <router-outlet></router-outlet>
+  </div>
+
 </div>
 
 <app-footer class="layout-footer"></app-footer>
-
 

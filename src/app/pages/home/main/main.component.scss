@@ -88,7 +88,7 @@
   .main-title {
     position: absolute;
     top: 5rem;
-    left: -50%;
+    left: -80%;
     width: 100%;
     pointer-events: none;
 
@@ -100,9 +100,11 @@
       white-space: nowrap;
     }
 
+
     .title-bottom {
       margin-top: 1rem;
-      margin-right: 2rem;
+      margin-left: 10rem;
+
     }
   }
 

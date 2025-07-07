@@ -2,7 +2,6 @@
   display: block;
 }
 
-
 .layout-header {
   position: fixed;
   top: 0;
@@ -10,7 +9,6 @@
   width: 100%;
   z-index: 1000;
 }
-
 
 .layout-footer {
   position: fixed;
@@ -20,6 +18,14 @@
   z-index: 1000;
 }
 
+
+.layout-container {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  box-sizing: border-box;
+}
 
 .global-loader {
   position: fixed;
@@ -39,10 +45,8 @@
   }
 }
 
-
 .main-content {
-  padding-top: 80px; 
-  padding-bottom: 60px; 
-  min-height: calc(100vh - 140px); 
+  padding-top: 60px;
+  padding-bottom: 60px;
+  min-height: calc(100vh - 140px);
 }
-

@@ -4,7 +4,9 @@
   display: block;
   padding: 2rem;
 }
-
+ .cards-title{
+  font-family: var.$font-family-base;
+}
 .cards-title {
   font-size: 2rem;
   font-weight: 700;
@@ -52,6 +54,7 @@
       text-align: center;
       color: var.$background;
       margin-bottom: 1rem;
+      
     }
 
     ::ng-deep .p-card-content {

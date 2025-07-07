@@ -12,6 +12,7 @@
     font-size: 2rem;
     margin-bottom: 2rem;
     color: var.$background; 
+    font-family: var.$font-family-base;
   }
 
   .example-item {
@@ -27,6 +28,7 @@
       margin-top: 1rem;
       font-weight: 500;
       color: var.$background; 
+      font-family: var.$font-family-base;
     }
   }
 

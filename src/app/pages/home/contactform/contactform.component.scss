@@ -12,12 +12,14 @@
   h2 {
     font-size: 2rem;
     margin-bottom: 0.5rem;
-    color: var.$background; // ✅ перекрашен заголовок
+    color: var.$background; 
+    font-family: var.$font-family-base;
   }
 
   p {
     margin-bottom: 2rem;
-    color: var.$background; // ✅ перекрашен подзаголовок
+    color: var.$background; 
+    font-family: var.$font-family-base;
   }
 
   form {
@@ -26,7 +28,7 @@
 
     .form-group {
       margin-bottom: 1.5rem;
-
+      
       input,
       textarea {
         width: 100%;
