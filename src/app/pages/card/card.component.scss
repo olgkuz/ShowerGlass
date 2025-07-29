@@ -6,21 +6,24 @@
 
 .card-detail-wrap {
   padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .card-detail-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 2rem;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .card-image img {
-  width: 70%;
+  width: 100%;
+  max-width: 500px;
   height: auto;
-  object-fit: cover;
+  object-fit: contain;
   border-radius: 4px;
-  transition: transform 0.4s ease;
+  display: block;
 }
 
 .card-description {
@@ -28,14 +31,18 @@
     font-size: 2rem;
     margin-bottom: 1rem;
     color: var.$background;
+    word-break: break-word;
   }
 
-p {
+  .description-content {
     font-size: 1.125rem;
     color: #444;
-    white-space: pre-wrap; 
-    word-wrap: break-word;
+    white-space: normal; // текст переносится автоматически
     line-height: 1.6;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    max-width: 100%;
+    margin-bottom: 1rem;
   }
 }
 
@@ -43,6 +50,7 @@ button[pButton] {
   background-color: var.$background !important;
   border: none !important;
   color: #fff !important;
+  margin: 2rem;
 
   &:hover {
     opacity: 0.9;
@@ -52,8 +60,11 @@ button[pButton] {
 @media (max-width: 768px) {
   .card-detail-grid {
     grid-template-columns: 1fr;
+
+    .card-image img {
+      width: 100%;
+      max-width: 100%;
+    }
   }
 }
-
-
 

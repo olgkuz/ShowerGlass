@@ -6,12 +6,14 @@
 
 .examples {
   padding: 3rem 2rem;
+  margin-bottom: 3rem;
 
   h2 {
     text-align: center;
     font-size: 2rem;
+    font-weight: 700;
     margin-bottom: 2rem;
-    color: var.$background; 
+    color: var.$background;
     font-family: var.$font-family-base;
   }
 
@@ -27,21 +29,67 @@
     .example-title {
       margin-top: 1rem;
       font-weight: 500;
-      color: var.$background; 
+      color: var.$background;
       font-family: var.$font-family-base;
     }
   }
 
+  /* === Навигационные стрелки === */
+  ::ng-deep .p-carousel-prev,
+  ::ng-deep .p-carousel-next {
+    background-color: var.$background !important;
+    border: none !important;
+    color: #fff !important;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: darken(var.$background, 10%) !important;
+    }
+
+    .p-icon {
+      font-size: 1.2rem;
+    }
+  }
+
+/* === Индикаторы (переключатели снизу) === */
+::ng-deep .p-carousel-indicators {
+  margin-top: 1rem !important;
+  justify-content: center !important;
+}
+
+::ng-deep .p-carousel-indicators .p-carousel-indicator button {
+  width: 12px !important;
+  height: 12px !important;
+  border-radius: 50% !important;
+  border: none !important;
+  background-color: lighten(var.$background, 40%) !important;
+  margin: 0 4px !important;
+  transition: background-color 0.3s ease !important;
+}
+
+::ng-deep .p-carousel-indicators .p-carousel-indicator.p-highlight button {
+  background-color: var.$background !important;
+}
+
   
-  ::ng-deep .p-carousel-indicators {
-    display: none !important;
+}
+
+/* Мобильная адаптация */
+@media (max-width: 768px) {
+  .examples {
+    padding: 2rem 1rem;
+    h2 {
+      font-size: 1.6rem;
+    }
   }
 }
 
-@media (max-width: 768px) {
-  :host {
-    display: none;
-  }
-}
 
 

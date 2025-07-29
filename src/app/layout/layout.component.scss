@@ -45,8 +45,11 @@
   }
 }
 
+
 .main-content {
-  padding-top: 60px;
-  padding-bottom: 60px;
-  min-height: calc(100vh - 140px);
+  flex: 1;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
 }

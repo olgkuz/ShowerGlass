@@ -2,12 +2,14 @@
 
 :host {
   display: block;
+  font-family: var.$font-family-base;
 }
 
 .faq-section {
   padding: 3rem 1rem;
   max-width: 900px;
   margin: 0 auto;
+  font-family: var.$font-family-base;
 
   .section-title {
     text-align: center;
@@ -15,42 +17,36 @@
     margin-bottom: 2rem;
     font-weight: 600;
     color: var.$background;
-    font-family: var.$font-family-base;
   }
 
-  ::ng-deep .p-accordion .p-accordion-tab {
-    border-radius: 0.5rem;
-    margin-bottom: 1rem;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    overflow: hidden;
-    border: 1px solid transparent;
-  }
-
-  ::ng-deep .p-accordion .p-accordion-tab-active {
-    border-color: var.$background;
-    box-shadow: 0 0 0 2px rgba(79, 71, 50, 0.2);
-  }
-
-  ::ng-deep .p-accordion .p-accordion-header {
-    background-color: #f6f6f6;
-    padding: 1rem;
-    font-size: 1rem;
-    font-weight: 500;
-    color: var.$background !important; 
-  }
-
-  ::ng-deep .p-accordion .p-accordion-content {
-    padding: 1rem;
-    background-color: #fff;
-    font-size: 1.125rem;
-    line-height: 1.6;
+  /* Общий стиль для всего аккордеона */
+  ::ng-deep .p-accordion {
+    font-family: var.$font-family-base !important;
     color: var.$background !important;
   }
 
-  
-  ::ng-deep .p-accordion-header .p-accordion-toggle-icon {
-    color: var.$background ;
+  /* Заголовки вкладок (по умолчанию + активные) */
+  ::ng-deep .p-accordion-header-link {
+    font-family: var.$font-family-base !important;
+    color: var.$background !important;  /* ВСЕГДА нужный цвет */
+    font-weight: 500;
+  }
+
+  /* Для активного состояния (раскрытая панель) */
+  ::ng-deep .p-accordion-header-link.p-highlight {
+    color: var.$background !important; /* оставляем тот же цвет */
+  }
+
+  /* Контент внутри вкладок */
+  ::ng-deep .p-accordion-content {
+    font-family: var.$font-family-base !important;
+    color: var.$background !important;
+    font-size: 1.125rem !important;
+    line-height: 1.6;
+  }
+
+  /* Иконка открытия */
+  ::ng-deep .p-accordion-toggle-icon {
+    color: var.$background !important;
   }
 }
-
-

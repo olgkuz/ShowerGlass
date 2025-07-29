@@ -28,10 +28,12 @@ export class CardComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.cardService.getCardById(id).subscribe({
-        next: (data) => {
-          this.card = data || null;
-          this.loading = false;
-        },
+       next: (data) => {
+    this.card = data || null;
+    console.log('Описание:', this.card.description); // проверить полный текст
+    this.loading = false;
+},
+
         error: () => {
           this.loading = false;
           this.router.navigate(['/cards']);

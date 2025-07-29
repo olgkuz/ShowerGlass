@@ -6,6 +6,8 @@
 
 .hero-detail {
   padding: 3rem 2rem;
+  font-family: var.$font-family-base;
+   margin-bottom: 3rem;
 
   .text-block {
     text-align: center;
@@ -18,15 +20,13 @@
       font-size: 2.2rem;
       font-weight: 700;
       margin-bottom: 2rem;
-      color: var.$background;
-      font-family: var.$font-family-base;
+      color: var.$background; // кастомный цвет остаётся
     }
 
     p {
       font-size: 1.125rem;
       line-height: 1.5;
-      color: var.$background;
-      font-family: var.$font-family-base;
+      color: #495057; // стандартный PrimeNG серый
     }
   }
 
@@ -53,7 +53,6 @@
         width: 120px;
         height: 120px;
         margin-bottom: 0.5rem;
-       
       }
 
       .label {
@@ -81,4 +80,3 @@
     display: none;
   }
 }
-

@@ -7,6 +7,7 @@
 } @else if (card) {
   <div class="card-detail-wrap">
     <div class="card-detail-grid">
+      <!-- Блок изображения -->
       <div class="card-image">
         <img
           alt="{{ card.name }}"
@@ -14,9 +15,11 @@
         />
       </div>
 
+      <!-- Блок описания -->
       <div class="card-description">
         <h2>{{ card.name }}</h2>
-        <p>{{ card.description }}</p>
+        <!-- Используем innerHTML для возможной разметки -->
+        <div class="description-content" [innerHTML]="card.description"></div>
       </div>
     </div>
   </div>
@@ -24,4 +27,4 @@
   <p class="text-center text-gray-600">Карточка не найдена</p>
 }
 
-    
+

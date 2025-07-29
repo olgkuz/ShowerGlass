@@ -28,7 +28,7 @@ export class UserService {
   registerUser(userData: IUserReg, remember: boolean): Observable<AuthResponse> {
   return this.http.post<AuthResponse>(API.reg, userData).pipe(
     tap((response) => {
-      this.handleAuthSuccess(response, userData.login, remember); // ✅ добавлен аргумент remember
+      this.handleAuthSuccess(response, userData.login, remember); 
       this.showSuccess('Регистрация прошла успешно');
     }),
     catchError(error => this.handleError(error, 'Ошибка регистрации'))
