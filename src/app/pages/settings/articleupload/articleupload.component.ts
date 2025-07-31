@@ -30,6 +30,7 @@ export class ArticleuploadComponent {
       title: ['', Validators.required],
       previewText: ['', [Validators.required, Validators.minLength(10)]],
       content: ['', [Validators.required, Validators.minLength(50)]],
+      tags: [''] 
     });
   }
 
@@ -38,11 +39,16 @@ submitArticle() {
 
   const formValues = this.articleForm.value;
 
-  const newArticle: Omit<IArticle, 'id' | 'createdAt'> = {
-    ...formValues,
-    readingTime: this.calculateReadingTime(formValues.content),
-     
-  };
+const newArticle: Omit<IArticle, 'id' | 'createdAt'> = {
+  title: formValues.title,
+  previewText: formValues.previewText,
+  content: formValues.content,
+  readingTime: this.calculateReadingTime(formValues.content),
+  tags: formValues.tags
+    ? formValues.tags.split(',').map((tag: string) => tag.trim())
+    : [],
+};
+
 
   this.isSubmitting = true;
 

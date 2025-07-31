@@ -3,7 +3,7 @@ export interface IArticle {
   title: string;
   content: string;
   previewText: string;
-  createdAt: string;      
+  createdAt: string;
   readingTime: number;
   tags?: string[];
 }

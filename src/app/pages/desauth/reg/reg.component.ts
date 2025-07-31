@@ -53,6 +53,9 @@ export class RegComponent {
 }, this.rememberMe).subscribe({
       next: () => {
         this.isLoading = false;
+         const user = this.userService.getUser();
+         const targetRoute = user?.login === 'admin' ? '/settings' : '/designer';
+        this.router.navigate([targetRoute]);
 
         // Форма очищается
         

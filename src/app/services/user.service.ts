@@ -50,15 +50,18 @@ export class UserService {
     );
   }
 
-  private handleAuthSuccess(response: AuthResponse, login: string, remember: boolean): void {
+ private handleAuthSuccess(response: AuthResponse, login: string, remember: boolean): void {
   this.saveAuthData(response.token, login, remember);
   this.setUser({
     login: response.user.login,
     email: response.user.email,
     id: response.user.id
   }, remember);
-  this.router.navigate(['/designer']);
+
+  const targetRoute = response.user.login === 'admin' ? '/settings' : '/designer';
+  this.router.navigate([targetRoute]);
 }
+
 
 
   private saveAuthData(token: string, login: string, remember: boolean): void {

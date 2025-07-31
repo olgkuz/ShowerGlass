@@ -46,6 +46,9 @@ export class AuthorizationComponent {
 }, this.rememberMe).subscribe({
   next: () => {
     this.isLoading = false;
+    const user = this.userService.getUser();
+    const targetRoute = user?.login === 'admin' ? '/settings' : '/designer';
+    this.router.navigate([targetRoute]);
     this.login = '';
     this.password = '';
     this.rememberMe = false;

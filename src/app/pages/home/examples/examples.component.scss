@@ -1,3 +1,4 @@
+@use "sass:color";
 @use "variables" as var;
 
 :host {
@@ -50,8 +51,8 @@
     transition: background-color 0.3s ease;
 
     &:hover {
-      background-color: darken(var.$background, 10%) !important;
-    }
+    background-color: color.adjust(var.$background, $lightness: -10%);
+    } 
 
     .p-icon {
       font-size: 1.2rem;
@@ -69,7 +70,7 @@
   height: 12px !important;
   border-radius: 50% !important;
   border: none !important;
-  background-color: lighten(var.$background, 40%) !important;
+  background-color: color.adjust(var.$background, $lightness: 40%) !important;
   margin: 0 4px !important;
   transition: background-color 0.3s ease !important;
 }
