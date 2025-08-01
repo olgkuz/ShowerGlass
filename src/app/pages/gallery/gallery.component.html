@@ -1,1 +1,17 @@
-<p>gallery works!</p>,
+<div class="gallery">
+  <h2 class="text-center mb-4">Галерея душевых ограждений</h2>
+
+  <div class="cards-grid">
+    <div class="card" *ngFor="let card of cards">
+      <img
+        *ngIf="card.img"
+        [src]="apiUrl + '/public/' + card.img"
+        [alt]="card.name"
+      />
+      <div class="card-content">
+        <h3>{{ card.name }}</h3>
+        <p>{{ card.description }}</p>
+      </div>
+    </div>
+  </div>
+</div>

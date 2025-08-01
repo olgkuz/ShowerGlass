@@ -25,6 +25,9 @@ export class PhotouploadComponent {
   selectedFile: File | null = null;
   imagePreviewUrl: string | null = null;
 
+  uploadedImageUrl: string | null = null;
+  uploadedImageId: string | null = null;
+
   constructor(private fb: FormBuilder, private http: HttpClient) {
     this.cardForm = this.fb.group({
       name: ['', Validators.required],
@@ -32,17 +35,17 @@ export class PhotouploadComponent {
     });
   }
 
-  onFileSelected(event: any): void {
-    const file = event.target.files[0];
-    if (file) {
-      this.selectedFile = file;
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (!input.files?.length) return;
 
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.imagePreviewUrl = reader.result as string;
-      };
-      reader.readAsDataURL(file);
-    }
+    this.selectedFile = input.files[0];
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imagePreviewUrl = reader.result as string;
+    };
+    reader.readAsDataURL(this.selectedFile);
   }
 
   uploadCard(): void {
@@ -51,17 +54,34 @@ export class PhotouploadComponent {
     const formData = new FormData();
     formData.append('name', this.cardForm.get('name')?.value);
     formData.append('description', this.cardForm.get('description')?.value);
-    formData.append('img', this.selectedFile); 
+    formData.append('img', this.selectedFile);
 
-    this.http.post(`${environment.apiUrl}/cards/upload`, formData).subscribe({
+    this.http.post<any>(`${environment.apiUrl}/cards/upload`, formData).subscribe({
       next: (res) => {
-        console.log(' Успешно загружено:', res);
+        console.log('✅ Успешно загружено:', res);
+        this.uploadedImageUrl = `${environment.apiUrl}/public/${res.img}`;
+        this.uploadedImageId = res.id;
         this.cardForm.reset();
-        this.imagePreviewUrl = null;
         this.selectedFile = null;
+        this.imagePreviewUrl = null;
       },
       error: (err) => {
-        console.error(' Ошибка загрузки:', err);
+        console.error('❌ Ошибка загрузки:', err);
+      }
+    });
+  }
+
+  deleteImage(): void {
+    if (!this.uploadedImageId) return;
+
+    this.http.delete(`${environment.apiUrl}/cards/${this.uploadedImageId}`).subscribe({
+      next: () => {
+        console.log('🗑️ Удалено успешно');
+        this.uploadedImageUrl = null;
+        this.uploadedImageId = null;
+      },
+      error: (err) => {
+        console.error('❌ Ошибка при удалении:', err);
       }
     });
   }
