@@ -11,14 +11,20 @@
     <input id="description" type="text" pInputText formControlName="description" />
   </div>
 
-  <div class="form-group mt-3">
-    <label for="img">Изображение</label>
-    <input id="img" type="file" (change)="onFileSelected($event)" />
+  <div
+    class="drop-area mt-3"
+    (drop)="onDropFile($event)"
+    (dragover)="onDragOver($event)"
+  >
+    <label for="img" class="drop-label">
+      Перетащите изображение сюда или нажмите для выбора
+      <input id="img" type="file" (change)="onFileSelected($event)" hidden />
+    </label>
   </div>
 
-  <div class="image-preview mt-3" *ngIf="imagePreviewUrl">
-    <p>Предпросмотр:</p>
-    <img [src]="imagePreviewUrl" alt="Preview" style="max-width: 300px;" />
+  <div class="image-preview" *ngIf="imagePreviewUrl">
+    <img [src]="imagePreviewUrl" alt="Предпросмотр" />
+    <button class="remove-button" type="button" (click)="clearSelectedFile()">×</button>
   </div>
 
   <div class="mt-4">
@@ -28,14 +34,5 @@
       (click)="uploadCard()"
       [disabled]="!cardForm.valid || !selectedFile"
     ></button>
-  </div>
-
-  <div *ngIf="uploadedImageUrl" class="mt-4">
-    <p>Изображение загружено:</p>
-    <img [src]="uploadedImageUrl" alt="Загружено" style="max-width: 300px;" />
-
-    <div class="mt-2">
-      <button pButton label="Удалить изображение" severity="danger" (click)="deleteImage()"></button>
-    </div>
   </div>
 </div>

@@ -1,3 +1,56 @@
-:host {
-  display: block;
+.article-form {
+  max-width: 500px;
+  margin: auto;
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .drop-area {
+    border: 2px dashed #ccc;
+    border-radius: 8px;
+    padding: 1rem;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.3s;
+    background-color: #f9f9f9;
+
+    &:hover {
+      background-color: #eaeaea;
+    }
+  }
+
+  .drop-label {
+    display: block;
+    cursor: pointer;
+  }
+
+  .image-preview {
+    position: relative;
+    margin-top: 1rem;
+    max-width: 100%;
+    img {
+      width: 100%;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .remove-button {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: rgba(255, 255, 255, 0.9);
+      border: none;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      font-size: 20px;
+      line-height: 30px;
+      text-align: center;
+      cursor: pointer;
+      color: red;
+      font-weight: bold;
+    }
+  }
 }
