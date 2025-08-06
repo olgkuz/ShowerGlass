@@ -11,6 +11,8 @@ import { TextareaModule } from 'primeng/textarea';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { environment } from '../../../../environments/environment.development';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-contactform',
@@ -34,19 +36,35 @@ export class ContactformComponent {
     message: new FormControl('')
   });
 
-  constructor(private messageService: MessageService) {}
+  constructor(
+  private messageService: MessageService,
+  private http: HttpClient
+) {}
 
-  submitForm() {
-    if (this.contactForm.valid) {
-      console.log('Форма отправлена', this.contactForm.value);
-      this.contactForm.reset();
+submitForm() {
+  if (this.contactForm.valid) {
+    const formData = this.contactForm.value;
 
-      this.messageService.add({
-        severity: 'success',
-        summary: 'Успех',
-        detail: 'Сообщение успешно отправлено',
-        life: 4000
-      });
-    }
+    this.http.post(`${environment.apiUrl}/contact`, formData).subscribe({
+      next: () => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Успех',
+          detail: 'Сообщение успешно отправлено',
+          life: 4000
+        });
+        this.contactForm.reset();
+      },
+      error: () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Ошибка',
+          detail: 'Не удалось отправить сообщение',
+          life: 4000
+        });
+      }
+    });
   }
 }
+  }
+

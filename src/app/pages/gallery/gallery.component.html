@@ -11,7 +11,8 @@
           <img
             [src]="card.imgUrl"
             [alt]="card.name"
-            style="width: 100%; height: 200px; object-fit: cover"
+            (click)="openImage(card.imgUrl!)"
+            style="width: 100%; height: 200px; object-fit: cover; cursor: zoom-in;"
           />
         </ng-template>
 
@@ -25,4 +26,13 @@
       </p-card>
     </div>
   </div>
+</div>
+
+<!-- Fullscreen preview -->
+<div
+  class="image-overlay"
+  *ngIf="selectedImgUrl"
+  (click)="closeImage()"
+>
+  <img [src]="selectedImgUrl" class="zoomed-image" />
 </div>
