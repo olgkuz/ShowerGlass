@@ -50,8 +50,8 @@ submitForm() {
         this.messageService.add({
           severity: 'success',
           summary: 'Успех',
-          detail: 'Сообщение успешно отправлено',
-          life: 4000
+          detail: 'Сообщение отправлено!',
+          life: 4000,
         });
         this.contactForm.reset();
       },
@@ -60,11 +60,10 @@ submitForm() {
           severity: 'error',
           summary: 'Ошибка',
           detail: 'Не удалось отправить сообщение',
-          life: 4000
+          life: 4000,
         });
-      }
+      },
     });
   }
+} 
 }
-  }
-

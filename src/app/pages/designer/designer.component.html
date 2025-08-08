@@ -1,33 +1,62 @@
 <section class="designer-page">
-
   <div class="logout-button">
     <button pButton type="button" [label]="'Выйти'" (click)="logout()"></button>
   </div>
 
   <h2>Здравствуйте, дорогой друг!</h2>
   <p class="welcome-text">
-    Мы рады работать вместе и предлагаем вам комфортные условия сотрудничества.  
-    В таблице ниже вы можете увидеть заказы, которые мы уже отработали вместе.
+    Мы рады работать вместе и предлагаем вам комфортные условия сотрудничества.
   </p>
 
-  <p-table [value]="orders" class="orders-table">
-    <ng-template pTemplate="header">
-      <tr>
-        <th>Номер</th>
-        <th>Адрес</th>
-        <th>Сумма договора</th>
-        <th>Бонус</th>
-      </tr>
-    </ng-template>
+  <!-- ✅ Форма для загрузки задания от дизайнера -->
+  <form
+    class="designer-form"
+    [formGroup]="designerForm"
+    (ngSubmit)="submitForm()"
+    enctype="multipart/form-data"
+  >
+    <div class="form-group">
+      <label>Название объекта</label>
+      <input type="text" pInputText formControlName="objectName" />
+    </div>
 
-    <ng-template pTemplate="body" let-row>
-      <tr>
-        <td>{{ row.number }}</td>
-        <td>{{ row.address }}</td>
-        <td>{{ row.contractSum }}</td>
-        <td>{{ row.bonus }}</td>
-      </tr>
-    </ng-template>
-  </p-table>
+    <div class="form-group">
+      <label>Телефон</label>
+      <input type="text" pInputText formControlName="phone" />
+    </div>
 
+    <div class="form-group">
+      <label>Комментарий</label>
+      <textarea rows="4" pInputTextarea formControlName="comment"></textarea>
+    </div>
+
+    <div
+      class="file-drop"
+      (dragover)="onDragOver($event)"
+      (drop)="onDrop($event)"
+    >
+      <p>Перетащите сюда PDF или изображение</p>
+      <input type="file" (change)="onFileSelected($event)" hidden #fileInput />
+      <button type="button" pButton label="Выбрать файл" (click)="fileInput.click()"></button>
+      <p *ngIf="fileName">{{ fileName }}</p>
+    </div>
+
+    <button
+      pButton
+      type="submit"
+      label="Отправить задание"
+      [disabled]="!designerForm.valid || !selectedFile"
+    ></button>
+  </form>
+
+  <!-- ✅ Ссылка на WhatsApp -->
+  <div class="whatsapp-link">
+    <a
+      href="https://wa.me/79110293030"
+      target="_blank"
+      rel="noopener"
+    >
+      💬 Связаться через WhatsApp
+    </a>
+  </div>
 </section>
