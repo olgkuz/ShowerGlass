@@ -35,52 +35,63 @@
     line-height: 1.6;
   }
 
-  .orders-table {
-    text-align: left;
+  .designer-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem; // ✅ одинаковый отступ между всеми элементами формы
 
-    ::ng-deep .p-datatable-thead > tr > th {
-      font-weight: 600;
-      background-color: #f6f6f6;
-      padding: 1rem;
-      font-size: 1.1rem;
-    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem; // расстояние между label и input/textarea
 
-    ::ng-deep .p-datatable-tbody > tr > td {
-      padding: 1rem;
-      font-size: 1rem;
-      border-bottom: 1px solid #eee;
+      label {
+        font-weight: 600;
+        font-size: 1rem;
+        color: #333;
+      }
+
+      input, textarea {
+        width: 100%;
+        font-size: 1rem;
+      }
     }
   }
+
   .file-drop {
-  border: 2px dashed #aaa;
-  padding: 1rem;
-  text-align: center;
-  margin-bottom: 1rem;
-  border-radius: 8px;
-  background-color: #f9f9f9;
+    border: 2px dashed #aaa;
+    padding: 1rem;
+    text-align: center;
+    border-radius: 8px;
+    background-color: #f9f9f9;
 
-  p {
-    margin-bottom: 0.5rem;
-  }
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem; // расстояние между текстом, кнопкой и именем файла
 
-  button {
-    margin-top: 0.5rem;
-  }
-}
+    p {
+      margin: 0;
+      font-size: 0.95rem;
+      color: #555;
+    }
 
-.whatsapp-link {
-  margin-top: 2rem;
-  text-align: center;
-
-  a {
-    font-size: 1.1rem;
-    color: green;
-    text-decoration: none;
-
-    &:hover {
-      text-decoration: underline;
+    button {
+      align-self: center;
     }
   }
-}
 
+  .whatsapp-link {
+    margin-top: 2rem;
+    text-align: center;
+
+    a {
+      font-size: 1.1rem;
+      color: green;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
 }

@@ -13,6 +13,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment.development';
 import { RouterModule, Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
+import { UserStorage } from '../../models/user';
 
 @Component({
   selector: 'app-designer',
@@ -37,13 +38,15 @@ export class DesignerComponent {
 
   selectedFile: File | null = null;
   fileName = '';
-event: Event;
+  user: UserStorage | null = null; // ✅ добавили хранение пользователя
 
   constructor(
     private http: HttpClient,
     private router: Router,
     private userService: UserService
-  ) {}
+  ) {
+    this.user = this.userService.getUser(); // ✅ получаем пользователя при загрузке
+  }
 
   logout() {
     this.userService.logout();

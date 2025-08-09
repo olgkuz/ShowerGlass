@@ -2,24 +2,22 @@
   <div class="card">
     <h2>Регистрация дизайнера</h2>
 
-   
     <div class="field">
-      <label for="reg-login">Логин</label>
+      <label for="reg-name">Имя</label>
       <input
-        id="reg-login"
+        id="reg-name"
         type="text"
         pInputText
-        [(ngModel)]="login"
+        [(ngModel)]="name"
         [disabled]="isLoading"
         placeholder="Минимум 3 символа"
-        [ngClass]="{'p-invalid': login && login.length < 3}"
+        [ngClass]="{'p-invalid': name && name.length < 3}"
       >
-      @if (login && login.length < 3) {
-        <small class="p-error">Логин слишком короткий</small>
+      @if (name && name.length < 3) {
+        <small class="p-error">Имя слишком короткое</small>
       }
     </div>
 
-    
     <div class="field">
       <label for="email">Email</label>
       <input
@@ -36,7 +34,6 @@
       }
     </div>
 
-    
     <div class="field">
       <label for="reg-password">Пароль</label>
       <input
@@ -53,7 +50,6 @@
       }
     </div>
 
-    
     <div class="field">
       <label for="repeat-password">Повторите пароль</label>
       <input
@@ -69,7 +65,6 @@
       }
     </div>
 
-   
     <div class="checkbox-field mt-3">
       <p-checkbox
         [(ngModel)]="rememberMe"
@@ -79,7 +74,6 @@
       ></p-checkbox>
       <label for="rememberMe" class="checkbox-label">Запомнить меня</label>
     </div>
-
 
     <p-button
       label="Зарегистрироваться"

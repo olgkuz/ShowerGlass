@@ -22,7 +22,7 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./reg.component.scss']
 })
 export class RegComponent {
-  login: string = '';
+  name: string = '';
   email: string = '';
   password: string = '';
   repeatPassword: string = '';
@@ -36,7 +36,7 @@ export class RegComponent {
   ) {}
 
   isFormValid(): boolean {
-    return this.login?.length >= 3 && 
+    return this.name?.length >= 3 &&
            this.email?.includes('@') &&
            this.password?.length >= 6 &&
            this.password === this.repeatPassword;
@@ -47,27 +47,24 @@ export class RegComponent {
 
     this.isLoading = true;
     this.userService.registerUser({
-  login: this.login,
-  email: this.email,
-  password: this.password
-}, this.rememberMe).subscribe({
+      name: this.name,
+      email: this.email,
+      password: this.password
+    }, this.rememberMe).subscribe({
       next: () => {
         this.isLoading = false;
-         const user = this.userService.getUser();
-         const targetRoute = user?.login === 'admin' ? '/settings' : '/designer';
+        const user = this.userService.getUser();
+        const targetRoute = user?.name === 'admin' ? '/settings' : '/designer';
         this.router.navigate([targetRoute]);
 
-        // Форма очищается
-        
-        this.login = '';
+        // очистка формы
+        this.name = '';
         this.email = '';
         this.password = '';
         this.repeatPassword = '';
         this.rememberMe = false;
-
-        // Переход на /designer в UserService
       },
-      error: (err) => {
+      error: () => {
         this.isLoading = false;
       }
     });

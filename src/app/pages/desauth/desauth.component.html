@@ -3,14 +3,14 @@
   <div class="welcome-text">
     <h2>Добро пожаловать, дизайнер!</h2>
     <p>
-      Зарегистрируйтесь, чтобы отслеживать свои заказы, получать бонусы и узнавать полезную информацию первым.
+      Зарегистрируйтесь, чтобы загружать свои заказы, получать бонусы и узнавать полезную информацию первым.
     </p>
   </div>
 
   <div class="logout-btn">
     <p-button
       [icon]="logoutIcon"
-      [label]="user?.login ? user.login : 'На главную'"
+      [label]="user?.name ? user.name : 'На главную'"
       pTooltip="Вернуться на главную"
       (mouseenter)="hoverLogoutBtn(true)"
       (mouseleave)="hoverLogoutBtn(false)"
@@ -29,4 +29,3 @@
   </p-tabView>
 
 </div>
-

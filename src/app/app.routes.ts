@@ -13,7 +13,6 @@ import { authGuard } from './shared/guards/auth.guard';
 import { SettingsComponent } from './pages/settings/settings.component'; 
 import { CardsComponent } from './pages/home/cards/cards.component';
 
-
 export const routes: Routes = [
   {
     path: '',
@@ -32,7 +31,7 @@ export const routes: Routes = [
         component: SettingsComponent,
         canActivate: [() => {
           const user = inject(UserService).getUser();
-          return user?.login === 'admin';
+          return user?.name === 'admin'; // заменено login → name
         }]
       },
 
@@ -42,8 +41,7 @@ export const routes: Routes = [
 
   {
     path: 'desauth',
-    component: DesauthComponent,
-
+    component: DesauthComponent
   },
 
   {

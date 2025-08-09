@@ -5,58 +5,47 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { UserService } from '../../../services/user.service';
 import { Router } from '@angular/router';
-import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-authorization',
   standalone: true,
-  imports: [
-    CommonModule,
-    NgClass,
-    FormsModule,
-    ButtonModule,
-    InputTextModule
-  ],
+  imports: [CommonModule, NgClass, FormsModule, ButtonModule, InputTextModule],
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.scss']
 })
 export class AuthorizationComponent {
-  login: string = '';
-  password: string = '';
-  rememberMe: boolean = false;
-  isLoading: boolean = false;
+  name = '';
+  password = '';
+  rememberMe = false;
+  isLoading = false;
 
   constructor(
     private userService: UserService,
-    private messageService: MessageService,
     private router: Router
   ) {}
 
   isFormValid(): boolean {
-    return this.login?.length >= 3 && this.password?.length >= 6;
+    return (this.name?.length ?? 0) >= 3 && (this.password?.length ?? 0) >= 6;
   }
 
   onAuth(): void {
-    if (!this.isFormValid()) return;
+    if (!this.isFormValid() || this.isLoading) return;
 
     this.isLoading = true;
-  this.userService.authUser({
-  login: this.login,
-  password: this.password
-}, this.rememberMe).subscribe({
-  next: () => {
-    this.isLoading = false;
-    const user = this.userService.getUser();
-    const targetRoute = user?.login === 'admin' ? '/settings' : '/designer';
-    this.router.navigate([targetRoute]);
-    this.login = '';
-    this.password = '';
-    this.rememberMe = false;
-  },
-  error: (err) => {
-    this.isLoading = false;
-  }
-});
-
+    this.userService.authUser(
+      { name: this.name, password: this.password },
+      this.rememberMe
+    ).subscribe({
+      next: () => {
+        this.isLoading = false;
+        const user = this.userService.getUser();
+        const targetRoute = user?.name === 'admin' ? '/settings' : '/designer';
+        this.router.navigate([targetRoute]);
+        this.name = '';
+        this.password = '';
+        this.rememberMe = false;
+      },
+      error: () => { this.isLoading = false; }
+    });
   }
 }

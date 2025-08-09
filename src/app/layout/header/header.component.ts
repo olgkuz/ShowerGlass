@@ -2,33 +2,28 @@ import { Component, OnDestroy, OnInit, HostListener } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { MenubarModule } from 'primeng/menubar';
 import { MenuItem } from 'primeng/api';
-import { IUser } from '../../models/user';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { UserStorage } from '../../models/user';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [
-    MenubarModule,
-    ButtonModule, 
-    CommonModule
-  ],
+  imports: [MenubarModule, ButtonModule, CommonModule],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.scss'
+  styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit, OnDestroy {
-
   menuItems: MenuItem[] = [];
-  user: IUser;
+  user: UserStorage | null = null;
   logoutIcon = 'pi pi-user';
   isMobile = false;
   menuVisible = false;
 
   constructor(
     private userService: UserService,
-    private router: Router,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -40,20 +35,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnDestroy() {}
 
   initMenuItems(): MenuItem[] {
-  const items: MenuItem[] = [
-    { label: 'Главная', routerLink: ['/home'] },
-    { label: 'Галерея', routerLink: ['/gallery'] },
-    { label: 'Информация', routerLink: ['/blog'] },
-    { label: 'Дизайнерам', routerLink: ['/desauth'] }
-  ];
+    const items: MenuItem[] = [
+      { label: 'Главная', routerLink: ['/home'] },
+      { label: 'Галерея', routerLink: ['/gallery'] },
+      { label: 'Информация', routerLink: ['/blog'] },
+      { label: 'Дизайнерам', routerLink: ['/desauth'] }
+    ];
 
-  if (this.user?.login === 'admin') {
-    items.push({ label: 'Настройки', routerLink: ['/settings'] });
+    if (this.user?.name === 'admin') {
+      items.push({ label: 'Настройки', routerLink: ['/settings'] });
+    }
+    return items;
   }
-
-  return items;
-}
-
 
   goToContacts(): void {
     this.router.navigate(['/contacts']);
@@ -64,7 +57,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.menuVisible = false;
   }
 
-  @HostListener('window:resize', []) // изменение размера окна браузера
+  @HostListener('window:resize', [])
   onResize() {
     this.checkScreenSize();
   }
@@ -73,3 +66,5 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.isMobile = window.innerWidth < 768;
   }
 }
+
+
