@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, HostListener } from '@angular/core';
+import { Component, OnDestroy, OnInit, HostListener, ChangeDetectorRef } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { MenubarModule } from 'primeng/menubar';
 import { MenuItem } from 'primeng/api';
@@ -6,6 +6,7 @@ import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { UserStorage } from '../../models/user';
+
 
 @Component({
   selector: 'app-header',
@@ -18,18 +19,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
   menuItems: MenuItem[] = [];
   user: UserStorage | null = null;
   logoutIcon = 'pi pi-user';
-  isMobile = false;
+  isMobile = window.innerWidth < 768;
   menuVisible = false;
 
   constructor(
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
     this.user = this.userService.getUser();
     this.menuItems = this.initMenuItems();
-    this.checkScreenSize();
   }
 
   ngOnDestroy() {}
@@ -63,8 +64,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   private checkScreenSize(): void {
-    this.isMobile = window.innerWidth < 768;
+    const next = window.innerWidth < 768;
+    if (next !== this.isMobile) {
+      setTimeout(() => {
+        this.isMobile = next;
+        this.cdr.detectChanges();
+      });
+    }
   }
 }
-
-

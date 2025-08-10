@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule, AccordionModule],
   templateUrl: './accordion.component.html',
-  styleUrl: './accordion.component.scss',
+  styleUrls: ['./accordion.component.scss'], // ← исправлено
 })
 export class AccordionComponent {
   stepsList = [
