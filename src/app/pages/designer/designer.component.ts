@@ -9,7 +9,7 @@ import {
 import { InputTextModule } from 'primeng/inputtext';
 import { TextareaModule } from 'primeng/textarea';
 import { ButtonModule } from 'primeng/button';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../environments/environment.development';
 import { RouterModule, Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
@@ -79,24 +79,32 @@ export class DesignerComponent {
   }
 
   submitForm() {
-    if (this.designerForm.valid && this.selectedFile) {
-      const formData = new FormData();
-      formData.append('file', this.selectedFile);
-      formData.append('objectName', this.designerForm.value.objectName!);
-      formData.append('phone', this.designerForm.value.phone!);
-      formData.append('comment', this.designerForm.value.comment!);
+  if (this.designerForm.valid && this.selectedFile) {
+    const formData = new FormData();
+    formData.append('file', this.selectedFile);
+    formData.append('objectName', this.designerForm.value.objectName!);
+    formData.append('phone', this.designerForm.value.phone!);
+    formData.append('comment', this.designerForm.value.comment!);
 
-      this.http.post(`${environment.apiUrl}/designers/upload`, formData).subscribe({
-        next: () => {
-          alert('Задание успешно отправлено!');
-          this.designerForm.reset();
-          this.selectedFile = null;
-          this.fileName = '';
-        },
-        error: () => {
-          alert('Ошибка при отправке задания.');
-        }
-      });
-    }
+    // Получаем токен из UserService
+    const token = this.userService.getToken(); 
+    
+    // Добавляем заголовок с токеном
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    this.http.post(`${environment.apiUrl}/designers/upload`, formData, { headers }).subscribe({
+      next: () => {
+        alert('Задание успешно отправлено!');
+        this.designerForm.reset();
+        this.selectedFile = null;
+        this.fileName = '';
+      },
+      error: (err) => {
+        console.error('Ошибка:', err);
+        alert('Ошибка при отправке: ' + err?.error?.message || err.message);
+      }
+    });
   }
-}
+}}
