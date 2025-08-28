@@ -6,69 +6,51 @@
     <div class="contact-card">
       <i class="pi pi-phone contact-icon"></i>
       <h3>Телефон</h3>
-      <p>+7 (123) 456-78-90</p>
-      <button pButton type="button" label="Позвонить" class="p-button-text"></button>
+      <p>{{ phone }}</p>
+      <!-- Активная кнопка вызова -->
+      <a
+        pButton
+        class="p-button-text"
+        [href]="'tel:' + phoneTel"
+        label="Позвонить"
+        aria-label="Позвонить"
+      ></a>
     </div>
 
     <div class="contact-card">
       <i class="pi pi-envelope contact-icon"></i>
       <h3>Email</h3>
-      <p>info&#64;designstudio.ru</p>
-      <button pButton type="button" label="Написать" class="p-button-text"></button>
+      <p>{{ email }}</p>
+      <!-- Активная кнопка отправки письма -->
+      <a
+        pButton
+        class="p-button-text"
+        [href]="'mailto:' + email + '?subject=' + encodeURIComponent('Вопрос с сайта')"
+        label="Написать"
+        aria-label="Написать"
+      ></a>
     </div>
 
     <div class="contact-card">
       <i class="pi pi-map-marker contact-icon"></i>
       <h3>Адрес</h3>
       <p>г. Москва, ул. Дизайнеров, д. 15</p>
-      <button pButton type="button" label="На карте" class="p-button-text"></button>
+      <!-- Активная кнопка карты -->
+      <a
+        pButton
+        class="p-button-text"
+        [href]="mapUrl"
+        target="_blank"
+        rel="noopener"
+        label="На карте"
+        aria-label="Открыть на карте"
+      ></a>
     </div>
   </div>
 
   <div class="contacts-content">
-    <form (ngSubmit)="submitForm()">
-      <div class="form-group">
-        <input
-          pInputText
-          id="name"
-          [(ngModel)]="contactForm.name"
-          name="name"
-          placeholder="Ваше имя"
-          required
-        />
-      </div>
-
-      <div class="form-group">
-        <input
-          pInputText
-          id="email"
-          [(ngModel)]="contactForm.email"
-          name="email"
-          placeholder="Email"
-          type="email"
-          required
-        />
-      </div>
-
-      <div class="form-group">
-        <textarea
-          pInputTextarea
-          id="message"
-          [(ngModel)]="contactForm.message"
-          name="message"
-          rows="4"
-          placeholder="Сообщение"
-          required
-        ></textarea>
-      </div>
-
-      <button
-        pButton
-        type="submit"
-        label="Отправить"
-        [disabled]="!contactForm.name || !contactForm.email || !contactForm.message"
-      ></button>
-    </form>
+    <!-- Вставляем готовую реактивную форму -->
+    <app-contactform></app-contactform>
   </div>
 </div>
 

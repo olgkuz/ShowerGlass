@@ -13,6 +13,8 @@ import { authGuard } from './shared/guards/auth.guard';
 import { SettingsComponent } from './pages/settings/settings.component'; 
 import { CardsComponent } from './pages/home/cards/cards.component';
 
+import { PrivacyPolicyComponent } from './pages/privacypolicy/privacyPolicy.component';
+
 export const routes: Routes = [
   {
     path: '',
@@ -24,6 +26,7 @@ export const routes: Routes = [
       { path: 'blog', component: BlogComponent },
       { path: 'card/:id', component: CardComponent },
       { path: 'contacts', component: ContactsComponent },
+      { path: 'privacy-policy', component: PrivacyPolicyComponent }, // 👈 добавлен маршрут
 
       // Только для admin
       {

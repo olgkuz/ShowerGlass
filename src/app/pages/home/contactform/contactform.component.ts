@@ -13,6 +13,7 @@ import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { environment } from '../../../../environments/environment.development';
 import { HttpClient } from '@angular/common/http';
+import { CheckboxModule } from 'primeng/checkbox';
 
 @Component({
   selector: 'app-contactform',
@@ -23,7 +24,8 @@ import { HttpClient } from '@angular/common/http';
     InputTextModule,
     TextareaModule,
     ButtonModule,
-    ToastModule
+    ToastModule,
+    CheckboxModule
   ],
   templateUrl: './contactform.component.html',
   styleUrl: './contactform.component.scss',
@@ -33,37 +35,38 @@ export class ContactformComponent {
   contactForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
     phone: new FormControl('', [Validators.required]),
-    message: new FormControl('')
+    message: new FormControl(''),
+    consent: new FormControl(false, [Validators.requiredTrue])
   });
 
   constructor(
-  private messageService: MessageService,
-  private http: HttpClient
-) {}
+    private messageService: MessageService,
+    private http: HttpClient
+  ) {}
 
-submitForm() {
-  if (this.contactForm.valid) {
-    const formData = this.contactForm.value;
+  submitForm() {
+    if (this.contactForm.valid) {
+      const formData = this.contactForm.value;
 
-    this.http.post(`${environment.apiUrl}/contact`, formData).subscribe({
-      next: () => {
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Успех',
-          detail: 'Сообщение отправлено!',
-          life: 4000,
-        });
-        this.contactForm.reset();
-      },
-      error: () => {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Ошибка',
-          detail: 'Не удалось отправить сообщение',
-          life: 4000,
-        });
-      },
-    });
+      this.http.post(`${environment.apiUrl}/contact`, formData).subscribe({
+        next: () => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Успех',
+            detail: 'Сообщение отправлено!',
+            life: 4000,
+          });
+          this.contactForm.reset();
+        },
+        error: () => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Ошибка',
+            detail: 'Не удалось отправить сообщение',
+            life: 4000,
+          });
+        },
+      });
+    }
   }
-} 
 }

@@ -11,6 +11,7 @@
 
   h2 {
     font-size: 2rem;
+    font-weight: 700;
     margin-bottom: 0.5rem;
     color: var.$background;
     font-family: var.$font-family-base;
@@ -45,6 +46,23 @@
 
         &:hover {
           border-color: var.$background;
+        }
+      }
+    }
+
+    .consent {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      color: #555;
+
+      a {
+        color: var.$background;
+        text-decoration: underline;
+
+        &:hover {
+          opacity: 0.8;
         }
       }
     }

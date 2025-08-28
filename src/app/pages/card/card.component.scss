@@ -37,24 +37,46 @@
   .description-content {
     font-size: 1.125rem;
     color: #444;
-    white-space: normal; // текст переносится автоматически
+    white-space: normal;
     line-height: 1.6;
     word-wrap: break-word;
     overflow-wrap: break-word;
     max-width: 100%;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
   }
 }
 
-button[pButton] {
+/* Общий стиль для кнопок */
+button[pButton],
+a[pButton] {
   background-color: var.$background !important;
   border: none !important;
   color: #fff !important;
-  margin: 2rem;
+  margin: 1rem 1rem 0 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  text-align: center;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: opacity 0.2s ease;
 
   &:hover {
     opacity: 0.9;
   }
+
+  i {
+    margin-right: 0.5rem;
+    font-size: 1.2rem;
+  }
+}
+
+/* Специальный стиль для WhatsApp */
+a.whatsapp-button {
+  background-color: #25D366 !important; // фирменный зеленый
+  color: #fff !important;
 }
 
 @media (max-width: 768px) {
@@ -67,4 +89,3 @@ button[pButton] {
     }
   }
 }
-
