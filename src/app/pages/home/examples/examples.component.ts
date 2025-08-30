@@ -18,14 +18,14 @@ interface ExampleItem {
 export class ExamplesComponent {
   examples: ExampleItem[] = [
     { image: 'assets/img/examples/example1.jpg', title: 'Душевая с откатной дверью Piuma' },
-    { image: 'assets/img/examples/example2.jpg', title: 'Душевая раздвижные двери с угла' },
+    { image: 'assets/img/examples/example2.jpg', title: 'Душевая раздвижные двери с угла тонированное стекло' },
     { image: 'assets/img/examples/example3.jpg', title: 'Душевая с распашной дверью' },
     { image: 'assets/img/examples/example4.jpg', title: 'Душевая трапециевидная' },
-    { image: 'assets/img/examples/example5.jpg', title: 'Угловая душевая конструкция' },
-    { image: 'assets/img/examples/example6.jpg', title: 'Душевая в нише с матовым стеклом' },
-    { image: 'assets/img/examples/example7.jpg', title: 'Ограждение с черной фурнитурой' },
-    { image: 'assets/img/examples/example8.jpg', title: 'Стеклянная дверь с бронзовым оттенком' },
-    { image: 'assets/img/examples/example9.jpg', title: 'Минималистичное душевое ограждение' }
+    { image: 'assets/img/examples/example5.jpg', title: 'Душевое ограждение с дверью под углом 45 градусов' },
+    { image: 'assets/img/examples/example6.jpg', title: 'Ограждение на ванну' },
+    { image: 'assets/img/examples/example7.jpg', title: 'Угловое душевое ограждение' },
+    { image: 'assets/img/examples/example8.jpg', title: 'Душевое ограждение в нишу' },
+    { image: 'assets/img/examples/example9.jpg', title: 'Душеове ограждение Slash' }
   ];
 
   // Адаптивная настройка для p-carousel

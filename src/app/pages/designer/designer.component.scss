@@ -2,72 +2,134 @@
   display: block;
 }
 
+/* Корневая обёртка страницы */
 .designer-page {
-  max-width: 1000px;
+  /* Чуть шире, чтобы поместилась колонка aside */
+  max-width: 1200px;
   margin: 3rem auto;
   padding: 2rem;
   position: relative;
+  background: #fff;
 
+  /* Кнопка выхода */
   .logout-button {
     position: absolute;
     top: 1rem;
     right: 1rem;
+    z-index: 2;
 
     button {
       padding: 0.5rem 1rem;
-      font-size: 1rem;
+      font-size: 0.95rem;
+      line-height: 1;
     }
   }
 
   h2 {
     text-align: center;
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     color: #333;
     font-weight: 700;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
   }
 
   .welcome-text {
     text-align: center;
-    font-size: 1.25rem;
+    font-size: 1.05rem;
     color: #555;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
     line-height: 1.6;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* === Двухколоночный layout: контент + aside === */
+  .designer-layout {
+    display: grid;
+    grid-template-columns: 2fr 0.9fr; /* 2/3 контент, ~1/3 aside */
+    gap: 2rem;
+    align-items: start;
+
+    @media (max-width: 1100px) {
+      grid-template-columns: 1fr; /* на планшете и мобилке aside вниз */
+    }
+  }
+
+  /* === Основной контент (форма) === */
+  .designer-content {
+    background: #fff;
   }
 
   .designer-form {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem; // ✅ одинаковый отступ между всеми элементами формы
+    gap: 1.25rem;
 
     .form-group {
       display: flex;
       flex-direction: column;
-      gap: 0.5rem; // расстояние между label и input/textarea
+      gap: 0.5rem;
 
       label {
         font-weight: 600;
-        font-size: 1rem;
+        font-size: 0.95rem;
         color: #333;
       }
 
-      input, textarea {
+      input,
+      textarea {
         width: 100%;
         font-size: 1rem;
+        padding: 0.65rem 0.75rem;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        background: #fff;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+        &:focus {
+          outline: none;
+          border-color: #4F4732;
+          box-shadow: 0 0 0 3px rgba(79, 71, 50, 0.15);
+        }
+
+        &.ng-invalid.ng-touched {
+          border-color: #e74c3c;
+          box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.12);
+        }
+      }
+
+      /* Подсказка/ошибка (если выводишь) */
+      .hint,
+      .error {
+        font-size: 0.85rem;
+        color: #777;
+
+        &.error {
+          color: #e74c3c;
+        }
       }
     }
   }
 
+  /* === Зона dnd для файла === */
   .file-drop {
-    border: 2px dashed #aaa;
+    border: 2px dashed #cfcfcf;
     padding: 1rem;
     text-align: center;
-    border-radius: 8px;
-    background-color: #f9f9f9;
+    border-radius: 10px;
+    background-color: #fafafa;
+    transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
 
     display: flex;
     flex-direction: column;
-    gap: 0.5rem; // расстояние между текстом, кнопкой и именем файла
+    gap: 0.5rem;
+
+    &.is-dragover {
+      border-color: #4F4732;
+      background-color: #f5f3ef;
+      box-shadow: 0 4px 12px rgba(79, 71, 50, 0.1);
+    }
 
     p {
       margin: 0;
@@ -75,23 +137,131 @@
       color: #555;
     }
 
+    /* Кнопка выбора файла по центру */
     button {
       align-self: center;
     }
+
+    /* Имя файла — с усечением, если длинное */
+    .file-name,
+    p[ng-reflect-ng-if] {
+      max-width: 100%;
+      display: inline-block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      color: #333;
+    }
   }
 
+  /* Кнопка отправки — во всю ширину на мобилке */
+  .designer-form > button[type="submit"] {
+    margin-top: 0.25rem;
+    min-height: 42px;
+
+    &[disabled] {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  }
+
+  /* WhatsApp */
   .whatsapp-link {
-    margin-top: 2rem;
+    margin-top: 1.25rem;
     text-align: center;
 
     a {
-      font-size: 1.1rem;
-      color: green;
+      font-size: 1.05rem;
+      color: #1fa855;
       text-decoration: none;
 
       &:hover {
         text-decoration: underline;
       }
+    }
+  }
+
+  /* === Aside: Новинки фурнитуры === */
+  .designer-aside {
+    position: sticky;
+    top: 1rem; /* прилипает при прокрутке */
+    align-self: start;
+
+    background-color: #f8f8f8;
+    padding: 1.25rem 1.25rem 1rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+
+    h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin: 0 0 0.75rem;
+      color: #333;
+    }
+
+    p {
+      font-size: 0.98rem;
+      line-height: 1.55;
+      color: #555;
+      margin: 0;
+    }
+
+    /* Если потом добавишь карточки новинок: */
+    .novelties {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+      margin-top: 0.75rem;
+
+      .novelty-card {
+        display: grid;
+        grid-template-columns: 64px 1fr;
+        gap: 0.75rem;
+        align-items: center;
+        padding: 0.6rem 0.7rem;
+        border-radius: 10px;
+        background: #fff;
+        border: 1px solid #eee;
+
+        img {
+          width: 64px;
+          height: 64px;
+          border-radius: 8px;
+          object-fit: cover;
+        }
+
+        .title {
+          font-size: 0.95rem;
+          font-weight: 600;
+          color: #333;
+          margin-bottom: 0.2rem;
+        }
+
+        .desc {
+          font-size: 0.88rem;
+          color: #666;
+          line-height: 1.4;
+        }
+      }
+    }
+  }
+}
+
+/* Адаптив мелкий */
+@media (max-width: 640px) {
+  .designer-page {
+    padding: 1.25rem;
+
+    h2 {
+      font-size: 1.8rem;
+    }
+
+    .welcome-text {
+      font-size: 0.98rem;
+    }
+
+    .designer-form > button[type="submit"] {
+      width: 100%;
     }
   }
 }
