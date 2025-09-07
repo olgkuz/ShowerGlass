@@ -9,11 +9,19 @@ import { debounceTime, distinctUntilChanged, Subject, catchError, of } from 'rxj
 import { ArticleService } from '../../services/article.service';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { MessageService } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-blog',
   standalone: true,
-  imports: [CommonModule, InputTextModule, CardModule, FormsModule, ProgressSpinnerModule],
+  imports: [
+    CommonModule,
+    InputTextModule,
+    CardModule,
+    FormsModule,
+    ProgressSpinnerModule,
+    ButtonModule,
+  ],
   providers: [MessageService],
   templateUrl: './blog.component.html',
   styleUrls: ['./blog.component.scss']
@@ -28,15 +36,18 @@ export class BlogComponent implements OnInit {
   isLoading: boolean = false;
   error: string | null = null;
 
+  /** состояние раскрытия */
+  private expanded = new Set<string>();
+  private hoverMap = new Map<string, boolean>();
+
   constructor(
     private articleService: ArticleService,
     private blogService: BlogService,
     private messageService: MessageService
   ) {
-    this.searchSubject.pipe(
-      debounceTime(300),
-      distinctUntilChanged()
-    ).subscribe(searchTerm => this.performSearch(searchTerm));
+    this.searchSubject
+      .pipe(debounceTime(300), distinctUntilChanged())
+      .subscribe(searchTerm => this.performSearch(searchTerm));
   }
 
   ngOnInit(): void {
@@ -51,12 +62,12 @@ export class BlogComponent implements OnInit {
       catchError(err => {
         this.error = 'Не удалось загрузить статьи';
         this.showError(this.error);
-        return of([]);  
+        return of([]);
       })
     ).subscribe((articles) => {
-      this.articles = articles.sort((a, b) => {
-        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
-      });
+      this.articles = articles.sort((a, b) =>
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      );
       this.filteredArticles = [...this.articles];
       this.isLoading = false;
     });
@@ -82,5 +93,22 @@ export class BlogComponent implements OnInit {
       detail: message,
       life: 3000
     });
+  }
+
+  /** методы для раскрытия текста */
+  toggleExpand(id: string): void {
+    if (this.expanded.has(id)) {
+      this.expanded.delete(id);
+    } else {
+      this.expanded.add(id);
+    }
+  }
+
+  hoverExpand(id: string, on: boolean): void {
+    this.hoverMap.set(id, on);
+  }
+
+  isExpanded(id: string): boolean {
+    return this.expanded.has(id) || !!this.hoverMap.get(id);
   }
 }

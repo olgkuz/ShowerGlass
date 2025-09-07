@@ -2,14 +2,19 @@
   <div class="search-section">
     <h2>Полезная информация</h2>
     <div class="p-inputgroup">
-      <input 
-        type="text" 
-        pInputText 
-        placeholder="Поиск по статьям..." 
+      <input
+        type="text"
+        pInputText
+        placeholder="Поиск по статьям..."
         (input)="onSearchInput($event)"
         [(ngModel)]="searchQuery"
       />
-      <span class="p-inputgroup-addon" (click)="performSearch(searchQuery)" style="cursor: pointer;" title="Найти">
+      <span
+        class="p-inputgroup-addon"
+        (click)="performSearch(searchQuery)"
+        style="cursor: pointer;"
+        title="Найти"
+      >
         <i class="pi pi-search"></i>
       </span>
     </div>
@@ -26,27 +31,41 @@
   </div>
 
   <div class="articles-grid" *ngIf="!isLoading && filteredArticles.length > 0">
-    <p-card 
-      *ngFor="let article of filteredArticles" 
+    <p-card
+      *ngFor="let article of filteredArticles"
       [header]="article.title"
       [subheader]="formatDate(article.createdAt) + ' · ' + article.readingTime + ' мин.'"
       class="article-card"
+      (click)="toggleExpand(article.id)"
+      (mouseenter)="hoverExpand(article.id, true)"
+      (mouseleave)="hoverExpand(article.id, false)"
+      [ngClass]="{ 'is-expanded': isExpanded(article.id) }"
     >
-      <p>{{ article.previewText }}</p>
+      <p class="preview">
+        {{ article.previewText }}
+      </p>
+
+      <!-- основной текст статьи -->
+      <div class="content">
+        {{ article.content }}
+      </div>
 
       <div class="tags" *ngIf="article.tags?.length">
         <span class="tag" *ngFor="let tag of article.tags">{{ tag }}</span>
       </div>
 
       <ng-template pTemplate="footer">
-        <button 
-          pButton 
-          label="Читать далее" 
-          icon="pi pi-book"
-          class="p-button-text"
-        ></button>
+        <div class="card-footer">
+          <button
+            pButton
+            label="{{ isExpanded(article.id) ? 'Свернуть' : 'Читать далее' }}"
+            icon="pi pi-book"
+            class="p-button-text"
+            type="button"
+            (click)="$event.stopPropagation(); toggleExpand(article.id)"
+          ></button>
+        </div>
       </ng-template>
     </p-card>
   </div>
 </div>
-

@@ -1,7 +1,9 @@
 @use "variables" as var;
+
 :host {
   display: block;
 }
+
 .blog-container {
   max-width: 1200px;
   margin: 2rem auto;
@@ -9,18 +11,22 @@
 
   .search-section {
     margin-bottom: 2rem;
-    
+
     h2 {
-      color:  var.$background;
+      color: var.$background;
       margin-bottom: 1rem;
       font-family: var.$font-family-base;
       font-weight: 600;
-
     }
 
     .p-inputgroup {
       max-width: 500px;
     }
+  }
+
+  .error-text {
+    color: var(--red-500, #e24c4c);
+    margin-bottom: 1rem;
   }
 
   .search-info {
@@ -35,6 +41,7 @@
 
     .article-card {
       transition: transform 0.3s ease;
+      cursor: pointer;
 
       &:hover {
         transform: translateY(-5px);
@@ -43,6 +50,33 @@
       ::ng-deep .p-card-subtitle {
         color: var(--text-color-secondary);
         font-size: 0.875rem;
+      }
+
+      .preview {
+        margin-bottom: 0.75rem;
+        color: var(--text-color);
+      }
+
+      /* Скрытый по умолчанию контент — раскроем по hover/клику */
+      .content {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+        color: var(--text-color);
+        /* Если хочешь показывать 1–2 строки даже в свернутом: раскомментируй ниже
+        display: -webkit-box;
+        -webkit-line-clamp: 0;
+        -webkit-box-orient: vertical; */
+      }
+
+      /* раскрытие на десктопе по hover */
+      &:hover .content {
+        max-height: 500px; /* подкорректируй по вкусу */
+      }
+
+      /* раскрытие по клику (класс ставится из TS) */
+      &.is-expanded .content {
+        max-height: 1000px; /* подкорректируй для длинных статей */
       }
 
       .tags {
@@ -59,6 +93,11 @@
           color: var(--text-color);
         }
       }
+
+      .card-footer {
+        display: flex;
+        justify-content: flex-end;
+      }
     }
   }
 }
@@ -70,6 +109,14 @@
   display: block;
 }
 
+/* На тач-устройствах hover не работает — оставляем только клик с классом is-expanded */
+@media (hover: none) {
+  .articles-grid .article-card:hover .content {
+    max-height: 0;
+  }
+}
+
+/* Мобильная сетка */
 @media (max-width: 768px) {
   .articles-grid {
     grid-template-columns: 1fr;
