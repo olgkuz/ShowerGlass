@@ -1,32 +1,38 @@
 @use "variables" as var;
+
 :host {
   display: block;
 }
- h2 {
-      color:  var.$background;
-      margin-bottom: 1rem;
-      font-family: var.$font-family-base;
-      font-weight: 600;
 
-    }
+h2 {
+  color: var.$background;
+  margin-bottom: 1rem;
+  font-family: var.$font-family-base;
+  font-weight: 600;
+}
+
 .gallery {
   padding: 4rem;
-   
-
+.gallery-note {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 2rem;
+  
+  line-height: 1.5;
+}
   .p-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); // ✅ 4 карточки в ряд
     gap: 1.5rem;
   }
- 
 
+  // убираем фиксированную ширину, чтобы карточки равномерно делились
   .p-col-12,
   .p-sm-6,
   .p-md-4,
   .p-lg-3 {
-    flex: 0 0 280px;
-    max-width: 280px;
+    flex: unset;
+    max-width: unset;
     margin: 0;
   }
 
@@ -73,46 +79,21 @@
   }
 }
 
-// 👇 Новые стили для увеличенного изображения
-.image-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.85);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 999;
-  animation: fadeIn 0.3s ease;
-
-  .zoomed-image {
-    max-width: 90%;
-    max-height: 90%;
-    border-radius: 8px;
-    box-shadow: 0 0 24px rgba(255, 255, 255, 0.2);
-    animation: zoomIn 0.3s ease;
-    cursor: zoom-out;
+// ✅ адаптивность
+@media (max-width: 1200px) {
+  .gallery .p-grid {
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
-@keyframes fadeIn {
-  from {
-    background: rgba(0, 0, 0, 0);
-  }
-  to {
-    background: rgba(0, 0, 0, 0.85);
+@media (max-width: 900px) {
+  .gallery .p-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@keyframes zoomIn {
-  from {
-    transform: scale(0.85);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
+@media (max-width: 600px) {
+  .gallery .p-grid {
+    grid-template-columns: 1fr;
   }
 }
