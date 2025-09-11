@@ -40,7 +40,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       { label: 'Главная', routerLink: ['/home'] },
       { label: 'Галерея', routerLink: ['/gallery'] },
       { label: 'Информация', routerLink: ['/blog'] },
-      { label: 'Дизайнерам', routerLink: ['/desauth'] }
+      { label: 'Что ещё мы делаем из стекла', routerLink: ['/others'] },
     ];
 
     if (this.user?.name === 'admin') {

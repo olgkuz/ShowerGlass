@@ -1,0 +1,37 @@
+<button pButton type="button" routerLink="/others" class="mb-3">
+  Назад к списку
+</button>
+
+@if (loading) {
+  <p-progressSpinner></p-progressSpinner>
+} @else if (item) {
+  <div class="card-detail-wrap">
+    <div class="card-detail-grid">
+      <div class="card-image">
+        <img
+          [attr.alt]="item?.name || 'Фото'"
+          [src]="'assets/img/others/' + (item?.img || '')"
+        />
+      </div>
+
+      <div class="card-description">
+        <h2>{{ item?.name }}</h2>
+
+        <div class="description-content" [innerHTML]="item?.description || ''"></div>
+
+        <a
+          pButton
+          type="button"
+          class="whatsapp-button"
+          target="_blank"
+          [href]="getWhatsAppLink()"
+        >
+          <i class="pi pi-whatsapp"></i>
+          Отправить задание в WhatsApp
+        </a>
+      </div>
+    </div>
+  </div>
+} @else {
+  <p class="text-center text-gray-600">Карточка не найдена</p>
+}

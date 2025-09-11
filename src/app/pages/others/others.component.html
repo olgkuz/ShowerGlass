@@ -1,0 +1,32 @@
+<h2 class="cards-title text-center mb-4">Что ещё мы делаем из стекла</h2>
+
+@if (loading) {
+  <p-progressSpinner></p-progressSpinner>
+} @else {
+  <div class="cards-list">
+    @for (item of items; track item.id) {
+      <div class="card-item">
+        <p-card styleClass="card-p-card">
+          <ng-template pTemplate="header">
+            <img
+              alt="{{ item.name }}"
+              src="assets/img/others/{{ item.img }}"
+            />
+          </ng-template>
+
+          <ng-template pTemplate="title">
+            <h3 class="card-title">{{ item.name }}</h3>
+          </ng-template>
+
+          <ng-template pTemplate="footer">
+            <p-button
+              label="Подробнее"
+              class="w-full"
+              (click)="goTo(item)"
+            ></p-button>
+          </ng-template>
+        </p-card>
+      </div>
+    }
+  </div>
+}

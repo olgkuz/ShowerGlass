@@ -10,10 +10,13 @@ import { HomeComponent } from './pages/home/home.component';
 import { DesignerComponent } from './pages/designer/designer.component';
 import { UserService } from './services/user.service';
 import { authGuard } from './shared/guards/auth.guard';
-import { SettingsComponent } from './pages/settings/settings.component'; 
+import { SettingsComponent } from './pages/settings/settings.component';
 import { CardsComponent } from './pages/home/cards/cards.component';
-
 import { PrivacyPolicyComponent } from './pages/privacypolicy/privacyPolicy.component';
+
+// ✅ новые компоненты раздела "Что ещё мы делаем из стекла"
+import { OthersComponent } from './pages/others/others.component';
+import { OtherElementComponent } from './pages/otherelement/otherelement.component';
 
 export const routes: Routes = [
   {
@@ -26,7 +29,11 @@ export const routes: Routes = [
       { path: 'blog', component: BlogComponent },
       { path: 'card/:id', component: CardComponent },
       { path: 'contacts', component: ContactsComponent },
-      { path: 'privacy-policy', component: PrivacyPolicyComponent }, // 👈 добавлен маршрут
+      { path: 'privacy-policy', component: PrivacyPolicyComponent },
+
+      // ✅ новые маршруты
+      { path: 'others', component: OthersComponent },
+      { path: 'other/:id', component: OtherElementComponent },
 
       // Только для admin
       {
@@ -34,7 +41,7 @@ export const routes: Routes = [
         component: SettingsComponent,
         canActivate: [() => {
           const user = inject(UserService).getUser();
-          return user?.name === 'admin'; // заменено login → name
+          return user?.name === 'admin';
         }]
       },
 
@@ -42,16 +49,9 @@ export const routes: Routes = [
     ]
   },
 
-  {
-    path: 'desauth',
-    component: DesauthComponent
-  },
+  { path: 'desauth', component: DesauthComponent },
 
-  {
-    path: 'designer',
-    component: DesignerComponent,
-    canActivate: [authGuard]
-  },
+  { path: 'designer', component: DesignerComponent, canActivate: [authGuard] },
 
   { path: '**', redirectTo: 'home' }
 ];
