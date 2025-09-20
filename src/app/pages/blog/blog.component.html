@@ -8,14 +8,18 @@
         placeholder="Поиск по статьям..."
         (input)="onSearchInput($event)"
         [(ngModel)]="searchQuery"
+        aria-label="Поиск по статьям"
       />
       <span
         class="p-inputgroup-addon"
         (click)="performSearch(searchQuery)"
         style="cursor: pointer;"
         title="Найти"
+        role="button"
+        tabindex="0"
+        (keyup.enter)="performSearch(searchQuery)"
       >
-        <i class="pi pi-search"></i>
+        <i class="pi pi-search" aria-hidden="true"></i>
       </span>
     </div>
   </div>
@@ -32,25 +36,25 @@
 
   <div class="articles-grid" *ngIf="!isLoading && filteredArticles.length > 0">
     <p-card
-      *ngFor="let article of filteredArticles"
+      *ngFor="let article of filteredArticles; trackBy: trackById"
       [header]="article.title"
       [subheader]="formatDate(article.createdAt) + ' · ' + article.readingTime + ' мин.'"
       class="article-card"
       (click)="toggleExpand(article.id)"
-      (mouseenter)="hoverExpand(article.id, true)"
-      (mouseleave)="hoverExpand(article.id, false)"
-      [ngClass]="{ 'is-expanded': isExpanded(article.id) }"
+      [class.is-expanded]="isExpanded(article.id)"
+      [attr.aria-expanded]="isExpanded(article.id)"
+      role="article"
     >
       <p class="preview">
         {{ article.previewText }}
       </p>
 
       <!-- основной текст статьи -->
-      <div class="content">
+      <div class="content" [attr.aria-hidden]="!isExpanded(article.id)">
         {{ article.content }}
       </div>
 
-      <div class="tags" *ngIf="article.tags?.length">
+      <div class="tags" *ngIf="isExpanded(article.id) && article.tags?.length">
         <span class="tag" *ngFor="let tag of article.tags">{{ tag }}</span>
       </div>
 
@@ -58,10 +62,11 @@
         <div class="card-footer">
           <button
             pButton
-            label="{{ isExpanded(article.id) ? 'Свернуть' : 'Читать далее' }}"
+            [label]="isExpanded(article.id) ? 'Свернуть' : 'Читать далее'"
             icon="pi pi-book"
             class="p-button-text"
             type="button"
+            [attr.aria-expanded]="isExpanded(article.id)"
             (click)="$event.stopPropagation(); toggleExpand(article.id)"
           ></button>
         </div>

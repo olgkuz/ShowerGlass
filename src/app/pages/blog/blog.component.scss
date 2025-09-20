@@ -57,31 +57,22 @@
         color: var(--text-color);
       }
 
-      /* Скрытый по умолчанию контент — раскроем по hover/клику */
+      /* Скрытый по умолчанию контент — раскрываем только классом is-expanded */
       .content {
         max-height: 0;
         overflow: hidden;
         transition: max-height 0.3s ease;
         color: var(--text-color);
-        /* Если хочешь показывать 1–2 строки даже в свернутом: раскомментируй ниже
-        display: -webkit-box;
-        -webkit-line-clamp: 0;
-        -webkit-box-orient: vertical; */
       }
 
-      /* раскрытие на десктопе по hover */
-      &:hover .content {
-        max-height: 500px; /* подкорректируй по вкусу */
-      }
-
-      /* раскрытие по клику (класс ставится из TS) */
+      /* раскрытие ТОЛЬКО по классу */
       &.is-expanded .content {
-        max-height: 1000px; /* подкорректируй для длинных статей */
+        max-height: 1000px; /* при необходимости увеличьте */
       }
 
       .tags {
         margin-top: 1rem;
-        display: flex;
+        display: none; /* скрыты по умолчанию */
         flex-wrap: wrap;
         gap: 0.5rem;
 
@@ -92,6 +83,10 @@
           font-size: 0.75rem;
           color: var(--text-color);
         }
+      }
+
+      &.is-expanded .tags {
+        display: flex; /* теги только в раскрытом состоянии */
       }
 
       .card-footer {
@@ -109,10 +104,10 @@
   display: block;
 }
 
-/* На тач-устройствах hover не работает — оставляем только клик с классом is-expanded */
+/* На тач-устройствах hover не раскрывает контент — всё управляется кликом */
 @media (hover: none) {
-  .articles-grid .article-card:hover .content {
-    max-height: 0;
+  .articles-grid .article-card:hover {
+    transform: none;
   }
 }
 
