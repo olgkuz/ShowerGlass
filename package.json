@@ -6,6 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
+    "test": "ng test",
+    "lint": "ng lint",
     "startServer": "node scripts/server.js",
     "serverWithNg": "npx concurrently \"npm run start\" \"npm run startServer\""
   },

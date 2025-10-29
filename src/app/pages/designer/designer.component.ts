@@ -10,7 +10,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { TextareaModule } from 'primeng/textarea';
 import { ButtonModule } from 'primeng/button';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { environment } from '../../../environments/environment.development';
+import { environment } from '../../../environments/environment';
 import { RouterModule, Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { UserStorage } from '../../models/user';

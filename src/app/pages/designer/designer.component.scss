@@ -1,17 +1,17 @@
-:host {
+﻿:host {
   display: block;
 }
 
-/* Корневая обёртка страницы */
+
 .designer-page {
-  /* Чуть шире, чтобы поместилась колонка aside */
+  
   max-width: 1200px;
   margin: 3rem auto;
   padding: 2rem;
   position: relative;
   background: #fff;
 
-  /* Кнопка выхода */
+  
   .logout-button {
     position: absolute;
     top: 1rem;
@@ -44,19 +44,19 @@
     margin-right: auto;
   }
 
-  /* === Двухколоночный layout: контент + aside === */
+  
   .designer-layout {
     display: grid;
-    grid-template-columns: 2fr 0.9fr; /* 2/3 контент, ~1/3 aside */
+    grid-template-columns: 2fr 0.9fr; 
     gap: 2rem;
     align-items: start;
 
     @media (max-width: 1100px) {
-      grid-template-columns: 1fr; /* на планшете и мобилке aside вниз */
+      grid-template-columns: 1fr; 
     }
   }
 
-  /* === Основной контент (форма) === */
+  
   .designer-content {
     background: #fff;
   }
@@ -99,7 +99,7 @@
         }
       }
 
-      /* Подсказка/ошибка (если выводишь) */
+      
       .hint,
       .error {
         font-size: 0.85rem;
@@ -112,7 +112,7 @@
     }
   }
 
-  /* === Зона dnd для файла === */
+  
   .file-drop {
     border: 2px dashed #cfcfcf;
     padding: 1rem;
@@ -137,12 +137,12 @@
       color: #555;
     }
 
-    /* Кнопка выбора файла по центру */
+    
     button {
       align-self: center;
     }
 
-    /* Имя файла — с усечением, если длинное */
+    
     .file-name,
     p[ng-reflect-ng-if] {
       max-width: 100%;
@@ -154,7 +154,7 @@
     }
   }
 
-  /* Кнопка отправки — во всю ширину на мобилке */
+  
   .designer-form > button[type="submit"] {
     margin-top: 0.25rem;
     min-height: 42px;
@@ -165,7 +165,7 @@
     }
   }
 
-  /* WhatsApp */
+  
   .whatsapp-link {
     margin-top: 1.25rem;
     text-align: center;
@@ -181,10 +181,10 @@
     }
   }
 
-  /* === Aside: Новинки фурнитуры === */
+  
   .designer-aside {
     position: sticky;
-    top: 1rem; /* прилипает при прокрутке */
+    top: 1rem; 
     align-self: start;
 
     background-color: #f8f8f8;
@@ -206,7 +206,7 @@
       margin: 0;
     }
 
-    /* Если потом добавишь карточки новинок: */
+    
     .novelties {
       display: grid;
       grid-template-columns: 1fr;
@@ -247,7 +247,7 @@
   }
 }
 
-/* Адаптив мелкий */
+
 @media (max-width: 640px) {
   .designer-page {
     padding: 1.25rem;
@@ -265,3 +265,4 @@
     }
   }
 }
+
