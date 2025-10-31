@@ -1,129 +1,107 @@
 const fs = require('fs');
 const cors = require('cors');
 const express = require('express');
-const { log } = require('console');
- 
-// user
-const userJson = "./server-data/users.json";
-const toursJson = "./server-data/cards.json";
-const articlesJson = "./server-data/articles.json";
-const jsonFileData =  fs.readFileSync(userJson, 'utf-8');
-let  parseJsonData = JSON.parse(jsonFileData);
- 
+
 const app = express();
 const port = 3000;
-// cors logic
+
+const userJson = './server-data/users.json';
+const cardsJson = './server-data/cards.json';
+const articlesJson = './server-data/articles.json';
+
 app.use(cors());
-// add parser for post body
 app.use(express.json());
- 
- 
-// route logic
-app.get('/', (req, res) => {
-  res.send('Hello World!') 
-}) 
- 
-//************************ */ register****************************
+
+const readJson = (path) => JSON.parse(fs.readFileSync(path, 'utf-8'));
+const writeJson = (path, data) =>
+  fs.writeFileSync(path, JSON.stringify(data, null, 2), 'utf-8');
+
+app.get('/', (_req, res) => {
+  res.send('Hello World!');
+});
+
 app.post('/reg', (req, res) => {
-      // find users
-      if (req.body?.login) {
-        const isUserExist = parseJsonData.users.find((user) => user.login === req.body?.login);
-        if (!isUserExist) {
-            parseJsonData.users.push(req.body);
-            const json = JSON.stringify(parseJsonData);
-            fs.writeFileSync(userJson, json, 'utf-8', (data) => {}, (err) => {
-              console.log('err write file', err)
-            });
- 
-            // send response
-            res.send('ok');
-        } else {
-          throw new Error('Пользователь уже зарегестрирован');
-        }
-      } else {
-        throw new Error('не найдено свойство login');
-      }
-      console.log('parseJsonData Registration', parseJsonData);
- 
-})
- 
-//************** */ auth**************************************
-app.post('/desauth', (req, res) => { 
-  log('req.body',req.body);
- 
-    if (req.body?.login && req.body.password) {
-      // read file
-        const jsonFileData =  fs.readFileSync(userJson, 'utf-8', (err, data) => {}, (err) => {
-            console.log('err read file', err);});
- 
-            // parse data
-         const  parseJsonData = JSON.parse(jsonFileData);
-         console.log('parseJsonData auth', parseJsonData)
- 
-        if (Array.isArray(parseJsonData?.users)) {
-                 // check psw and login -- must contains password and login  field name
-           const isUserExist = parseJsonData?.users.find((user) => user.login === req.body?.login && user.password === req.body?.password);
- 
-            if (isUserExist) { 
-                res.send(isUserExist);
-            } else {
-                // или отправить обьект с текстом ошибки
-                 //res.send({error: true, errotText: 'Ошибка - пользователь не найден'});
- 
-                 // или явно выбросить исключения
-                throw new Error('AUTH-Error')
-             }
-        } 
- 
- 
-    } else {
-      throw new Error('не найдено свойство login или password');
-    }
-  })
- 
-//************** */ cards **************************************
-
-app.get('/cards', (req, res) => { 
-  const jsonFileData = fs.readFileSync(toursJson, 'utf-8');
-  const parseJsonData = JSON.parse(jsonFileData);
-  res.json(parseJsonData.cards);
-});
-
-app.get('/card/:id', (req, res) => { 
-  const jsonFileData = fs.readFileSync(toursJson, 'utf-8');
-  const parseJsonData = JSON.parse(jsonFileData);
-  const paramId = req.params.id;
-
-  const item = parseJsonData.cards.find((card) => card.id === paramId);
-
-  if (item) {
-    res.json(item);
-  } else {
-    res.status(404).send({ error: `Карточка с id ${paramId} не найдена` });
+  const { login } = req.body ?? {};
+  if (!login) {
+    return res.status(400).json({ error: 'Не указан логин пользователя.' });
   }
+
+  const data = readJson(userJson);
+  const users = Array.isArray(data.users) ? data.users : [];
+
+  const alreadyExists = users.some((user) => user.login === login);
+  if (alreadyExists) {
+    return res
+      .status(409)
+      .json({ error: 'Пользователь с таким логином уже зарегистрирован.' });
+  }
+
+  users.push(req.body);
+  writeJson(userJson, { ...data, users });
+
+  return res.json({ status: 'ok' });
 });
 
-      //******************* Получить все статьи
-app.get('/articles', (req, res) => {
-  const jsonFileData = fs.readFileSync(articlesJson, 'utf-8');
-  res.send(jsonFileData);
+app.post('/desauth', (req, res) => {
+  const { login, password } = req.body ?? {};
+
+  if (!login || !password) {
+    return res
+      .status(400)
+      .json({ error: 'Необходимо передать логин и пароль.' });
+  }
+
+  const data = readJson(userJson);
+  const users = Array.isArray(data.users) ? data.users : [];
+  const user = users.find(
+    (item) => item.login === login && item.password === password
+  );
+
+  if (!user) {
+    return res.status(401).json({ error: 'Неверный логин или пароль.' });
+  }
+
+  return res.json(user);
 });
 
-// *******************Получить статью по ID
+app.get('/cards', (_req, res) => {
+  const data = readJson(cardsJson);
+  res.json(data.cards ?? []);
+});
+
+app.get('/card/:id', (req, res) => {
+  const data = readJson(cardsJson);
+  const card = (data.cards ?? []).find((item) => item.id === req.params.id);
+
+  if (!card) {
+    return res
+      .status(404)
+      .json({ error: `Карточка с id ${req.params.id} не найдена.` });
+  }
+
+  return res.json(card);
+});
+
+app.get('/articles', (_req, res) => {
+  const data = readJson(articlesJson);
+  res.json(data);
+});
+
 app.get('/articles/:id', (req, res) => {
-  const jsonFileData = fs.readFileSync(articlesJson, 'utf-8');
-  const parseJsonData = JSON.parse(jsonFileData);
-  const paramId = req.params.id;
+  const data = readJson(articlesJson);
+  const article = (data.articles ?? []).find(
+    (item) => item.id === req.params.id
+  );
 
-  const article = parseJsonData.articles.find((item) => item.id === paramId);
-  if (article) {
-    res.send(article);
-  } else {
-    res.status(404).send({ error: `Статья с id ${paramId} не найдена` });
+  if (!article) {
+    return res
+      .status(404)
+      .json({ error: `Статья с id ${req.params.id} не найдена.` });
   }
+
+  return res.json(article);
 });
 
-// run and listen serve
 app.listen(port, () => {
-  console.log(`app listening on port ${port}`)
-})
+  console.log(`app listening on port ${port}`);
+});

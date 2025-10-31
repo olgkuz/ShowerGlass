@@ -1,21 +1,16 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, tap, catchError, throwError } from 'rxjs';
+import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
-import {
-  IUser,
-  IUserReg,
-  AuthResponse,
-  UserStorage
-} from '../models/user';
+import { Observable, catchError, tap, throwError } from 'rxjs';
+import { AuthResponse, IUser, IUserReg, UserStorage } from '../models/user';
 import { API } from '../shared/api';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
   private readonly TOKEN_KEY = 'auth_token';
-  private readonly USER_KEY  = 'current_user';
-  private readonly NAME_KEY  = 'user_name'; // раньше был LOGIN_KEY
+  private readonly USER_KEY = 'current_user';
+  private readonly NAME_KEY = 'user_name';
 
   constructor(
     private http: HttpClient,
@@ -29,7 +24,7 @@ export class UserService {
         this.handleAuthSuccess(response, userData.name, remember);
         this.showSuccess('Регистрация прошла успешно');
       }),
-      catchError(error => this.handleError(error, 'Ошибка регистрации'))
+      catchError((error) => this.handleError(error, 'Ошибка регистрации'))
     );
   }
 
@@ -39,11 +34,15 @@ export class UserService {
         this.handleAuthSuccess(response, credentials.name, remember);
         this.showSuccess('Вход выполнен успешно');
       }),
-      catchError(error => this.handleError(error, 'Ошибка авторизации'))
+      catchError((error) => this.handleError(error, 'Ошибка авторизации'))
     );
   }
 
-  private handleAuthSuccess(response: AuthResponse, name: string, remember: boolean): void {
+  private handleAuthSuccess(
+    response: AuthResponse,
+    name: string,
+    remember: boolean
+  ): void {
     this.saveAuthData(response.token, name, remember);
     this.setUser(
       {
@@ -74,13 +73,16 @@ export class UserService {
   }
 
   getToken(): string | null {
-    return localStorage.getItem(this.TOKEN_KEY) ||
-           sessionStorage.getItem(this.TOKEN_KEY);
+    return (
+      localStorage.getItem(this.TOKEN_KEY) ||
+      sessionStorage.getItem(this.TOKEN_KEY)
+    );
   }
 
   getUser(): UserStorage | null {
-    const userData = localStorage.getItem(this.USER_KEY) ||
-                     sessionStorage.getItem(this.USER_KEY);
+    const userData =
+      localStorage.getItem(this.USER_KEY) ||
+      sessionStorage.getItem(this.USER_KEY);
     return userData ? JSON.parse(userData) : null;
   }
 
@@ -89,11 +91,11 @@ export class UserService {
   }
 
   logout(): void {
-    [this.TOKEN_KEY, this.USER_KEY, this.NAME_KEY, 'returnUrl'].forEach(key => {
+    [this.TOKEN_KEY, this.USER_KEY, this.NAME_KEY, 'returnUrl'].forEach((key) => {
       localStorage.removeItem(key);
       sessionStorage.removeItem(key);
     });
-    this.showSuccess('Выход выполнен');
+    this.showSuccess('Вы вышли из аккаунта');
     this.router.navigate(['/desauth']);
   }
 
@@ -115,9 +117,10 @@ export class UserService {
   private showSuccess(message: string): void {
     this.messageService.add({
       severity: 'success',
-      summary: 'Успешно',
+      summary: 'Готово',
       detail: message,
       life: 3000
     });
   }
 }
+

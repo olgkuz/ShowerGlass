@@ -9,7 +9,7 @@
     <div class="card-detail-grid">
       <div class="card-image">
         <img
-          [attr.alt]="item?.name || 'Фото'"
+          [attr.alt]="item?.name || 'Без названия'"
           [src]="'assets/img/others/' + (item?.img || '')"
         />
       </div>
@@ -27,11 +27,12 @@
           [href]="getWhatsAppLink()"
         >
           <i class="pi pi-whatsapp"></i>
-          Отправить задание в WhatsApp
+          Связаться в WhatsApp
         </a>
       </div>
     </div>
   </div>
 } @else {
-  <p class="text-center text-gray-600">Карточка не найдена</p>
+  <p class="text-center text-gray-600">Материал не найден</p>
 }
+

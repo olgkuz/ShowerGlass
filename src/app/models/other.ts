@@ -1,7 +1,8 @@
 export interface IOther {
   id: string;
   name: string;
-  img: string;         // можно оставить
+  img: string;
   description: string;
-  imgUrl?: string;     // если используешь серверные картинки
+  imgUrl?: string;
 }
+

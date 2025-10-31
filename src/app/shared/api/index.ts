@@ -1,4 +1,4 @@
-import { environment } from "../../../environments/environment.development";
+import { environment } from "../../../environments/environment";
 
 const serverIp = environment.apiUrl;
 
