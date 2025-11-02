@@ -1,4 +1,4 @@
-﻿[build.environment]
+[build.environment]
   NODE_VERSION = "20.17.0"
 
 [build]
