@@ -1,6 +1,9 @@
+﻿[build.environment]
+  NODE_VERSION = "20.17.0"
+
 [build]
   command = "ng build --configuration production"
-  publish = "dist/<ИМЯ-ПРОЕКТА>/browser"
+  publish = "dist/ShowerGlass/browser"
 
 [[redirects]]
   from = "/*"
