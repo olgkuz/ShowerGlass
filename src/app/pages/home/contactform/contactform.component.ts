@@ -11,7 +11,7 @@ import { TextareaModule } from 'primeng/textarea';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
-import { environment } from '../../../../environments/environment.development';
+import { environment } from '../../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { CheckboxModule } from 'primeng/checkbox';
 
@@ -70,3 +70,4 @@ export class ContactformComponent {
     }
   }
 }
+

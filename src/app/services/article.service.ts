@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IArticle } from '../models/article';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../environments/environment.development';
+import { environment } from '../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class ArticleService {
@@ -22,4 +22,5 @@ export class ArticleService {
     return this.http.post<IArticle>(this.apiUrl, article);
   }
 }
+
 
