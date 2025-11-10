@@ -1,6 +1,6 @@
 {
   "/types": {
-    "target": "http://localhost:3000",
+    "target": "https://dushcabs.onrender.com",
     "secure": false,
     "changeOrigin": true
   }
