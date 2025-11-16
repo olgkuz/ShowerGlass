@@ -5,7 +5,14 @@ import { InputTextModule } from 'primeng/inputtext';
 import { CardModule } from 'primeng/card';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { ButtonModule } from 'primeng/button';
-import { debounceTime, distinctUntilChanged, Subject, catchError, of } from 'rxjs';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  Subject,
+  catchError,
+  finalize,
+  of,
+} from 'rxjs';
 
 import { IArticle } from '../../models/article';
 import { BlogService } from '../../services/blog.service';
@@ -61,19 +68,18 @@ export class BlogComponent implements OnInit {
     this.articleService
       .getArticles()
       .pipe(
-        catchError((err) => {
+        catchError(() => {
           this.error = 'Не удалось загрузить статьи';
           this.showError(this.error);
           return of([] as IArticle[]);
+        }),
+        finalize(() => {
+          this.isLoading = false;
         })
       )
       .subscribe((articles) => {
-        this.articles = articles.sort(
-          (a, b) =>
-            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-        );
-        this.filteredArticles = [...this.articles];
-        this.isLoading = false;
+        this.articles = articles;
+        this.filteredArticles = [...articles];
         this.expanded.clear();
       });
   }
@@ -117,3 +123,4 @@ export class BlogComponent implements OnInit {
     return a.id;
   }
 }
+
