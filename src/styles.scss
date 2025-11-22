@@ -1,3 +1,14 @@
 @use './app/styles/input.scss';
 @use './app/styles/reset.scss';
 @use './app/styles/variables.scss';
+
+:root {
+  --p-text-color: #4f4732;
+  --p-content-text-color: #4f4732;
+  --p-surface-0: #ffffff;
+  --p-surface-900: #111111;
+}
+
+body {
+  color: var(--p-text-color, #4f4732);
+}
