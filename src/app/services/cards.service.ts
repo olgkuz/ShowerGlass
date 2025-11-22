@@ -1,48 +1,88 @@
 // src/app/services/cards.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, map } from 'rxjs';
+import {
+  catchError,
+  map,
+  Observable,
+  of,
+  switchMap,
+} from 'rxjs';
 import { environment } from '../../environments/environment';
 import { ICards } from '../models/cards';
 
-// Что реально приходит с бэка (TypeEntity)
-interface ITypeDto {
-  id?: string;        // виртуал от mongoose
-  _id?: string;       // на всякий случай
-  name: string;
-  description: string;
+type CardDto = {
+  id?: string;
+  _id?: string;
+  name?: string;
+  description?: string;
   img?: string;
-  imgUrl?: string;    // виртуал (если картинка загружена на сервер)
-}
+  imgUrl?: string;
+  _doc?: Record<string, unknown>;
+};
 
 @Injectable({ providedIn: 'root' })
 export class CardsService {
-  private api = `${environment.apiUrl}/types`;
+  private readonly typesApi = `${environment.apiUrl}/types`;
+  private readonly cardsApi = `${environment.apiUrl}/cards`;
 
   constructor(private http: HttpClient) {}
 
   getCards(): Observable<ICards[]> {
-    return this.http.get<ITypeDto[]>(this.api).pipe(
-      map(list => list.map(this.mapToICard))
+    return this.http.get<CardDto[]>(this.typesApi).pipe(
+      map((list) => this.mapList(list)),
+      switchMap((cards) =>
+        cards.length ? of(cards) : this.fetchFromCardsEndpoint()
+      ),
+      catchError(() => this.fetchFromCardsEndpoint())
     );
   }
 
   getCardById(id: string): Observable<ICards | undefined> {
-    return this.http.get<ITypeDto>(`${this.api}/${id}`).pipe(
-      map(dto => this.mapToICard(dto))
+    return this.http.get<CardDto>(`${this.typesApi}/${id}`).pipe(
+      map((dto) => this.mapToICard(dto)),
+      switchMap((card) =>
+        card ? of(card) : this.http.get<CardDto>(`${this.cardsApi}/${id}`).pipe(map((c) => this.mapToICard(c)))
+      ),
+      catchError(() =>
+        this.http
+          .get<CardDto>(`${this.cardsApi}/${id}`)
+          .pipe(map((c) => this.mapToICard(c)))
+      )
     );
   }
 
-  private mapToICard = (dto: ITypeDto): ICards => {
-    const id = (dto.id || dto._id) ?? ''; // подстрахуемся
-    // Если используете серверные картинки — берём imgUrl,
-    // иначе оставляйте dto.img (имя файла из assets), как сейчас.
+  private fetchFromCardsEndpoint(): Observable<ICards[]> {
+    return this.http
+      .get<CardDto[]>(this.cardsApi)
+      .pipe(map((list) => this.mapList(list)));
+  }
+
+  private mapList(list: CardDto[]): ICards[] {
+    return Array.isArray(list)
+      ? list
+          .map((dto) => this.mapToICard(dto))
+          .filter((c): c is ICards => Boolean(c && (c.id || c.name)))
+      : [];
+  }
+
+  private mapToICard(dto: CardDto): ICards | null {
+    const doc = (dto as any)?._doc ?? dto;
+    const id = (doc as any).id ?? dto.id ?? (doc as any)._id ?? dto._id ?? '';
+    const name = (doc as any).name ?? dto.name ?? '';
+    const description = (doc as any).description ?? dto.description ?? '';
+    const file = (doc as any).img ?? dto.img ?? '';
+    const uploadsBase = environment.apiUrl.replace(/\/api$/, '/uploads');
+
     return {
       id,
-      name: dto.name,
-      description: dto.description,
-      img: dto.img,          // если продолжаете хранить в assets
-      imgUrl: dto.imgUrl     // если хотите грузить с сервера
-    } as ICards;
-  };
+      name,
+      description,
+      img: file,
+      imgUrl:
+        (doc as any).imgUrl ??
+        dto.imgUrl ??
+        (file ? `${uploadsBase}/${file}` : undefined),
+    };
+  }
 }
