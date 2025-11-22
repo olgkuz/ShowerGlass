@@ -2,10 +2,16 @@
   <h2 class="section-title">Как заказать душевое ограждение из стекла</h2>
 
   <p-accordion [multiple]="true">
-    <p-accordionTab *ngFor="let item of stepsList" [header]="item.step">
-      <p>{{ item.text }}</p>
-    </p-accordionTab>
+    <p-accordion-panel
+      *ngFor="let item of stepsList; let i = index"
+      [value]="'panel-' + i"
+    >
+      <p-accordion-header>
+        {{ item.step }}
+      </p-accordion-header>
+      <p-accordion-content>
+        <p>{{ item.text }}</p>
+      </p-accordion-content>
+    </p-accordion-panel>
   </p-accordion>
 </section>
-
-

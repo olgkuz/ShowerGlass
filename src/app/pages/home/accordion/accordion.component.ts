@@ -1,11 +1,22 @@
 import { Component } from '@angular/core';
-import { AccordionModule } from 'primeng/accordion';
+import {
+  Accordion,
+  AccordionPanel,
+  AccordionHeader,
+  AccordionContent
+} from 'primeng/accordion';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-accordion',
   standalone: true,
-  imports: [CommonModule, AccordionModule],
+  imports: [
+    CommonModule,
+    Accordion,
+    AccordionPanel,
+    AccordionHeader,
+    AccordionContent
+  ],
   templateUrl: './accordion.component.html',
   styleUrls: ['./accordion.component.scss'], // ← исправлено
 })
