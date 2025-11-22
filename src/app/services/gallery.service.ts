@@ -37,7 +37,7 @@ export class GalleryService {
   private mapCard(dto: GalleryCardDto): IGalleryCard {
     const doc = (dto as any)?._doc ?? dto;
     const file = (doc as any).img ?? dto.img ?? '';
-    const publicBase = environment.apiUrl.replace(/\/api$/, '/public');
+    const uploadsBase = environment.apiUrl.replace(/\/api$/, '/uploads');
 
     return {
       id: (doc as any).id ?? dto.id ?? (doc as any)._id ?? dto._id ?? '',
@@ -47,8 +47,7 @@ export class GalleryService {
       imgUrl:
         (doc as any).imgUrl ??
         dto.imgUrl ??
-        (file ? `${publicBase}/${file}` : undefined),
+        (file ? `${uploadsBase}/${file}` : undefined),
     };
   }
 }
-
