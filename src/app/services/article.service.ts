@@ -62,14 +62,21 @@ export class ArticleService {
   }
 
   private mapArticle(dto: ArticleDto): IArticle {
+    const doc = (dto as any)?._doc ?? dto;
+
     return {
-      id: dto.id ?? dto._id ?? '',
-      title: dto.title ?? dto.name ?? '',
-      previewText: dto.previewText ?? dto.description ?? '',
-      content: dto.content ?? dto.description ?? '',
-      createdAt: dto.createdAt ?? new Date().toISOString(),
-      readingTime: dto.readingTime ?? 0,
-      tags: dto.tags ?? [],
+      id: doc.id ?? dto.id ?? doc._id ?? dto._id ?? '',
+      title: doc.title ?? dto.title ?? doc.name ?? dto.name ?? '',
+      previewText:
+        doc.previewText ??
+        dto.previewText ??
+        doc.description ??
+        dto.description ??
+        '',
+      content: doc.content ?? dto.content ?? doc.description ?? dto.description ?? '',
+      createdAt: doc.createdAt ?? dto.createdAt ?? new Date().toISOString(),
+      readingTime: doc.readingTime ?? dto.readingTime ?? 0,
+      tags: doc.tags ?? dto.tags ?? [],
     };
   }
 }
