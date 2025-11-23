@@ -10,7 +10,8 @@
       <div class="card-image">
         <img
           [attr.alt]="item?.name || 'Без названия'"
-          [src]="'assets/img/others/' + (item?.img || '')"
+          [src]="item?.imgUrl || ('assets/img/others/' + (item?.img || ''))"
+          loading="lazy"
         />
       </div>
 
@@ -35,4 +36,3 @@
 } @else {
   <p class="text-center text-gray-600">Материал не найден</p>
 }
-

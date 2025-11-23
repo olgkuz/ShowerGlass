@@ -11,7 +11,8 @@
       <div class="card-image">
         <img
           [attr.alt]="card?.name || 'Фото'"
-          [src]="'assets/img/cards/' + (card?.img || '')"
+          [src]="card?.imgUrl || ('assets/img/cards/' + (card?.img || ''))"
+          loading="lazy"
         />
       </div>
 

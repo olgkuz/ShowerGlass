@@ -15,8 +15,9 @@
         <p-card styleClass="card-p-card">
           <ng-template pTemplate="header">
             <img
-              alt="{{ item.name }}"
-              src="assets/img/cards/{{ item.img }}"
+              [alt]="item.name"
+              [src]="item.imgUrl || ('assets/img/cards/' + (item.img || ''))"
+              loading="lazy"
             />
           </ng-template>
 
