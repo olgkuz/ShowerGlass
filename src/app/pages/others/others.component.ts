@@ -30,4 +30,13 @@ export class OthersComponent implements OnInit {
   goTo(item: IOther) {
     this.router.navigate(['/other', item.id]);
   }
+
+  onImgError(event: Event, item: IOther) {
+    const imgEl = event.target as HTMLImageElement | null;
+    if (!imgEl || imgEl.dataset['fallbackApplied'] === '1') return;
+    imgEl.dataset['fallbackApplied'] = '1';
+    if (item.imgUrl) {
+      imgEl.src = item.imgUrl;
+    }
+  }
 }

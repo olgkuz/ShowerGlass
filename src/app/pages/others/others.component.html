@@ -10,7 +10,8 @@
           <ng-template pTemplate="header">
             <img
               [alt]="item.name"
-              [src]="item.imgUrl || ('assets/img/others/' + (item.img || ''))"
+              [src]="item.img ? ('assets/img/others/' + item.img) : (item.imgUrl || '')"
+              (error)="onImgError($event, item)"
               loading="lazy"
             />
           </ng-template>

@@ -14,7 +14,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
   styleUrl: './card.component.scss'
 })
 export class CardComponent implements OnInit {
-[x: string]: any;
+  [x: string]: any;
   card: ICards | null = null;
   loading = true;
 
@@ -30,7 +30,6 @@ export class CardComponent implements OnInit {
       this.cardService.getCardById(id).subscribe({
         next: (data) => {
           this.card = data || null;
-          console.log('Описание:', this.card?.description); // проверить полный текст
           this.loading = false;
         },
         error: () => {
@@ -43,12 +42,22 @@ export class CardComponent implements OnInit {
     }
   }
 
-  /** Генерирует ссылку на WhatsApp с названием карточки */
+  /** Ссылка на WhatsApp с названием товара */
   getWhatsAppLink(): string {
     const baseUrl = 'https://wa.me/79110293030';
     const name = this.card?.name?.trim() || '';
-    const text = name ? `Хочу рассчитать стоимость: ${name}` : 'Хочу рассчитать стоимость';
+    const text = name
+      ? `Здравствуйте! Интересует товар: ${name}`
+      : 'Здравствуйте! Интересует товар.';
     return `${baseUrl}?text=${encodeURIComponent(text)}`;
   }
-}
 
+  onImgError(event: Event) {
+    const imgEl = event.target as HTMLImageElement | null;
+    if (!imgEl || imgEl.dataset['fallbackApplied'] === '1') return;
+    imgEl.dataset['fallbackApplied'] = '1';
+    if (this.card?.imgUrl) {
+      imgEl.src = this.card.imgUrl;
+    }
+  }
+}

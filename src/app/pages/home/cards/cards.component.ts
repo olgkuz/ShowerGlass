@@ -38,4 +38,13 @@ export class CardsComponent implements OnInit {
   goToCard(item: ICards): void {
     this.router.navigate(['/card', item.id]);
   }
+
+  onImgError(event: Event, item: ICards) {
+    const imgEl = event.target as HTMLImageElement | null;
+    if (!imgEl || imgEl.dataset['fallbackApplied'] === '1') return;
+    imgEl.dataset['fallbackApplied'] = '1';
+    if (item.imgUrl) {
+      imgEl.src = item.imgUrl;
+    }
+  }
 }

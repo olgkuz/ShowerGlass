@@ -45,9 +45,17 @@ export class OtherElementComponent implements OnInit {
     const baseUrl = 'https://wa.me/79110293030';
     const name = this.item?.name?.trim();
     const text = name
-      ? `Здравствуйте! Хочу обсудить изделие из стекла: ${name}`
-      : 'Здравствуйте! Хочу обсудить изделия из стекла.';
+      ? `Здравствуйте! Интересует товар: ${name}`
+      : 'Здравствуйте! Интересует товар.';
     return `${baseUrl}?text=${encodeURIComponent(text)}`;
   }
-}
 
+  onImgError(event: Event) {
+    const imgEl = event.target as HTMLImageElement | null;
+    if (!imgEl || imgEl.dataset['fallbackApplied'] === '1') return;
+    imgEl.dataset['fallbackApplied'] = '1';
+    if (this.item?.imgUrl) {
+      imgEl.src = this.item.imgUrl;
+    }
+  }
+}

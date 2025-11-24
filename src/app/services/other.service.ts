@@ -18,6 +18,7 @@ type OtherDto = {
 export class OthersService {
   private readonly api = `${environment.apiUrl}/others`;
   private readonly cardsApi = `${environment.apiUrl}/cards`;
+  private readonly localOthersUrl = 'assets/img/others/other.json';
 
   constructor(private http: HttpClient) {}
 
@@ -37,22 +38,49 @@ export class OthersService {
       switchMap((item) =>
         item
           ? of(item)
-          : this.http
-              .get<OtherDto>(`${this.cardsApi}/${id}`)
-              .pipe(map((dto) => this.mapToClient(dto)))
+          : this.fetchSingleFromCards(id)
       ),
-      catchError(() =>
-        this.http
-          .get<OtherDto>(`${this.cardsApi}/${id}`)
-          .pipe(map((dto) => this.mapToClient(dto)))
-      )
+      catchError(() => this.fetchSingleFromCards(id))
     );
   }
 
   private fetchFromCards(): Observable<IOther[]> {
     return this.http
       .get<OtherDto[]>(this.cardsApi)
-      .pipe(map((list) => this.mapList(list)));
+      .pipe(
+        map((list) => this.mapList(list)),
+        switchMap((items) =>
+          items.length ? of(items) : this.loadFromAssets()
+        ),
+        catchError(() => this.loadFromAssets())
+      );
+  }
+
+  private fetchSingleFromCards(id: string): Observable<IOther | undefined> {
+    return this.http
+      .get<OtherDto>(`${this.cardsApi}/${id}`)
+      .pipe(
+        map((dto) => this.mapToClient(dto)),
+        switchMap((item) =>
+          item ? of(item) : this.loadSingleFromAssets(id)
+        ),
+        catchError(() => this.loadSingleFromAssets(id))
+      );
+  }
+
+  private loadFromAssets(): Observable<IOther[]> {
+    return this.http
+      .get<{ others: OtherDto[] }>(this.localOthersUrl)
+      .pipe(
+        map((resp) => this.mapList(resp?.others ?? [])),
+        catchError(() => of([]))
+      );
+  }
+
+  private loadSingleFromAssets(id: string): Observable<IOther | undefined> {
+    return this.loadFromAssets().pipe(
+      map((items) => items.find((o) => o.id === String(id)))
+    );
   }
 
   private mapList(list: OtherDto[]): IOther[] {
@@ -65,11 +93,17 @@ export class OthersService {
 
   private mapToClient = (dto: OtherDto): IOther | null => {
     const doc = (dto as any)?._doc ?? dto;
-    const id = (doc as any).id ?? dto.id ?? (doc as any)._id ?? dto._id ?? '';
-    const name = (doc as any).name ?? dto.name ?? '';
-    const description =
+    const idRaw = (doc as any).id ?? dto.id ?? (doc as any)._id ?? dto._id ?? '';
+    const id = typeof idRaw === 'string' ? idRaw.trim() : String(idRaw || '').trim();
+    const nameRaw = (doc as any).name ?? dto.name ?? '';
+    const name = typeof nameRaw === 'string' ? nameRaw.trim() : String(nameRaw || '').trim();
+    const descriptionRaw =
       (doc as any).description ?? dto.description ?? '';
-    const file = (doc as any).img ?? dto.img ?? '';
+    const description =
+      typeof descriptionRaw === 'string'
+        ? descriptionRaw
+        : String(descriptionRaw || '');
+    const file = ((doc as any).img ?? dto.img ?? '').trim();
     const uploadsBase = environment.apiUrl.replace(/\/api$/, '/uploads');
 
     return {

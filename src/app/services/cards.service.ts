@@ -25,6 +25,7 @@ type CardDto = {
 export class CardsService {
   private readonly typesApi = `${environment.apiUrl}/types`;
   private readonly cardsApi = `${environment.apiUrl}/cards`;
+  private readonly localCardsUrl = 'assets/img/cards/cards.json';
 
   constructor(private http: HttpClient) {}
 
@@ -42,20 +43,47 @@ export class CardsService {
     return this.http.get<CardDto>(`${this.typesApi}/${id}`).pipe(
       map((dto) => this.mapToICard(dto)),
       switchMap((card) =>
-        card ? of(card) : this.http.get<CardDto>(`${this.cardsApi}/${id}`).pipe(map((c) => this.mapToICard(c)))
+        card ? of(card) : this.fetchCardFromSecondaryApi(id)
       ),
-      catchError(() =>
-        this.http
-          .get<CardDto>(`${this.cardsApi}/${id}`)
-          .pipe(map((c) => this.mapToICard(c)))
-      )
+      catchError(() => this.fetchCardFromSecondaryApi(id))
     );
   }
 
   private fetchFromCardsEndpoint(): Observable<ICards[]> {
     return this.http
       .get<CardDto[]>(this.cardsApi)
-      .pipe(map((list) => this.mapList(list)));
+      .pipe(
+        map((list) => this.mapList(list)),
+        switchMap((cards) => (cards.length ? of(cards) : this.loadFromAssets())),
+        catchError(() => this.loadFromAssets())
+      );
+  }
+
+  private loadFromAssets(): Observable<ICards[]> {
+    return this.http
+      .get<{ cards: CardDto[] }>(this.localCardsUrl)
+      .pipe(
+        map((resp) => this.mapList(resp?.cards ?? [])),
+        catchError(() => of([]))
+      );
+  }
+
+  private loadSingleFromAssets(id: string): Observable<ICards | undefined> {
+    return this.loadFromAssets().pipe(
+      map((cards) => cards.find((c) => c.id === String(id)))
+    );
+  }
+
+  private fetchCardFromSecondaryApi(id: string): Observable<ICards | undefined> {
+    return this.http
+      .get<CardDto>(`${this.cardsApi}/${id}`)
+      .pipe(
+        map((c) => this.mapToICard(c)),
+        switchMap((card) =>
+          card ? of(card) : this.loadSingleFromAssets(id)
+        ),
+        catchError(() => this.loadSingleFromAssets(id))
+      );
   }
 
   private mapList(list: CardDto[]): ICards[] {
@@ -68,10 +96,16 @@ export class CardsService {
 
   private mapToICard(dto: CardDto): ICards | null {
     const doc = (dto as any)?._doc ?? dto;
-    const id = (doc as any).id ?? dto.id ?? (doc as any)._id ?? dto._id ?? '';
-    const name = (doc as any).name ?? dto.name ?? '';
-    const description = (doc as any).description ?? dto.description ?? '';
-    const file = (doc as any).img ?? dto.img ?? '';
+    const idRaw = (doc as any).id ?? dto.id ?? (doc as any)._id ?? dto._id ?? '';
+    const id = typeof idRaw === 'string' ? idRaw.trim() : String(idRaw || '').trim();
+    const nameRaw = (doc as any).name ?? dto.name ?? '';
+    const name = typeof nameRaw === 'string' ? nameRaw.trim() : String(nameRaw || '').trim();
+    const descriptionRaw = (doc as any).description ?? dto.description ?? '';
+    const description =
+      typeof descriptionRaw === 'string'
+        ? descriptionRaw
+        : String(descriptionRaw || '');
+    const file = ((doc as any).img ?? dto.img ?? '').trim();
     const uploadsBase = environment.apiUrl.replace(/\/api$/, '/uploads');
 
     return {

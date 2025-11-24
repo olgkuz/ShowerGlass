@@ -1,5 +1,5 @@
 <button pButton type="button" routerLink="/others" class="mb-3">
-  Назад к списку
+  Назад к каталогу
 </button>
 
 @if (loading) {
@@ -9,8 +9,9 @@
     <div class="card-detail-grid">
       <div class="card-image">
         <img
-          [attr.alt]="item?.name || 'Без названия'"
-          [src]="item?.imgUrl || ('assets/img/others/' + (item?.img || ''))"
+          [attr.alt]="item?.name || 'Элемент'"
+          [src]="item?.img ? ('assets/img/others/' + item?.img) : (item?.imgUrl || '')"
+          (error)="onImgError($event)"
           loading="lazy"
         />
       </div>
@@ -28,11 +29,11 @@
           [href]="getWhatsAppLink()"
         >
           <i class="pi pi-whatsapp"></i>
-          Связаться в WhatsApp
+          Написать в WhatsApp
         </a>
       </div>
     </div>
   </div>
 } @else {
-  <p class="text-center text-gray-600">Материал не найден</p>
+  <p class="text-center text-gray-600">Элемент не найден</p>
 }

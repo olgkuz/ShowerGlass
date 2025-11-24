@@ -1,5 +1,5 @@
 <button pButton type="button" routerLink="/cards" class="mb-3">
-  Назад к списку
+  Назад к каталогу
 </button>
 
 @if (loading) {
@@ -7,20 +7,20 @@
 } @else if (card) {
   <div class="card-detail-wrap">
     <div class="card-detail-grid">
-      <!-- Блок изображения -->
+      <!-- Изображение карточки -->
       <div class="card-image">
         <img
-          [attr.alt]="card?.name || 'Фото'"
-          [src]="card?.imgUrl || ('assets/img/cards/' + (card?.img || ''))"
+          [attr.alt]="card?.name || 'Товар'"
+          [src]="card?.img ? ('assets/img/cards/' + card?.img) : (card?.imgUrl || '')"
+          (error)="onImgError($event)"
           loading="lazy"
         />
       </div>
 
-      <!-- Блок описания -->
+      <!-- Описание -->
       <div class="card-description">
         <h2>{{ card?.name }}</h2>
 
-        <!-- Описание (поддержка HTML-разметки) -->
         <div class="description-content" [innerHTML]="card?.description || ''"></div>
 
         <!-- Кнопка WhatsApp -->
@@ -32,7 +32,7 @@
           [href]="getWhatsAppLink()"
         >
           <i class="pi pi-whatsapp"></i>
-          Отправить задание в WhatsApp
+          Написать в WhatsApp
         </a>
       </div>
     </div>
