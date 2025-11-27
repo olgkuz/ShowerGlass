@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://dushcabs.onrender.com/api'
+  apiUrl: 'https://dushcabs.onrender.com/api',
+  contactEndpoint: '/.netlify/functions/contact'
 };
-

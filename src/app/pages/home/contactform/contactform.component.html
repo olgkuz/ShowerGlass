@@ -2,7 +2,7 @@
 
 <section id="contactform" class="contact-form-section">
   <h2>Оставьте заявку</h2>
-  <p>Наш специалист свяжется с вами в ближайшее время</p>
+  <p>Оставьте контакты и кратко опишите задачу — ответим в рабочее время.</p>
 
   <form [formGroup]="contactForm" (ngSubmit)="submitForm()">
     <div class="form-group">
@@ -25,12 +25,11 @@
       <textarea
         pInputTextarea
         rows="4"
-        placeholder="Сообщение"
+        placeholder="Комментарий (необязательно)"
         formControlName="message"
       ></textarea>
     </div>
 
-    <!-- Чекбокс согласия -->
     <div class="form-group consent">
       <p-checkbox
         formControlName="consent"
@@ -38,8 +37,8 @@
         inputId="consent"
       ></p-checkbox>
       <label for="consent">
-        Я согласен на обработку персональных данных и принимаю
-        <a routerLink="/policy" target="_blank">Политику конфиденциальности</a>
+        Я соглашаюсь на обработку персональных данных и принимаю
+        <a routerLink="/policy" target="_blank">политику конфиденциальности</a>
       </label>
     </div>
 

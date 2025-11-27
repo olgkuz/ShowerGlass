@@ -6,6 +6,10 @@
   command = "ng build --configuration production"
   publish = "dist/ShowerGlass/browser"
 
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
 [[redirects]]
   from = "/*"
   to = "/index.html"
