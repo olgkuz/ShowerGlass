@@ -36,9 +36,15 @@ export class ContactformComponent {
   private readonly contactEndpoint =
     environment.contactEndpoint ?? `${environment.apiUrl}/contact`;
 
+  // Разрешаем только цифры, плюс, пробелы, скобки и дефисы
+  phonePattern = /^[0-9+()\s-]+$/;
+
   contactForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
-    phone: new FormControl('', [Validators.required]),
+    phone: new FormControl('', [
+      Validators.required,
+      Validators.pattern(this.phonePattern),
+    ]),
     message: new FormControl(''),
     consent: new FormControl(false, [Validators.requiredTrue]),
   });

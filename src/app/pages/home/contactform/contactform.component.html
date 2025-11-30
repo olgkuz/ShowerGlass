@@ -15,10 +15,12 @@
     </div>
     <div class="form-group">
       <input
-        type="text"
+        type="tel"
         pInputText
         placeholder="Телефон"
         formControlName="phone"
+        inputmode="tel"
+        [attr.pattern]="phonePattern.source"
       />
     </div>
     <div class="form-group">
