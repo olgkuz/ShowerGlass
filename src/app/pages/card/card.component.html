@@ -23,16 +23,16 @@
 
         <div class="description-content" [innerHTML]="card?.description || ''"></div>
 
-        <!-- Кнопка WhatsApp -->
+        <!-- Кнопка Telegram -->
         <a
           pButton
           type="button"
-          class="whatsapp-button"
+          class="telegram-button"
           target="_blank"
-          [href]="getWhatsAppLink()"
+          [href]="getTelegramLink()"
         >
-          <i class="pi pi-whatsapp"></i>
-          Написать в WhatsApp
+          <i class="pi pi-telegram"></i>
+          Написать в Telegram
         </a>
       </div>
     </div>

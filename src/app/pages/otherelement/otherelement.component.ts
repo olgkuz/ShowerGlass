@@ -41,8 +41,8 @@ export class OtherElementComponent implements OnInit {
     });
   }
 
-  getWhatsAppLink(): string {
-    const baseUrl = 'https://wa.me/79110293030';
+  getTelegramLink(): string {
+    const baseUrl = 'https://t.me/+79110293030';
     const name = this.item?.name?.trim();
     const text = name
       ? `Здравствуйте! Интересует товар: ${name}`

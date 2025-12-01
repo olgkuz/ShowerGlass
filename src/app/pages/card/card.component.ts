@@ -42,9 +42,9 @@ export class CardComponent implements OnInit {
     }
   }
 
-  /** Ссылка на WhatsApp с названием товара */
-  getWhatsAppLink(): string {
-    const baseUrl = 'https://wa.me/79110293030';
+  /** Telegram link with the product name prefilled */
+  getTelegramLink(): string {
+    const baseUrl = 'https://t.me/+79110293030';
     const name = this.card?.name?.trim() || '';
     const text = name
       ? `Здравствуйте! Интересует товар: ${name}`
