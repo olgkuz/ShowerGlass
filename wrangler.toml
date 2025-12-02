@@ -1,0 +1,6 @@
+name = "shower-glass"
+main = "worker.js"
+compatibility_date = "2025-12-02"
+
+assets = { directory = "dist/ShowerGlass/browser", binding = "ASSETS" }
+routes = ["www.steklodush-spb.ru/*"]
