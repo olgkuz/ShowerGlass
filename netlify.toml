@@ -11,6 +11,18 @@
   node_bundler = "esbuild"
 
 [[redirects]]
+  from = "/api/*"
+  to = "https://dushcabs.onrender.com/api/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/uploads/*"
+  to = "https://dushcabs.onrender.com/uploads/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200

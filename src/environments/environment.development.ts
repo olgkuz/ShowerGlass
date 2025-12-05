@@ -1,5 +1,6 @@
 export const environment = {
   production: false,
-  apiUrl: 'https://dushcabs.onrender.com/api',
+  // В деве тоже используем относительный путь и прокси-конфиг для обхода CORS.
+  apiUrl: '/api',
   contactEndpoint: '/.netlify/functions/contact'
 };

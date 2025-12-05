@@ -1,5 +1,6 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://dushcabs.onrender.com/api',
+  // Используем относительный путь, чтобы ходить к API через тот же домен (проксируется на onrender).
+  apiUrl: '/api',
   contactEndpoint: '/.netlify/functions/contact'
 };

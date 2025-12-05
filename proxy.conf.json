@@ -1,5 +1,10 @@
 {
-  "/types": {
+  "/api": {
+    "target": "https://dushcabs.onrender.com",
+    "secure": false,
+    "changeOrigin": true
+  },
+  "/uploads": {
     "target": "https://dushcabs.onrender.com",
     "secure": false,
     "changeOrigin": true
