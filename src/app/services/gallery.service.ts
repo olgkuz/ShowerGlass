@@ -22,7 +22,6 @@ type GalleryCardDto = {
 export class GalleryService {
   private readonly cardsApi = `${environment.apiUrl}/cards`;
   private readonly localCardsUrl = 'assets/img/cards/cards.json';
-  private readonly localGalleryUrl = 'assets/gallery/gallery.json';
   private readonly isLikelyBlockedByCors =
     typeof window !== 'undefined' &&
     (() => {
@@ -89,10 +88,7 @@ export class GalleryService {
 
   /** Оригинальные промо-фото для галереи */
   private loadFromGalleryAssets(): Observable<IGalleryCard[]> {
-    return this.http.get<{ items: GalleryCardDto[] }>(this.localGalleryUrl).pipe(
-      map((resp) => (resp?.items || []).map((c) => this.mapCard(c))),
-      catchError(() => this.loadFromCardsAssets())
-    );
+    return this.loadFromCardsAssets();
   }
 
   private loadFromCardsAssets(): Observable<IGalleryCard[]> {
