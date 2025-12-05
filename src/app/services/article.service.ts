@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, map } from 'rxjs';
+import { Observable, map, catchError, of } from 'rxjs';
 import { IArticle } from '../models/article';
 import { HttpClient } from '@angular/common/http';
 import { API } from '../shared/api';
@@ -22,27 +22,43 @@ type ArticlesResponse = ArticleDto[] | { articles?: ArticleDto[] };
 @Injectable({ providedIn: 'root' })
 export class ArticleService {
   private readonly apiUrl = API.articles;
+  private readonly localArticlesUrl = 'assets/articles/articles.json';
+  private readonly isLikelyBlockedByCors =
+    typeof window !== 'undefined' &&
+    (() => {
+      try {
+        const apiOrigin = new URL(this.apiUrl).origin;
+        return apiOrigin !== window.location.origin;
+      } catch {
+        return false;
+      }
+    })();
 
   constructor(private http: HttpClient) {}
 
   getArticles(): Observable<IArticle[]> {
+    if (this.isLikelyBlockedByCors) {
+      return this.loadFromAssets();
+    }
+
     return this.http.get<ArticlesResponse>(this.apiUrl).pipe(
       map((payload) => this.extractArticles(payload)),
-      map((articles) =>
-        articles
-          .map((article) => this.mapArticle(article))
-          .sort(
-            (a, b) =>
-              new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-          )
-      )
+      map((articles) => this.sortAndMap(articles)),
+      catchError(() => this.loadFromAssets())
     );
   }
 
   getArticleById(id: string): Observable<IArticle> {
+    if (this.isLikelyBlockedByCors) {
+      return this.loadSingleFromAssets(id);
+    }
+
     return this.http
       .get<ArticleDto>(API.articleById(id))
-      .pipe(map((article) => this.mapArticle(article)));
+      .pipe(
+        map((article) => this.mapArticle(article)),
+        catchError(() => this.loadSingleFromAssets(id))
+      );
   }
 
   createArticle(
@@ -78,5 +94,29 @@ export class ArticleService {
       readingTime: doc.readingTime ?? dto.readingTime ?? 0,
       tags: doc.tags ?? dto.tags ?? [],
     };
+  }
+
+  private sortAndMap(articles: ArticleDto[]): IArticle[] {
+    return articles
+      .map((article) => this.mapArticle(article))
+      .sort(
+        (a, b) =>
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      );
+  }
+
+  private loadFromAssets(): Observable<IArticle[]> {
+    return this.http
+      .get<{ articles: ArticleDto[] }>(this.localArticlesUrl)
+      .pipe(
+        map((resp) => this.sortAndMap(resp?.articles || [])),
+        catchError(() => of([]))
+      );
+  }
+
+  private loadSingleFromAssets(id: string): Observable<IArticle> {
+    return this.loadFromAssets().pipe(
+      map((list) => list.find((a) => a.id === String(id)) as IArticle)
+    );
   }
 }

@@ -26,10 +26,24 @@ export class CardsService {
   private readonly typesApi = `${environment.apiUrl}/types`;
   private readonly cardsApi = `${environment.apiUrl}/cards`;
   private readonly localCardsUrl = 'assets/img/cards/cards.json';
+  private readonly isLikelyBlockedByCors =
+    typeof window !== 'undefined' &&
+    (() => {
+      try {
+        const apiOrigin = new URL(this.typesApi).origin;
+        return apiOrigin !== window.location.origin;
+      } catch {
+        return false;
+      }
+    })();
 
   constructor(private http: HttpClient) {}
 
   getCards(): Observable<ICards[]> {
+    if (this.isLikelyBlockedByCors) {
+      return this.loadFromAssets();
+    }
+
     return this.http.get<CardDto[]>(this.typesApi).pipe(
       map((list) => this.mapList(list)),
       switchMap((cards) =>
@@ -40,6 +54,10 @@ export class CardsService {
   }
 
   getCardById(id: string): Observable<ICards | undefined> {
+    if (this.isLikelyBlockedByCors) {
+      return this.loadSingleFromAssets(id);
+    }
+
     return this.http.get<CardDto>(`${this.typesApi}/${id}`).pipe(
       map((dto) => this.mapToICard(dto)),
       switchMap((card) =>

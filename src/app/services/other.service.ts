@@ -19,10 +19,24 @@ export class OthersService {
   private readonly api = `${environment.apiUrl}/others`;
   private readonly cardsApi = `${environment.apiUrl}/cards`;
   private readonly localOthersUrl = 'assets/img/others/other.json';
+  private readonly isLikelyBlockedByCors =
+    typeof window !== 'undefined' &&
+    (() => {
+      try {
+        const apiOrigin = new URL(this.api).origin;
+        return apiOrigin !== window.location.origin;
+      } catch {
+        return false;
+      }
+    })();
 
   constructor(private http: HttpClient) {}
 
   getOthers(): Observable<IOther[]> {
+    if (this.isLikelyBlockedByCors) {
+      return this.loadFromAssets();
+    }
+
     return this.http.get<OtherDto[]>(this.api).pipe(
       map((list) => this.mapList(list)),
       switchMap((items) =>
@@ -33,6 +47,10 @@ export class OthersService {
   }
 
   getOtherById(id: string): Observable<IOther | undefined> {
+    if (this.isLikelyBlockedByCors) {
+      return this.loadSingleFromAssets(id);
+    }
+
     return this.http.get<OtherDto>(`${this.api}/${id}`).pipe(
       map((dto) => this.mapToClient(dto)),
       switchMap((item) =>
