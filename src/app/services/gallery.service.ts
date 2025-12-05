@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, Observable, catchError, of } from 'rxjs';
+import { map, Observable, catchError, of, switchMap } from 'rxjs';
 import { IGalleryCard } from '../models/gallery-card';
 import { environment } from '../../environments/environment';
 
@@ -22,6 +22,7 @@ type GalleryCardDto = {
 export class GalleryService {
   private readonly cardsApi = `${environment.apiUrl}/cards`;
   private readonly localCardsUrl = 'assets/img/cards/cards.json';
+  private readonly localGalleryUrl = 'assets/gallery/gallery.json';
   private readonly isLikelyBlockedByCors =
     typeof window !== 'undefined' &&
     (() => {
@@ -36,29 +37,37 @@ export class GalleryService {
   constructor(private http: HttpClient) {}
 
   getCards(): Observable<IGalleryCard[]> {
-    if (this.isLikelyBlockedByCors) {
-      return this.loadFromAssets();
-    }
+    return this.loadFromGalleryAssets().pipe(
+      switchMap((local) => {
+        if (local.length || this.isLikelyBlockedByCors) {
+          return of(local);
+        }
 
-    return this.http
-      .get<GalleryCardDto[]>(this.cardsApi)
-      .pipe(
-        map((cards) => cards.map((c) => this.mapCard(c))),
-        catchError(() => this.loadFromAssets())
-      );
+        return this.http
+          .get<GalleryCardDto[]>(this.cardsApi)
+          .pipe(
+            map((cards) => cards.map((c) => this.mapCard(c))),
+            catchError(() => of(local))
+          );
+      })
+    );
   }
 
   getCardById(id: string): Observable<IGalleryCard> {
-    if (this.isLikelyBlockedByCors) {
-      return this.loadSingleFromAssets(id);
-    }
+    return this.loadSingleFromGalleryAssets(id).pipe(
+      switchMap((local) => {
+        if (local || this.isLikelyBlockedByCors) {
+          return of(local as IGalleryCard);
+        }
 
-    return this.http
-      .get<GalleryCardDto>(`${this.cardsApi}/${id}`)
-      .pipe(
-        map((card) => this.mapCard(card)),
-        catchError(() => this.loadSingleFromAssets(id))
-      );
+        return this.http
+          .get<GalleryCardDto>(`${this.cardsApi}/${id}`)
+          .pipe(
+            map((card) => this.mapCard(card)),
+            catchError(() => this.loadSingleFromGalleryAssets(id))
+          );
+      })
+    );
   }
 
   private mapCard(dto: GalleryCardDto): IGalleryCard {
@@ -78,7 +87,15 @@ export class GalleryService {
     };
   }
 
-  private loadFromAssets(): Observable<IGalleryCard[]> {
+  /** Оригинальные промо-фото для галереи */
+  private loadFromGalleryAssets(): Observable<IGalleryCard[]> {
+    return this.http.get<{ items: GalleryCardDto[] }>(this.localGalleryUrl).pipe(
+      map((resp) => (resp?.items || []).map((c) => this.mapCard(c))),
+      catchError(() => this.loadFromCardsAssets())
+    );
+  }
+
+  private loadFromCardsAssets(): Observable<IGalleryCard[]> {
     return this.http
       .get<{ cards: GalleryCardDto[] }>(this.localCardsUrl)
       .pipe(
@@ -87,8 +104,8 @@ export class GalleryService {
       );
   }
 
-  private loadSingleFromAssets(id: string): Observable<IGalleryCard> {
-    return this.loadFromAssets().pipe(
+  private loadSingleFromGalleryAssets(id: string): Observable<IGalleryCard> {
+    return this.loadFromGalleryAssets().pipe(
       map((cards) => cards.find((c) => c.id === String(id)) as IGalleryCard)
     );
   }

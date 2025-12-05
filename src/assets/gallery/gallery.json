@@ -1,0 +1,58 @@
+{
+  "items": [
+    {
+      "id": "g1",
+      "name": "Душевая с откатной дверью Piuma",
+      "description": "Пример реализации с откатной системой.",
+      "imgUrl": "assets/img/examples/example1.jpg"
+    },
+    {
+      "id": "g2",
+      "name": "Раздвижные двери с угла, тонированное стекло",
+      "description": "Угловое ограждение с тонированным стеклом.",
+      "imgUrl": "assets/img/examples/example2.jpg"
+    },
+    {
+      "id": "g3",
+      "name": "Распашная дверь",
+      "description": "",
+      "imgUrl": "assets/img/examples/example3.jpg"
+    },
+    {
+      "id": "g4",
+      "name": "Трапециевидная душeвая",
+      "description": "",
+      "imgUrl": "assets/img/examples/example4.jpg"
+    },
+    {
+      "id": "g5",
+      "name": "Ограждение с дверью под 45°",
+      "description": "",
+      "imgUrl": "assets/img/examples/example5.jpg"
+    },
+    {
+      "id": "g6",
+      "name": "Ограждение на ванну",
+      "description": "",
+      "imgUrl": "assets/img/examples/example6.jpg"
+    },
+    {
+      "id": "g7",
+      "name": "Угловое ограждение",
+      "description": "",
+      "imgUrl": "assets/img/examples/example7.jpg"
+    },
+    {
+      "id": "g8",
+      "name": "Ограждение в нишу",
+      "description": "",
+      "imgUrl": "assets/img/examples/example8.jpg"
+    },
+    {
+      "id": "g9",
+      "name": "Ограждение Slash",
+      "description": "",
+      "imgUrl": "assets/img/examples/example9.jpg"
+    }
+  ]
+}
