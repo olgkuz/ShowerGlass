@@ -19,25 +19,21 @@
     color: var.$background;
   }
 
-  /* Общий стиль для всего аккордеона */
   ::ng-deep .p-accordion {
     font-family: var.$font-family-base !important;
     color: var.$background !important;
   }
 
-  /* Заголовки вкладок (по умолчанию + активные) */
   ::ng-deep .p-accordion-header-link {
     font-family: var.$font-family-base !important;
-    color: var.$background !important;  /* ВСЕГДА нужный цвет */
-    font-weight: 500;
+    color: #3c3422 !important;
+    font-weight: 600;
   }
 
-  /* Для активного состояния (раскрытая панель) */
   ::ng-deep .p-accordion-header-link.p-highlight {
-    color: var.$background !important; /* оставляем тот же цвет */
+    color: var.$background !important;
   }
 
-  /* Контент внутри вкладок */
   ::ng-deep .p-accordion-content {
     font-family: var.$font-family-base !important;
     color: var.$background !important;
@@ -45,8 +41,11 @@
     line-height: 1.6;
   }
 
-  /* Иконка открытия */
   ::ng-deep .p-accordion-toggle-icon {
+    color: #3c3422 !important;
+  }
+
+  ::ng-deep .p-accordion-header-link.p-highlight .p-accordion-toggle-icon {
     color: var.$background !important;
   }
 }

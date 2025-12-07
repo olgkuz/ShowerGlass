@@ -3,7 +3,7 @@
 :host { display: block; }
 
 .card-detail-wrap {
-  padding: 2rem;
+  padding: 2rem 2rem 3.5rem;
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -25,6 +25,9 @@
 }
 
 .card-description {
+  display: flex;
+  flex-direction: column;
+
   h2 {
     font-size: 2rem;
     margin-bottom: 1rem;
@@ -41,6 +44,8 @@
     word-wrap: break-word;
     overflow-wrap: break-word;
     max-width: 100%;
+    max-height: 50vh;
+    overflow-y: auto;
   }
 }
 
@@ -49,7 +54,7 @@ a[pButton] {
   background-color: var.$background !important;
   border: none !important;
   color: #fff !important;
-  margin: 5rem 1rem 0 0;
+  margin: 1rem 1rem 0 0;
   display: inline-flex;
   align-items: center;
   justify-content: center;
