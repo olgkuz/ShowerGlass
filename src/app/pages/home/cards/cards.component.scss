@@ -64,10 +64,17 @@
       padding: 0;
     }
 
+    ::ng-deep .p-card-footer {
+      display: flex;
+      justify-content: center;
+    }
+
     ::ng-deep .p-button {
       background-color: var.$background !important;
       border: none !important;
       color: #fff !important;
+      width: auto !important;
+      min-width: 160px;
     }
 
     ::ng-deep .p-button:hover {

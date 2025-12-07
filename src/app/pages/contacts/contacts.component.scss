@@ -6,7 +6,7 @@
 
 .contacts-container {
   background-color: #f6f6f6;
-  padding: 3rem 2rem;
+  padding: 2rem 2rem 3rem;
   text-align: center;
 
   h2 {
@@ -20,6 +20,7 @@
     margin-bottom: 2rem;
     color: var.$background;
     font-family: var.$font-family-base;
+    margin-top: 1rem;
   }
 
   .contact-info {
@@ -57,10 +58,13 @@
         font-size: 1rem;
       }
 
-      button {
+      ::ng-deep .p-button {
         font-size: 1rem;
-        padding: 0.5rem 1rem;
-        border-radius: 6px;
+        padding: 0.6rem 1.2rem;
+        border-radius: 8px;
+        background-color: var.$background !important;
+        border: 1px solid var.$background !important;
+        color: #fff !important;
       }
     }
   }

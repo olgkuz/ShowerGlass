@@ -77,8 +77,10 @@
         border-color: var.$background;
       }
 
-      ::ng-deep .p-checkbox-icon {
-        color: #fff;
+      ::ng-deep .p-checkbox-icon,
+      ::ng-deep .p-checkbox-box .p-checkbox-icon,
+      ::ng-deep .p-checkbox-box .p-icon {
+        color: #fff !important;
         font-size: 12px;
       }
 
