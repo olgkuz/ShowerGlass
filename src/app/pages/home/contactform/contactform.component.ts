@@ -37,7 +37,8 @@ export class ContactformComponent {
     environment.contactEndpoint ?? `${environment.apiUrl}/contact`;
 
   // Разрешаем только цифры, плюс, пробелы, скобки и дефисы
-  phonePattern = /^[0-9+()\s-]+$/;
+  // Allow digits, plus, parentheses, spaces and hyphens only.
+  phonePattern = /^[0-9+() -]+$/;
 
   contactForm = new FormGroup({
     name: new FormControl('', [Validators.required]),

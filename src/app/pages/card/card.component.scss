@@ -27,6 +27,9 @@
 }
 
 .card-description {
+  display: flex;
+  flex-direction: column;
+
   h2 {
     font-size: 2rem;
     margin-bottom: 1rem;
@@ -43,6 +46,8 @@
     overflow-wrap: break-word;
     max-width: 100%;
     margin-bottom: 1.5rem;
+    max-height: 50vh;
+    overflow-y: auto;
   }
 }
 

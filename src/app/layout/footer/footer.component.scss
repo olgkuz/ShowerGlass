@@ -23,7 +23,7 @@
   }
 
   &__right-block {
-    gap: 10px; // расстояние между соц.иконками и кнопкой
+    gap: 10px;
   }
 
   .privacy-link {
@@ -31,27 +31,30 @@
     text-decoration: underline;
     text-underline-offset: 3px;
 
-    &:hover { opacity: 0.9; }
+    &:hover {
+      opacity: 0.9;
+    }
   }
 
   .social-icons {
     display: flex;
-    gap: 12px;
+    gap: 8px;
     align-items: center;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     max-width: 100%;
   }
 
   .icon-link {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    padding: 6px 10px;
+    gap: 6px;
+    padding: 5px 8px;
     border-radius: 10px;
     background: rgba(255, 255, 255, 0.08);
     text-decoration: none;
     color: #fff;
     transition: transform 0.15s ease, background 0.15s ease;
+    min-width: 0;
 
     &:hover {
       transform: translateY(-1px);
@@ -59,19 +62,18 @@
     }
 
     .icon {
-      width: 20px;
-      height: 20px;
+      width: 18px;
+      height: 18px;
       fill: currentColor;
-      flex: 0 0 20px;
+      flex: 0 0 18px;
     }
 
     .label {
-      font-size: 0.95rem;
+      font-size: 0.85rem;
       white-space: nowrap;
     }
   }
 
-  /* Стиль для кнопки "Дизайнерам" под дизайн футера */
   .designer-link {
     display: inline-flex;
     align-items: center;
@@ -93,7 +95,9 @@
 }
 
 @media (max-width: 768px) {
-  :host { height: auto; }
+  :host {
+    height: auto;
+  }
 
   .layout-footer {
     flex-direction: column;
@@ -102,14 +106,22 @@
     padding: 10px;
 
     &__right-block,
-    &__left-block { justify-content: center; }
+    &__left-block {
+      justify-content: center;
+    }
 
-    /* На мобиле сделаем кнопку шире и поставим под иконками */
     &__right-block {
       flex-direction: column;
+
       .designer-link {
+        display: none;
+      }
+
+      .social-icons {
         width: 100%;
-        justify-content: center;
+        justify-content: space-between;
+        gap: 6px;
+        flex-wrap: nowrap;
       }
     }
   }

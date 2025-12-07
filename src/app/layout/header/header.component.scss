@@ -45,10 +45,18 @@
   align-items: center;
 
   ::ng-deep .p-button {
-    background: transparent;
-    border: none;
-    font-size: 2rem; 
-    color: white;
+    background: #fff;
+    border: 1px solid #fff;
+    font-size: 2rem;
+    color: var.$background;
+    padding: 6px 10px;
+    border-radius: 10px;
+
+    &:hover {
+      background: #f7f4ee;
+      border-color: #f7f4ee;
+      color: var.$background;
+    }
   }
 
   .burger-panel {
