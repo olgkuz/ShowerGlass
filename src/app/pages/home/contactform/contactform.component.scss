@@ -61,6 +61,7 @@
       ::ng-deep .p-checkbox {
         display: inline-flex;
         align-items: center;
+        justify-content: center;
       }
 
       ::ng-deep .p-checkbox-box {
@@ -82,6 +83,11 @@
       ::ng-deep .p-checkbox-box .p-icon {
         color: #fff !important;
         font-size: 12px;
+        width: 12px;
+        height: 12px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
       }
 
       a {
