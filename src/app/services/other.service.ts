@@ -17,7 +17,6 @@ type OtherDto = {
 @Injectable({ providedIn: 'root' })
 export class OthersService {
   private readonly api = `${environment.apiUrl}/others`;
-  private readonly cardsApi = `${environment.apiUrl}/cards`;
   private readonly localOthersUrl = 'assets/img/others/other.json';
   private readonly isLikelyBlockedByCors =
     typeof window !== 'undefined' &&
@@ -40,9 +39,9 @@ export class OthersService {
     return this.http.get<OtherDto[]>(this.api).pipe(
       map((list) => this.mapList(list)),
       switchMap((items) =>
-        items.length ? of(items) : this.fetchFromCards()
+        items.length ? of(items) : this.loadFromAssets()
       ),
-      catchError(() => this.fetchFromCards())
+      catchError(() => this.loadFromAssets())
     );
   }
 
@@ -54,36 +53,10 @@ export class OthersService {
     return this.http.get<OtherDto>(`${this.api}/${id}`).pipe(
       map((dto) => this.mapToClient(dto)),
       switchMap((item) =>
-        item
-          ? of(item)
-          : this.fetchSingleFromCards(id)
+        item ? of(item) : this.loadSingleFromAssets(id)
       ),
-      catchError(() => this.fetchSingleFromCards(id))
+      catchError(() => this.loadSingleFromAssets(id))
     );
-  }
-
-  private fetchFromCards(): Observable<IOther[]> {
-    return this.http
-      .get<OtherDto[]>(this.cardsApi)
-      .pipe(
-        map((list) => this.mapList(list)),
-        switchMap((items) =>
-          items.length ? of(items) : this.loadFromAssets()
-        ),
-        catchError(() => this.loadFromAssets())
-      );
-  }
-
-  private fetchSingleFromCards(id: string): Observable<IOther | undefined> {
-    return this.http
-      .get<OtherDto>(`${this.cardsApi}/${id}`)
-      .pipe(
-        map((dto) => this.mapToClient(dto)),
-        switchMap((item) =>
-          item ? of(item) : this.loadSingleFromAssets(id)
-        ),
-        catchError(() => this.loadSingleFromAssets(id))
-      );
   }
 
   private loadFromAssets(): Observable<IOther[]> {
