@@ -24,7 +24,6 @@ type CardDto = {
 @Injectable({ providedIn: 'root' })
 export class CardsService {
   private readonly typesApi = `${environment.apiUrl}/types`;
-  private readonly cardsApi = `${environment.apiUrl}/cards`;
   private readonly localCardsUrl = 'assets/img/cards/cards.json';
   private readonly isLikelyBlockedByCors =
     typeof window !== 'undefined' &&
@@ -47,9 +46,9 @@ export class CardsService {
     return this.http.get<CardDto[]>(this.typesApi).pipe(
       map((list) => this.mapList(list)),
       switchMap((cards) =>
-        cards.length ? of(cards) : this.fetchFromCardsEndpoint()
+        cards.length ? of(cards) : this.loadFromAssets()
       ),
-      catchError(() => this.fetchFromCardsEndpoint())
+      catchError(() => this.loadFromAssets())
     );
   }
 
@@ -60,21 +59,9 @@ export class CardsService {
 
     return this.http.get<CardDto>(`${this.typesApi}/${id}`).pipe(
       map((dto) => this.mapToICard(dto)),
-      switchMap((card) =>
-        card ? of(card) : this.fetchCardFromSecondaryApi(id)
-      ),
-      catchError(() => this.fetchCardFromSecondaryApi(id))
+      switchMap((card) => (card ? of(card) : this.loadSingleFromAssets(id))),
+      catchError(() => this.loadSingleFromAssets(id))
     );
-  }
-
-  private fetchFromCardsEndpoint(): Observable<ICards[]> {
-    return this.http
-      .get<CardDto[]>(this.cardsApi)
-      .pipe(
-        map((list) => this.mapList(list)),
-        switchMap((cards) => (cards.length ? of(cards) : this.loadFromAssets())),
-        catchError(() => this.loadFromAssets())
-      );
   }
 
   private loadFromAssets(): Observable<ICards[]> {
@@ -90,18 +77,6 @@ export class CardsService {
     return this.loadFromAssets().pipe(
       map((cards) => cards.find((c) => c.id === String(id)))
     );
-  }
-
-  private fetchCardFromSecondaryApi(id: string): Observable<ICards | undefined> {
-    return this.http
-      .get<CardDto>(`${this.cardsApi}/${id}`)
-      .pipe(
-        map((c) => this.mapToICard(c)),
-        switchMap((card) =>
-          card ? of(card) : this.loadSingleFromAssets(id)
-        ),
-        catchError(() => this.loadSingleFromAssets(id))
-      );
   }
 
   private mapList(list: CardDto[]): ICards[] {

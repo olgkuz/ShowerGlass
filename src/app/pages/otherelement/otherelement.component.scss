@@ -73,6 +73,13 @@ a[pButton] {
   }
 }
 
+.back-button {
+  position: sticky;
+  top: 1rem;
+  z-index: 5;
+  align-self: flex-start;
+}
+
 a.telegram-button {
   background-color: #229ED9 !important;
   color: #fff !important;

@@ -73,14 +73,16 @@
         transition: all 0.15s ease;
       }
 
-      ::ng-deep .p-checkbox-box.p-highlight {
+      ::ng-deep .p-checkbox.p-highlight .p-checkbox-box,
+      ::ng-deep .p-checkbox.p-checkbox-checked .p-checkbox-box {
         background: var.$background;
         border-color: var.$background;
       }
 
-      ::ng-deep .p-checkbox-icon,
-      ::ng-deep .p-checkbox-box .p-checkbox-icon,
-      ::ng-deep .p-checkbox-box .p-icon {
+      ::ng-deep .p-checkbox.p-highlight .p-checkbox-icon,
+      ::ng-deep .p-checkbox.p-checkbox-checked .p-checkbox-icon,
+      ::ng-deep .p-checkbox.p-highlight .p-checkbox-box .p-icon,
+      ::ng-deep .p-checkbox.p-checkbox-checked .p-checkbox-box .p-icon {
         color: #fff !important;
         font-size: 12px;
         width: 12px;
