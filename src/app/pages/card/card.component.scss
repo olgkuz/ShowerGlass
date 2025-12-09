@@ -1,4 +1,4 @@
-@use "variables" as var;
+﻿@use "variables" as var;
 
 :host {
   display: block;
@@ -51,7 +51,7 @@
   }
 }
 
-/* Общий стиль для кнопок */
+/* РћР±С‰РёР№ СЃС‚РёР»СЊ РґР»СЏ РєРЅРѕРїРѕРє */
 button[pButton],
 a[pButton] {
   background-color: var.$background !important;
@@ -78,10 +78,18 @@ a[pButton] {
   }
 }
 
-/* Специальный стиль для Telegram */
+/* РЎРїРµС†РёР°Р»СЊРЅС‹Р№ СЃС‚РёР»СЊ РґР»СЏ Telegram */
 a.telegram-button {
-  background-color: #229ED9 !important; // фирменный зеленый
+  background-color: #229ED9 !important; // С„РёСЂРјРµРЅРЅС‹Р№ Р·РµР»РµРЅС‹Р№
   color: #fff !important;
+}
+
+.back-button {
+  position: sticky;
+  top: 4rem;
+  z-index: 5;
+  align-self: flex-start;
+  margin-top: 1.5rem;
 }
 
 @media (max-width: 768px) {
@@ -94,4 +102,8 @@ a.telegram-button {
     }
   }
 }
+
+
+
+
 

@@ -75,9 +75,10 @@ a[pButton] {
 
 .back-button {
   position: sticky;
-  top: 1rem;
+  top: 4rem;
   z-index: 5;
   align-self: flex-start;
+  margin-top: 1.5rem;
 }
 
 a.telegram-button {

@@ -53,7 +53,8 @@ export class CardsService {
   }
 
   getCardById(id: string): Observable<ICards | undefined> {
-    if (this.isLikelyBlockedByCors) {
+    // IDs like "1", "2" belong to the static cards.json; API expects Mongo ObjectId.
+    if (this.isLikelyBlockedByCors || !this.isMongoObjectId(id)) {
       return this.loadSingleFromAssets(id);
     }
 
@@ -111,5 +112,9 @@ export class CardsService {
         dto.imgUrl ??
         (file ? `${uploadsBase}/${file}` : undefined),
     };
+  }
+
+  private isMongoObjectId(value: string): boolean {
+    return /^[0-9a-fA-F]{24}$/.test(value.trim());
   }
 }

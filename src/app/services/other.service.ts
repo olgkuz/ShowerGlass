@@ -46,7 +46,9 @@ export class OthersService {
   }
 
   getOtherById(id: string): Observable<IOther | undefined> {
-    if (this.isLikelyBlockedByCors) {
+    // Слаги вроде "swing-partitions" есть только в локальном JSON;
+    // API ожидает Mongo ObjectId, поэтому такие запросы дают 400.
+    if (this.isLikelyBlockedByCors || !this.isMongoObjectId(id)) {
       return this.loadSingleFromAssets(id);
     }
 
@@ -108,4 +110,8 @@ export class OthersService {
         (file ? `${uploadsBase}/${file}` : undefined),
     };
   };
+
+  private isMongoObjectId(value: string): boolean {
+    return /^[0-9a-fA-F]{24}$/.test(value.trim());
+  }
 }
