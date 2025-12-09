@@ -86,10 +86,11 @@ a.telegram-button {
 
 .back-button {
   position: sticky;
-  top: 4rem;
+  top: 5rem;
   z-index: 5;
   align-self: flex-start;
-  margin-top: 1.5rem;
+  margin-top: 2rem;
+  margin-bottom: 1.5rem;
 }
 
 @media (max-width: 768px) {
