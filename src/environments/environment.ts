@@ -1,7 +1,6 @@
 export const environment = {
-  production: true,
-  // Используем относительный путь, чтобы ходить к API через тот же домен (проксируется на onrender).
-  apiUrl: '/api',
-  // Endpoint Cloudflare Worker/Pages Functions для формы контакта
-  contactEndpoint: '/api/contact'
+  production: false,
+  // Local dev API
+  apiUrl: "http://localhost:3000/api",
+  contactEndpoint: "http://localhost:3000/api/contact"
 };

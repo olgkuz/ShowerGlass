@@ -1,7 +1,6 @@
 export const environment = {
   production: false,
-  // В деве тоже используем относительный путь и прокси-конфиг для обхода CORS.
-  apiUrl: '/api',
-  // Endpoint Cloudflare Worker/Pages Functions для формы контакта
-  contactEndpoint: '/api/contact'
+  // Local dev API (kept in sync with environment.ts for dev builds)
+  apiUrl: "http://localhost:3000/api",
+  contactEndpoint: "http://localhost:3000/api/contact"
 };

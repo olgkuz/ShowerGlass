@@ -1,11 +1,11 @@
 {
   "/api": {
-    "target": "https://dushcabs.onrender.com",
+    "target": "http://localhost:3000",
     "secure": false,
     "changeOrigin": true
   },
   "/uploads": {
-    "target": "https://dushcabs.onrender.com",
+    "target": "http://localhost:3000",
     "secure": false,
     "changeOrigin": true
   }
