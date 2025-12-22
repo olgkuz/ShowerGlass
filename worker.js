@@ -4,7 +4,7 @@ export default {
 
     // Proxy API and uploads to backend to keep same-origin and avoid CORS.
     if (url.pathname.startsWith('/api/') || url.pathname.startsWith('/uploads/')) {
-      const backendUrl = new URL(url.pathname + url.search, 'https://dushcabs.onrender.com');
+      const backendUrl = new URL(url.pathname + url.search, 'https://api.steklodush-spb.ru');
       const proxiedResponse = await fetch(backendUrl.toString(), {
         method: request.method,
         headers: request.headers,

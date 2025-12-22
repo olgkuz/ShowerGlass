@@ -12,13 +12,13 @@
 
 [[redirects]]
   from = "/api/*"
-  to = "https://dushcabs.onrender.com/api/:splat"
+  to = "https://api.steklodush-spb.ru/api/:splat"
   status = 200
   force = true
 
 [[redirects]]
   from = "/uploads/*"
-  to = "https://dushcabs.onrender.com/uploads/:splat"
+  to = "https://api.steklodush-spb.ru/uploads/:splat"
   status = 200
   force = true
 
