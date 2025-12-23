@@ -25,24 +25,9 @@ type CardDto = {
 export class CardsService {
   private readonly cardsApi = `${environment.apiUrl}/cards`;
   private readonly localCardsUrl = 'assets/img/cards/cards.json';
-  private readonly isLikelyBlockedByCors =
-    typeof window !== 'undefined' &&
-    (() => {
-      try {
-        const apiOrigin = new URL(this.cardsApi).origin;
-        return apiOrigin !== window.location.origin;
-      } catch {
-        return false;
-      }
-    })();
-
   constructor(private http: HttpClient) {}
 
   getCards(): Observable<ICards[]> {
-    if (this.isLikelyBlockedByCors) {
-      return this.loadFromAssets();
-    }
-
     return this.http.get<CardDto[]>(this.cardsApi).pipe(
       map((list) => this.mapList(list)),
       switchMap((cards) =>
@@ -54,7 +39,7 @@ export class CardsService {
 
   getCardById(id: string): Observable<ICards | undefined> {
     // IDs like "1", "2" belong to the static cards.json; API expects Mongo ObjectId.
-    if (this.isLikelyBlockedByCors || !this.isMongoObjectId(id)) {
+    if (!this.isMongoObjectId(id)) {
       return this.loadSingleFromAssets(id);
     }
 

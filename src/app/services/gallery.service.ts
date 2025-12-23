@@ -22,23 +22,9 @@ type GalleryCardDto = {
 export class GalleryService {
   private readonly apiUrl = `${environment.apiUrl}/cards`;
   private readonly localCardsUrl = 'assets/img/cards/cards.json';
-  private readonly isLikelyBlockedByCors =
-    typeof window !== 'undefined' &&
-    (() => {
-      try {
-        return new URL(this.apiUrl).origin !== window.location.origin;
-      } catch {
-        return false;
-      }
-    })();
-
   constructor(private http: HttpClient) {}
 
   getCards(): Observable<IGalleryCard[]> {
-    if (this.isLikelyBlockedByCors) {
-      return this.loadFromAssets();
-    }
-
     return this.http.get<GalleryCardDto[]>(this.apiUrl).pipe(
       map((cards) => cards.map((c) => this.mapCard(c))),
       catchError(() => this.loadFromAssets())
@@ -46,10 +32,6 @@ export class GalleryService {
   }
 
   getCardById(id: string): Observable<IGalleryCard> {
-    if (this.isLikelyBlockedByCors) {
-      return this.loadSingleFromAssets(id);
-    }
-
     return this.http
       .get<GalleryCardDto>(`${this.apiUrl}/${id}`)
       .pipe(
