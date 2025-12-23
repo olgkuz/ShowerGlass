@@ -23,13 +23,13 @@ type CardDto = {
 
 @Injectable({ providedIn: 'root' })
 export class CardsService {
-  private readonly typesApi = `${environment.apiUrl}/types`;
+  private readonly cardsApi = `${environment.apiUrl}/cards`;
   private readonly localCardsUrl = 'assets/img/cards/cards.json';
   private readonly isLikelyBlockedByCors =
     typeof window !== 'undefined' &&
     (() => {
       try {
-        const apiOrigin = new URL(this.typesApi).origin;
+        const apiOrigin = new URL(this.cardsApi).origin;
         return apiOrigin !== window.location.origin;
       } catch {
         return false;
@@ -43,7 +43,7 @@ export class CardsService {
       return this.loadFromAssets();
     }
 
-    return this.http.get<CardDto[]>(this.typesApi).pipe(
+    return this.http.get<CardDto[]>(this.cardsApi).pipe(
       map((list) => this.mapList(list)),
       switchMap((cards) =>
         cards.length ? of(cards) : this.loadFromAssets()
@@ -58,7 +58,7 @@ export class CardsService {
       return this.loadSingleFromAssets(id);
     }
 
-    return this.http.get<CardDto>(`${this.typesApi}/${id}`).pipe(
+    return this.http.get<CardDto>(`${this.cardsApi}/${id}`).pipe(
       map((dto) => this.mapToICard(dto)),
       switchMap((card) => (card ? of(card) : this.loadSingleFromAssets(id))),
       catchError(() => this.loadSingleFromAssets(id))
