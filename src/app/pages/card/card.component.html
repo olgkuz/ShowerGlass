@@ -11,7 +11,7 @@
       <div class="card-image">
         <img
           [attr.alt]="card?.name || 'Товар'"
-          [src]="card?.img ? ('assets/img/cards/' + card?.img) : (card?.imgUrl || '')"
+          [src]="card?.imgUrl || (card?.img ? ('assets/img/cards/' + card?.img) : '')"
           (error)="onImgError($event)"
           loading="lazy"
         />

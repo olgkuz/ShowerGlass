@@ -36,6 +36,11 @@
                 "glob": "_redirects",
                 "input": "src",
                 "output": "/"
+              },
+              {
+                "glob": "**/*",
+                "input": "src/public",
+                "output": "/"
               }
             ],
             "styles": [

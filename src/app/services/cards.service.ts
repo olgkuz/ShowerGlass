@@ -23,7 +23,7 @@ type CardDto = {
 
 @Injectable({ providedIn: 'root' })
 export class CardsService {
-  private readonly cardsApi = `${environment.apiUrl}/cards`;
+  private readonly cardsApi = `${environment.apiUrl}/types`;
   private readonly localCardsUrl = 'assets/img/cards/cards.json';
   constructor(private http: HttpClient) {}
 
@@ -75,8 +75,10 @@ export class CardsService {
 
   private mapToICard(dto: CardDto): ICards | null {
     const doc = (dto as any)?._doc ?? dto;
-    const idRaw = (doc as any).id ?? dto.id ?? (doc as any)._id ?? dto._id ?? '';
-    const id = typeof idRaw === 'string' ? idRaw.trim() : String(idRaw || '').trim();
+    const mongoId = this.extractMongoId((doc as any)._id ?? dto._id);
+    const idRaw = (doc as any).id ?? dto.id ?? mongoId ?? '';
+    const id =
+      typeof idRaw === 'string' ? idRaw.trim() : String(idRaw || '').trim();
     const nameRaw = (doc as any).name ?? dto.name ?? '';
     const name = typeof nameRaw === 'string' ? nameRaw.trim() : String(nameRaw || '').trim();
     const descriptionRaw = (doc as any).description ?? dto.description ?? '';
@@ -101,5 +103,27 @@ export class CardsService {
 
   private isMongoObjectId(value: string): boolean {
     return /^[0-9a-fA-F]{24}$/.test(value.trim());
+  }
+
+  private extractMongoId(value: unknown): string | undefined {
+    if (!value) return undefined;
+    if (typeof value === 'string') {
+      return this.isMongoObjectId(value) ? value : undefined;
+    }
+    if (typeof value === 'object') {
+      const raw = value as Record<string, unknown>;
+      const oid = raw['$oid'];
+      if (typeof oid === 'string' && this.isMongoObjectId(oid)) {
+        return oid;
+      }
+      const buffer = raw['buffer'] as { data?: number[] } | undefined;
+      if (buffer?.data && Array.isArray(buffer.data)) {
+        const hex = buffer.data
+          .map((b) => b.toString(16).padStart(2, '0'))
+          .join('');
+        return this.isMongoObjectId(hex) ? hex : undefined;
+      }
+    }
+    return undefined;
   }
 }

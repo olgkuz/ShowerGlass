@@ -10,7 +10,7 @@
       <div class="card-image">
         <img
           [attr.alt]="item?.name || 'Элемент'"
-          [src]="item?.img ? ('assets/img/others/' + item?.img) : (item?.imgUrl || '')"
+          [src]="item?.imgUrl || (item?.img ? ('assets/img/others/' + item?.img) : '')"
           (error)="onImgError($event)"
           loading="lazy"
         />

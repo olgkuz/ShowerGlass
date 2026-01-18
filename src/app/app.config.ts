@@ -13,7 +13,7 @@ function initializeApp(config:ConfigService) {
 }
 export const appConfig: ApplicationConfig = {
   providers: [
-    
+    provideAppInitializer(() => initializeApp(inject(ConfigService))),
     provideZoneChangeDetection(),
     provideRouter(routes),
       provideAnimationsAsync(),
