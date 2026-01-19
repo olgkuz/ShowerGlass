@@ -38,7 +38,7 @@ export class ContactformComponent {
 
   // Разрешаем только цифры, плюс, пробелы, скобки и дефисы
   // Allow digits, plus, parentheses, spaces and hyphens only.
-  phonePattern = /^[0-9+() -]+$/;
+  phonePattern = '^[0-9+()\\- ]+$';
 
   contactForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
@@ -57,7 +57,8 @@ export class ContactformComponent {
 
   submitForm() {
     if (this.contactForm.valid) {
-      const formData = this.contactForm.value;
+      const { name, phone, message } = this.contactForm.value;
+      const formData = { name, phone, message };
 
       this.http
         .post(this.contactEndpoint, formData)
