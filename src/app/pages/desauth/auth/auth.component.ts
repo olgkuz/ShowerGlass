@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+﻿import { Component } from '@angular/core';
 import { CommonModule, NgClass } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
@@ -39,7 +39,7 @@ export class AuthorizationComponent {
       next: () => {
         this.isLoading = false;
         const user = this.userService.getUser();
-        const targetRoute = user?.name === 'admin' ? '/settings' : '/designer';
+        const targetRoute = user?.name === 'admin' || user?.name === 'glassadmin' ? '/settings' : '/designer';
         this.router.navigate([targetRoute]);
         this.name = '';
         this.password = '';
@@ -49,3 +49,4 @@ export class AuthorizationComponent {
     });
   }
 }
+

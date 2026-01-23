@@ -74,7 +74,7 @@ export const routes: Routes = [
           ),
         canActivate: [() => {
           const user = inject(UserService).getUser();
-          return user?.name === 'admin';
+          return user?.name === 'admin' || user?.name === 'glassadmin';
         }]
       },
       { path: '', redirectTo: 'home', pathMatch: 'full' }

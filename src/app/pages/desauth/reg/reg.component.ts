@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+﻿import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { UserService } from '../../../services/user.service';
 import { Router } from '@angular/router';
@@ -54,10 +54,10 @@ export class RegComponent {
       next: () => {
         this.isLoading = false;
         const user = this.userService.getUser();
-        const targetRoute = user?.name === 'admin' ? '/settings' : '/designer';
+        const targetRoute = user?.name === 'admin' || user?.name === 'glassadmin' ? '/settings' : '/designer';
         this.router.navigate([targetRoute]);
 
-        // очистка формы
+        // РѕС‡РёСЃС‚РєР° С„РѕСЂРјС‹
         this.name = '';
         this.email = '';
         this.password = '';
@@ -70,3 +70,4 @@ export class RegComponent {
     });
   }
 }
+

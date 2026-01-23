@@ -53,7 +53,10 @@ export class UserService {
       remember
     );
 
-    const targetRoute = response.user.name === 'admin' ? '/settings' : '/designer';
+    const targetRoute =
+      response.user.name === 'admin' || response.user.name === 'glassadmin'
+        ? '/settings'
+        : '/designer';
     this.router.navigate([targetRoute]);
   }
 
@@ -123,4 +126,3 @@ export class UserService {
     });
   }
 }
-
