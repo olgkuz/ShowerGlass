@@ -12,6 +12,6 @@ export const authGuard: CanActivateFn = (route, state) => {
 
   // Сохраняем URL для редиректа после входа
   localStorage.setItem('returnUrl', state.url);
-  router.navigate(['/desauth']);
+  router.navigate(['/admin']);
   return false;
 };

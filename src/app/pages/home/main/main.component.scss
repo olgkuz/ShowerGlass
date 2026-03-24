@@ -2,8 +2,9 @@
 
 .main-banner {
   width: 100%;
-  height: 100vh;
-  font-family: 'Roboto', sans-serif;
+  height: 100dvh;
+  min-height: 100vh;
+  font-family: var.$font-family-base;
   overflow: hidden;
 }
 
@@ -12,7 +13,7 @@
   grid-template-columns: 1fr 1fr;
   height: 100%;
 
-  @media (max-width: 768px) {
+  @media (max-width: var.$bp-sm) {
     grid-template-columns: 1fr;
     grid-template-rows: 1fr;
   }
@@ -31,7 +32,7 @@
   .main-overlay-mobile {
     display: none;
 
-    @media (max-width: 768px) {
+    @media (max-width: var.$bp-sm) {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -56,15 +57,29 @@
         margin-bottom: 15%;
         font-size: 1.2rem;
         padding: 1rem 1.5rem;
-        border-radius: 8px;
+        border-radius: var.$radius-md;
         font-weight: 600;
-        background-color: white;
-        color: var.$background;
-        border: none;
-        transition: background 0.3s;
+        background-color: var.$surface-base !important;
+        color: var.$background !important;
+        border: 2px solid transparent !important;
+        transition: background var.$transition-base, transform var.$transition-fast, box-shadow var.$transition-fast, outline-color var.$transition-fast;
+        outline: 2px solid transparent;
+        box-shadow: var.$shadow-soft;
 
         &:hover {
           background-color: #f0f0f0;
+        }
+
+        &:focus-visible {
+          outline-color: #ffffff;
+          outline-offset: 2px;
+        }
+
+        &:active,
+        &.main-button-pressed {
+          transform: translateY(2px) scale(0.98);
+          border-color: var.$background !important;
+          box-shadow: 0 3px 8px rgb(0 0 0 / 25%);
         }
       }
     }
@@ -81,7 +96,7 @@
   justify-content: center;
   height: 100%;
 
-  @media (max-width: 768px) {
+  @media (max-width: var.$bp-sm) {
     display: none;
   }
 
@@ -113,14 +128,29 @@
     margin-top: 35rem;
     font-size: 1.5rem;
     padding: 2rem 2.5rem;
-    border-radius: 8px;
+    border-radius: var.$radius-md;
     font-weight: 600;
-    background-color: #fff;
-    color: var.$background;
-    border: none;
+    background-color: var.$surface-base !important;
+    color: var.$background !important;
+    border: 2px solid transparent !important;
+    transition: background var.$transition-base, transform var.$transition-fast, box-shadow var.$transition-fast, outline-color var.$transition-fast;
+    outline: 2px solid transparent;
+    box-shadow: var.$shadow-soft;
 
     &:hover {
       background-color: #f0f0f0;
+    }
+
+    &:focus-visible {
+      outline-color: #ffffff;
+      outline-offset: 3px;
+    }
+
+    &:active,
+    &.main-button-pressed {
+      transform: translateY(2px) scale(0.985);
+      border-color: var.$background !important;
+      box-shadow: 0 3px 8px rgb(0 0 0 / 25%);
     }
   }
 }

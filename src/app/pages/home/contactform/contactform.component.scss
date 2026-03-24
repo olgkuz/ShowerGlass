@@ -5,7 +5,7 @@
 }
 
 .contact-form-section {
-  background-color: #f6f6f6;
+  background-color: var.$surface-muted;
   padding: 3rem 2rem;
   text-align: center;
 
@@ -34,8 +34,8 @@
       textarea {
         width: 100%;
         padding: 0.75rem;
-        border: 1px solid #ccc;
-        border-radius: 0.25rem;
+        border: 1px solid var.$border-muted;
+        border-radius: var.$radius-sm;
         font-family: var.$font-family-base;
 
         &:focus {
@@ -83,7 +83,7 @@
       ::ng-deep .p-checkbox.p-checkbox-checked .p-checkbox-icon,
       ::ng-deep .p-checkbox.p-highlight .p-checkbox-box .p-icon,
       ::ng-deep .p-checkbox.p-checkbox-checked .p-checkbox-box .p-icon {
-        color: #fff !important;
+        color: var.$text-on-dark;
         font-size: 12px;
         width: 12px;
         height: 12px;
@@ -104,10 +104,11 @@
 
     ::ng-deep button.p-button {
       width: 100%;
-      background-color: var.$background !important;
-      border: none !important;
-      color: #fff !important;
+      background-color: var.$background;
+      border: none;
+      color: var.$text-on-dark;
       font-weight: 600;
+      transition: opacity var.$transition-base;
 
       &:hover {
         opacity: 0.9;

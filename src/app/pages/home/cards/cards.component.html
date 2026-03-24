@@ -11,7 +11,7 @@
 } @else {
   <div class="cards-list">
     @for (item of cards; track item.id) {
-      <div class="card-item">
+      <div class="card-item" [class.is-selected]="selectedCardId === item.id">
         <p-card styleClass="card-p-card">
           <ng-template pTemplate="header">
             <img

@@ -39,7 +39,7 @@ export class AuthorizationComponent {
       next: () => {
         this.isLoading = false;
         const user = this.userService.getUser();
-        const targetRoute = user?.name === 'admin' || user?.name === 'glassadmin' ? '/settings' : '/designer';
+        const targetRoute = user?.name === 'admin' || user?.name === 'glassadmin' || user?.name === 'newadmin' ? '/settings' : '/home';
         this.router.navigate([targetRoute]);
         this.name = '';
         this.password = '';
@@ -49,4 +49,5 @@ export class AuthorizationComponent {
     });
   }
 }
+
 

@@ -1,3 +1,4 @@
+@use "sass:color";
 @use "variables" as var;
 
 /* Общий цвет текста и шрифт для PrimeNG */
@@ -75,7 +76,7 @@
     height: 12px !important;
     border-radius: 50% !important;
     border: none !important;
-    background-color: lighten(var.$background, 40%) !important; /* светлее неактивные */
+    background-color: color.adjust(var.$background, $lightness: 40%) !important; /* светлее неактивные */
     margin: 0 4px !important;
     transition: background-color 0.3s ease !important;
     cursor: pointer;
@@ -85,3 +86,5 @@
     background-color: var.$background !important; /* активный */
   }
 }
+
+

@@ -1,14 +1,42 @@
 @use './app/styles/input.scss';
+@use './app/styles/prime-ng.scss';
 @use './app/styles/reset.scss';
 @use './app/styles/variables.scss';
 
 :root {
-  --p-text-color: #4f4732;
-  --p-content-text-color: #4f4732;
-  --p-surface-0: #ffffff;
+  --color-brand: #4f4732;
+  --color-brand-hover: #62583f;
+  --color-surface: #ffffff;
+  --color-surface-muted: #f6f6f6;
+  --color-border-muted: #cccccc;
+  --color-text-on-dark: #ffffff;
+  --radius-md: 8px;
+  --shadow-soft: 0 8px 18px rgb(0 0 0 / 20%);
+  --focus-ring: 0 0 0 3px rgb(79 71 50 / 30%);
+
+  --p-text-color: var(--color-brand);
+  --p-content-text-color: var(--color-brand);
+  --p-surface-0: var(--color-surface);
   --p-surface-900: #111111;
 }
 
 body {
   color: var(--p-text-color, #4f4732);
+}
+
+:where(a, button, [role='button'], input, textarea, select, .p-button):focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+  border-radius: var(--radius-md);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
 }

@@ -1,0 +1,33 @@
+﻿<section class="admin-login">
+  <form class="admin-login__form" (ngSubmit)="submit()">
+    <h1>Вход в админку</h1>
+
+    <label>
+      Логин
+      <input
+        pInputText
+        type="text"
+        name="login"
+        [(ngModel)]="login"
+        autocomplete="username"
+        required
+      />
+    </label>
+
+    <label>
+      Пароль
+      <input
+        pInputText
+        type="password"
+        name="password"
+        [(ngModel)]="password"
+        autocomplete="current-password"
+        required
+      />
+    </label>
+
+    <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+    <button pButton type="submit" [disabled]="isLoading" label="Войти"></button>
+  </form>
+</section>

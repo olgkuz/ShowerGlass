@@ -8,13 +8,14 @@
   font-size: 1.25rem;
   padding: 1rem 2rem;
   font-weight: 600;
-  border-radius: 8px;
-  color: var.$background !important; 
+  border-radius: var.$radius-md;
+  color: var.$background;
   background-color: transparent;
   border: 2px solid var.$background;
+  transition: background-color var.$transition-base, color var.$transition-base;
 
   &:hover {
     background-color: var.$background;
-    color: #fff !important;
+    color: var.$text-on-dark;
   }
 }

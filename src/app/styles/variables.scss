@@ -1,2 +1,25 @@
-$background:#4F4732;
+$background: #4f4732;
+$background-hover: #62583f;
+$text-on-dark: #ffffff;
+$surface-base: #ffffff;
+$surface-muted: #f6f6f6;
+$border-muted: #cccccc;
+
 $font-family-base: 'Roboto', sans-serif;
+
+$radius-sm: 6px;
+$radius-md: 8px;
+$radius-lg: 10px;
+
+$shadow-soft: 0 8px 18px rgb(0 0 0 / 20%);
+$shadow-pressed: inset 0 0 0 2px $background, 0 3px 8px rgb(0 0 0 / 25%);
+
+$transition-fast: 0.12s;
+$transition-base: 0.25s;
+
+$focus-ring: 0 0 0 3px rgb(79 71 50 / 30%);
+
+$bp-xs: 600px;
+$bp-sm: 768px;
+$bp-md: 900px;
+$bp-lg: 1200px;

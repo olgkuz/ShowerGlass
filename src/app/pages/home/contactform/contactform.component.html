@@ -32,18 +32,22 @@
       ></textarea>
     </div>
 
-    <div class="form-group consent">
-      <p-checkbox
-        formControlName="consent"
-        binary="true"
-        inputId="consent"
-      ></p-checkbox>
-      <label for="consent">
-        Я соглашаюсь на обработку персональных данных и принимаю
-        <a routerLink="/policy" target="_blank">политику конфиденциальности</a>
-      </label>
-    </div>
-
+   <div class="form-group consent">
+  <p-checkbox
+    formControlName="consent"
+    binary="true"
+    inputId="consent"
+  ></p-checkbox>
+  <label for="consent">
+    Я даю согласие на обработку моих персональных данных
+    (имя, номер телефона, содержание сообщения)
+    в целях обработки заявки и заключения договора
+    и подтверждаю ознакомление с
+    <a routerLink="/policy" target="_blank">
+      Политикой обработки персональных данных
+    </a>.
+  </label>
+</div>
     <button
       pButton
       type="submit"

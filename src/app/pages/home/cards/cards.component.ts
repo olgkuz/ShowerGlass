@@ -17,6 +17,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 export class CardsComponent implements OnInit {
   cards: ICards[] = [];
   loading = true;
+  selectedCardId: string | null = null;
 
   constructor(
     private cardService: CardsService,
@@ -36,7 +37,10 @@ export class CardsComponent implements OnInit {
   }
 
   goToCard(item: ICards): void {
-    this.router.navigate(['/card', item.id]);
+    this.selectedCardId = item.id;
+    window.setTimeout(() => {
+      this.router.navigate(['/card', item.id]);
+    }, 160);
   }
 
   onImgError(event: Event, item: ICards) {

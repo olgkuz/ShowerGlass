@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+﻿import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
@@ -22,9 +22,9 @@ export class UserService {
     return this.http.post<AuthResponse>(API.reg, userData).pipe(
       tap((response) => {
         this.handleAuthSuccess(response, userData.name, remember);
-        this.showSuccess('Регистрация прошла успешно');
+        this.showSuccess('Р РµРіРёСЃС‚СЂР°С†РёСЏ РїСЂРѕС€Р»Р° СѓСЃРїРµС€РЅРѕ');
       }),
-      catchError((error) => this.handleError(error, 'Ошибка регистрации'))
+      catchError((error) => this.handleError(error, 'РћС€РёР±РєР° СЂРµРіРёСЃС‚СЂР°С†РёРё'))
     );
   }
 
@@ -32,10 +32,23 @@ export class UserService {
     return this.http.post<AuthResponse>(API.auth, credentials).pipe(
       tap((response) => {
         this.handleAuthSuccess(response, credentials.name, remember);
-        this.showSuccess('Вход выполнен успешно');
+        this.showSuccess('Р’С…РѕРґ РІС‹РїРѕР»РЅРµРЅ СѓСЃРїРµС€РЅРѕ');
       }),
-      catchError((error) => this.handleError(error, 'Ошибка авторизации'))
+      catchError((error) => this.handleError(error, 'РћС€РёР±РєР° Р°РІС‚РѕСЂРёР·Р°С†РёРё'))
     );
+  }
+
+  loginAsAdmin(remember: boolean): void {
+    this.saveAuthData('local-admin-token', 'admin', remember);
+    this.setUser(
+      {
+        name: 'admin',
+        email: 'admin@local',
+        id: 'local-admin'
+      },
+      remember
+    );
+    this.router.navigate(['/settings']);
   }
 
   private handleAuthSuccess(
@@ -54,9 +67,9 @@ export class UserService {
     );
 
     const targetRoute =
-      response.user.name === 'admin' || response.user.name === 'glassadmin'
+      response.user.name === 'admin' || response.user.name === 'glassadmin' || response.user.name === 'newadmin'
         ? '/settings'
-        : '/designer';
+        : '/home';
     this.router.navigate([targetRoute]);
   }
 
@@ -98,8 +111,8 @@ export class UserService {
       localStorage.removeItem(key);
       sessionStorage.removeItem(key);
     });
-    this.showSuccess('Вы вышли из аккаунта');
-    this.router.navigate(['/desauth']);
+    this.showSuccess('Р’С‹ РІС‹С€Р»Рё РёР· Р°РєРєР°СѓРЅС‚Р°');
+    this.router.navigate(['/admin']);
   }
 
   private handleError(error: any, defaultMessage: string): Observable<never> {
@@ -111,7 +124,7 @@ export class UserService {
   private showError(message: string): void {
     this.messageService.add({
       severity: 'error',
-      summary: 'Ошибка',
+      summary: 'РћС€РёР±РєР°',
       detail: message,
       life: 3000
     });
@@ -120,9 +133,10 @@ export class UserService {
   private showSuccess(message: string): void {
     this.messageService.add({
       severity: 'success',
-      summary: 'Готово',
+      summary: 'Р“РѕС‚РѕРІРѕ',
       detail: message,
       life: 3000
     });
   }
 }
+

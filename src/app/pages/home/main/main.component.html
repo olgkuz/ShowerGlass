@@ -10,11 +10,12 @@
           ИЗ СТЕКЛА НА ЗАКАЗ
         </div>
         <button
+          #mobileMeasureBtn
           pButton
           type="button"
           label="Вызвать мастера на замер"
           class="main-button"
-          (click)="scrollToContact()"
+          (click)="onMeasureClick(mobileMeasureBtn)"
         ></button>
       </div>
     </div>
@@ -27,14 +28,16 @@
       </div>
 
       <button
+        #desktopMeasureBtn
         pButton
         type="button"
         label="Вызвать мастера на замер"
         class="main-button"
-        (click)="scrollToContact()"
+        (click)="onMeasureClick(desktopMeasureBtn)"
       ></button>
     </div>
   </div>
 </section>
 
   
+

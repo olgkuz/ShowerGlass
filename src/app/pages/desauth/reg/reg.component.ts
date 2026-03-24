@@ -54,7 +54,7 @@ export class RegComponent {
       next: () => {
         this.isLoading = false;
         const user = this.userService.getUser();
-        const targetRoute = user?.name === 'admin' || user?.name === 'glassadmin' ? '/settings' : '/designer';
+        const targetRoute = user?.name === 'admin' || user?.name === 'glassadmin' || user?.name === 'newadmin' ? '/settings' : '/home';
         this.router.navigate([targetRoute]);
 
         // РѕС‡РёСЃС‚РєР° С„РѕСЂРјС‹
@@ -70,4 +70,5 @@ export class RegComponent {
     });
   }
 }
+
 

@@ -37,14 +37,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   initMenuItems(): MenuItem[] {
     const items: MenuItem[] = [
-      { label: 'Р“Р»Р°РІРЅР°СЏ', routerLink: ['/home'] },
-      { label: 'Р“Р°Р»РµСЂРµСЏ', routerLink: ['/gallery'] },
-      { label: 'РРЅС„РѕСЂРјР°С†РёСЏ', routerLink: ['/blog'] },
-      { label: 'Р§С‚Рѕ РµС‰С‘ РјС‹ РґРµР»Р°РµРј РёР· СЃС‚РµРєР»Р°', routerLink: ['/others'] },
+      { label: 'Главная', routerLink: ['/home'] },
+      { label: 'Галерея', routerLink: ['/gallery'] },
+      { label: 'Информация', routerLink: ['/blog'] },
+      { label: 'Что ещё мы делаем из стекла', routerLink: ['/others'] },
     ];
 
-    if (this.user?.name === 'admin' || this.user?.name === 'glassadmin') {
-      items.push({ label: 'РќР°СЃС‚СЂРѕР№РєРё', routerLink: ['/settings'] });
+    if (this.user?.name === 'admin' || this.user?.name === 'glassadmin' || this.user?.name === 'newadmin') {
+      items.push({ label: 'Настройки', routerLink: ['/settings'] });
     }
     return items;
   }
@@ -73,4 +73,5 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
   }
 }
+
 

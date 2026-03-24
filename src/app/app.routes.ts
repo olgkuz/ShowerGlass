@@ -74,26 +74,36 @@ export const routes: Routes = [
           ),
         canActivate: [() => {
           const user = inject(UserService).getUser();
-          return user?.name === 'admin' || user?.name === 'glassadmin';
+          return user?.name === 'admin' || user?.name === 'glassadmin' || user?.name === 'newadmin';
         }]
       },
       { path: '', redirectTo: 'home', pathMatch: 'full' }
     ]
   },
   {
-    path: 'desauth',
+    path: 'admin',
     loadComponent: () =>
-      import('./pages/desauth/desauth.component').then(
-        m => m.DesauthComponent
+      import('./pages/admin-login/admin-login.component').then(
+        m => m.AdminLoginComponent
       )
   },
-  {
-    path: 'designer',
-    loadComponent: () =>
-      import('./pages/designer/designer.component').then(
-        m => m.DesignerComponent
-      ),
-    canActivate: [authGuard]
-  },
+  // Designer auth is temporarily disabled, keep routes for later restore.
+  // {
+  //   path: 'desauth',
+  //   loadComponent: () =>
+  //     import('./pages/desauth/desauth.component').then(
+  //       m => m.DesauthComponent
+  //     )
+  // },
+  // {
+  //   path: 'designer',
+  //   loadComponent: () =>
+  //     import('./pages/designer/designer.component').then(
+  //       m => m.DesignerComponent
+  //     ),
+  //   canActivate: [authGuard]
+  // },
   { path: '**', redirectTo: 'home' }
 ];
+
+

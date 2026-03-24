@@ -30,9 +30,9 @@ export class DesauthComponent implements OnInit {
     private router: Router
   ) {
     if (this.userService.isAuthenticated()) {
-      const returnUrl = localStorage.getItem('returnUrl') || '/designer';
+      const returnUrl = localStorage.getItem('returnUrl') || '/home';
       this.router.navigateByUrl(returnUrl).catch(() => {
-        this.router.navigate(['/designer']);
+        this.router.navigate(['/home']);
       });
     }
   }
