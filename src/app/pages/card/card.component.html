@@ -1,4 +1,4 @@
-<button pButton type="button" routerLink="/cards" class="back-button">
+﻿<button pButton type="button" routerLink="/cards" class="back-button">
   Назад к каталогу
 </button>
 
@@ -7,37 +7,149 @@
 } @else if (card) {
   <div class="card-detail-wrap">
     <div class="card-detail-grid">
-      <!-- Изображение карточки -->
       <div class="card-image">
         <img
           [attr.alt]="card?.name || 'Товар'"
-          [src]="card?.imgUrl || (card?.img ? ('assets/img/cards/' + card?.img) : '')"
+          [src]="getMainImage()"
           (error)="onImgError($event)"
+          (click)="openLightbox(getMainImage())"
           loading="lazy"
         />
       </div>
 
-      <!-- Описание -->
       <div class="card-description">
         <h2>{{ card?.name }}</h2>
 
-        <div class="description-content" [innerHTML]="card?.description || ''"></div>
+        <div class="description-layout">
+          <div class="description-main">
+            <div class="description-content" [innerHTML]="card?.description || ''"></div>
+          </div>
 
-        <!-- Кнопка Telegram -->
-        <a
-          pButton
-          type="button"
-          class="telegram-button"
-          target="_blank"
-          [href]="getTelegramLink()"
-        >
-          <i class="pi pi-telegram"></i>
-          Написать в Telegram
-        </a>
+          <aside class="options-panel" [formGroup]="configForm">
+            <div class="option-group">
+              <h3>1. Цвет стекла</h3>
+              <div class="choice-grid">
+                <button
+                  type="button"
+                  class="choice-chip"
+                  *ngFor="let option of getConfigOptions('glassColors')"
+                  [class.active]="isSelected('glassColor', option.id)"
+                  (click)="selectOption('glassColor', option.id)"
+                >
+                  {{ option.label }}
+                </button>
+              </div>
+            </div>
+
+            <div class="option-group">
+              <h3>2. Тип стекла</h3>
+              <div class="choice-grid two-columns">
+                <button
+                  type="button"
+                  class="choice-chip"
+                  *ngFor="let option of getConfigOptions('glassFinishes')"
+                  [class.active]="isSelected('glassFinish', option.id)"
+                  (click)="selectOption('glassFinish', option.id)"
+                >
+                  {{ option.label }}
+                </button>
+              </div>
+            </div>
+
+            <div class="option-group">
+              <h3>3. Цвет фурнитуры</h3>
+              <div class="choice-grid">
+                <button
+                  type="button"
+                  class="choice-chip hardware-chip"
+                  *ngFor="let option of getConfigOptions('hardwareColors')"
+                  [class.active]="isSelected('hardwareColor', option.id)"
+                  (click)="selectOption('hardwareColor', option.id)"
+                >
+                  <span class="color-dot" [style.background]="option.hex || '#ccc'"></span>
+                  <span>{{ option.label }}</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="option-group">
+              <h3>4. Вариант установки</h3>
+              <div class="installation-grid">
+                <button
+                  type="button"
+                  class="installation-item"
+                  *ngFor="let option of getConfigOptions('installationOptions')"
+                  [class.active]="isSelected('installationOption', option.id)"
+                  (click)="selectOption('installationOption', option.id)"
+                >
+                  <img [src]="option.image" [alt]="option.label" loading="lazy" />
+                  <span>{{ option.label }}</span>
+                  <span
+                    class="zoom-link"
+                    (click)="openLightbox(option.image || ''); $event.stopPropagation()"
+                  >
+                    Увеличить
+                  </span>
+                </button>
+              </div>
+            </div>
+
+            <div class="option-group dimensions-group" formGroupName="dimensions">
+              <h3>5. Размеры</h3>
+              <div class="dimension-grid">
+                <label class="dimension-field" *ngFor="let field of getDimensionFields()">
+                  <span>{{ field.label }}</span>
+                  <input
+                    type="number"
+                    [formControlName]="field.key"
+                    [attr.min]="field.min ?? null"
+                    [attr.max]="field.max ?? null"
+                    placeholder="Введите значение"
+                  />
+                </label>
+              </div>
+            </div>
+
+            <a
+              pButton
+              type="button"
+              class="telegram-button estimate-button"
+              target="_blank"
+              [href]="isReadyForEstimate() ? getTelegramLink() : null"
+              [class.disabled]="!isReadyForEstimate()"
+              [attr.aria-disabled]="!isReadyForEstimate()"
+              (click)="onEstimateClick($event)"
+            >
+              <i class="pi pi-telegram"></i>
+              Отправить ТЗ в Telegram
+            </a>
+
+            @if (!isReadyForEstimate()) {
+              <p class="form-hint">Заполните все пункты и размеры, чтобы отправить ТЗ на расчет.</p>
+            }
+          </aside>
+        </div>
       </div>
     </div>
   </div>
+
+  @if (isLightboxOpen) {
+    <div class="image-lightbox" (click)="closeLightbox()">
+      <button
+        type="button"
+        class="close-lightbox"
+        (click)="closeLightbox(); $event.stopPropagation()"
+        aria-label="Закрыть увеличенное изображение"
+      >
+        ×
+      </button>
+      <img
+        [src]="lightboxImage"
+        alt="Увеличенное изображение"
+        (click)="$event.stopPropagation()"
+      />
+    </div>
+  }
 } @else {
   <p class="text-center text-gray-600">Карточка не найдена</p>
 }
-

@@ -18,6 +18,7 @@ type CardDto = {
   description?: string;
   img?: string;
   imgUrl?: string;
+  installationGalleryImages?: string[];
   _doc?: Record<string, unknown>;
 };
 
@@ -88,6 +89,14 @@ export class CardsService {
         : String(descriptionRaw || '');
     const file = ((doc as any).img ?? dto.img ?? '').trim();
     const uploadsBase = environment.apiUrl.replace(/\/api$/, '/uploads');
+    const galleryRaw =
+      (doc as any).installationGalleryImages ?? dto.installationGalleryImages;
+    const installationGalleryImages = Array.isArray(galleryRaw)
+      ? galleryRaw
+          .filter((item): item is string => typeof item === 'string')
+          .map((item) => item.trim())
+          .filter(Boolean)
+      : undefined;
 
     return {
       id,
@@ -98,6 +107,10 @@ export class CardsService {
         (doc as any).imgUrl ??
         dto.imgUrl ??
         (file ? `${uploadsBase}/${file}` : undefined),
+      installationGalleryImages:
+        installationGalleryImages && installationGalleryImages.length
+          ? installationGalleryImages
+          : undefined,
     };
   }
 
