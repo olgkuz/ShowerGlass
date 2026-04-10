@@ -4,6 +4,6 @@ export interface ICards {
   description: string;
   img?: string;
   imgUrl?: string;
-  installationGalleryImages?: string[];
+  variantImages?: string[];
 }
 

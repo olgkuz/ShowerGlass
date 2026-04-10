@@ -66,60 +66,47 @@ export class CardComponent implements OnInit {
 
   private readonly defaultHardwareColors: SelectOption[] = [
     { id: 'chrome', label: 'Хром', hex: '#D9D9D9' },
-    { id: 'black', label: 'Черный матовый', hex: '#2B2B2B' },
-    { id: 'white', label: 'Белый матовый', hex: '#F4F4F4' },
+    { id: 'matte-stainless', label: 'Матовая нержавейка', hex: '#B6B6B6' },
+    { id: 'matte-black', label: 'Матовый черный', hex: '#2B2B2B' },
+    { id: 'matte-white', label: 'Матовый белый', hex: '#F4F4F4' },
     { id: 'gold', label: 'Золото', hex: '#C9A14A' },
-    { id: 'satin', label: 'Сатин', hex: '#B6B6B6' },
+    { id: 'matte-gold', label: 'Матовое золото', hex: '#A0853A' },
     { id: 'bronze', label: 'Бронза', hex: '#8F6A48' },
-    { id: 'nickel', label: 'Никель', hex: '#9EA5AF' },
-    { id: 'graphite', label: 'Графит', hex: '#555A63' }
+    { id: 'gunmetal', label: 'Оружейная сталь', hex: '#555A63' },
+    { id: 'rose-gold', label: 'Розовое золото', hex: '#E6B8A2' },
+    { id: 'matte-rose-gold', label: 'Матовое розовое золото', hex: '#C99B7A' }
   ];
 
   private readonly installationOptionsByCardId: Record<string, SelectOption[]> = {
     '1': [
-      { id: '1-a', label: 'Вариант 1', image: 'assets/img/examples/example1.jpg' },
-      { id: '1-b', label: 'Вариант 2', image: 'assets/img/examples/example2.jpg' },
-      { id: '1-c', label: 'Вариант 3', image: 'assets/img/examples/example3.jpg' }
+      { id: 'door-1', label: 'Вариант 1', image: 'assets/img/cards/door/variant1.jpg' },
+      { id: 'door-2', label: 'Вариант 2', image: 'assets/img/cards/door/variant2.jpg' },
+      { id: 'door-3', label: 'Вариант 3', image: 'assets/img/cards/door/variant3.jpg' }
     ],
     '2': [
-      { id: '2-a', label: 'Вариант 1', image: 'assets/img/examples/example4.jpg' },
-      { id: '2-b', label: 'Вариант 2', image: 'assets/img/examples/example5.jpg' },
-      { id: '2-c', label: 'Вариант 3', image: 'assets/img/examples/example6.jpg' }
+      { id: 'proen-1', label: 'Вариант 1', image: 'assets/img/cards/proen/variant1.jpg' },
+      { id: 'proen-2', label: 'Вариант 2', image: 'assets/img/cards/proen/variant2.jpg' },
+      { id: 'proen-3', label: 'Вариант 3', image: 'assets/img/cards/proen/variant3.jpg' }
     ],
     '3': [
-      { id: '3-a', label: 'Вариант 1', image: 'assets/img/examples/example7.jpg' },
-      { id: '3-b', label: 'Вариант 2', image: 'assets/img/examples/example8.jpg' },
-      { id: '3-c', label: 'Вариант 3', image: 'assets/img/examples/example9.jpg' }
+      { id: 'corner-1', label: 'Вариант 1', image: 'assets/img/cards/corner/variant1.jpg' },
+      { id: 'corner-2', label: 'Вариант 2', image: 'assets/img/cards/corner/variant2.jpg' },
+      { id: 'corner-3', label: 'Вариант 3', image: 'assets/img/cards/corner/variant3.jpg' }
     ],
     '4': [
-      { id: '4-a', label: 'Вариант 1', image: 'assets/img/examples/example2.jpg' },
-      { id: '4-b', label: 'Вариант 2', image: 'assets/img/examples/example5.jpg' },
-      { id: '4-c', label: 'Вариант 3', image: 'assets/img/examples/example8.jpg' }
+      { id: 'trapeze-1', label: 'Вариант 1', image: 'assets/img/cards/trapeze/variant1.jpg' },
+      { id: 'trapeze-2', label: 'Вариант 2', image: 'assets/img/cards/trapeze/variant2.jpg' },
+      { id: 'trapeze-3', label: 'Вариант 3', image: 'assets/img/cards/trapeze/variant3.jpg' }
     ],
     '5': [
-      { id: '5-a', label: 'Вариант 1', image: 'assets/img/examples/example1.jpg' },
-      { id: '5-b', label: 'Вариант 2', image: 'assets/img/examples/example4.jpg' },
-      { id: '5-c', label: 'Вариант 3', image: 'assets/img/examples/example7.jpg' }
+      { id: 'sliding-1', label: 'Вариант 1', image: 'assets/img/cards/sliding/variant1.jpg' },
+      { id: 'sliding-2', label: 'Вариант 2', image: 'assets/img/cards/sliding/variant2.jpg' },
+      { id: 'sliding-3', label: 'Вариант 3', image: 'assets/img/cards/sliding/variant3.jpg' }
     ],
     '6': [
-      { id: '6-a', label: 'Вариант 1', image: 'assets/img/examples/example3.jpg' },
-      { id: '6-b', label: 'Вариант 2', image: 'assets/img/examples/example6.jpg' },
-      { id: '6-c', label: 'Вариант 3', image: 'assets/img/examples/example9.jpg' }
-    ],
-    '7': [
-      { id: '7-a', label: 'Вариант 1', image: 'assets/img/examples/example2.jpg' },
-      { id: '7-b', label: 'Вариант 2', image: 'assets/img/examples/example4.jpg' },
-      { id: '7-c', label: 'Вариант 3', image: 'assets/img/examples/example6.jpg' }
-    ],
-    '8': [
-      { id: '8-a', label: 'Вариант 1', image: 'assets/img/examples/example3.jpg' },
-      { id: '8-b', label: 'Вариант 2', image: 'assets/img/examples/example5.jpg' },
-      { id: '8-c', label: 'Вариант 3', image: 'assets/img/examples/example7.jpg' }
-    ],
-    '9': [
-      { id: '9-a', label: 'Вариант 1', image: 'assets/img/examples/example1.jpg' },
-      { id: '9-b', label: 'Вариант 2', image: 'assets/img/examples/example8.jpg' },
-      { id: '9-c', label: 'Вариант 3', image: 'assets/img/examples/example9.jpg' }
+      { id: 'slash-1', label: 'Вариант 1', image: 'assets/img/cards/slash/variant1.jpg' },
+      { id: 'slash-2', label: 'Вариант 2', image: 'assets/img/cards/slash/variant2.jpg' },
+      { id: 'slash-3', label: 'Вариант 3', image: 'assets/img/cards/slash/variant3.jpg' }
     ]
   };
 
@@ -288,22 +275,13 @@ export class CardComponent implements OnInit {
 
   private resolveCardConfig(): CardConfigurator {
     const cardId = this.card?.id ?? '';
-    const installationFromCard = (this.card?.installationGalleryImages ?? [])
-      .filter((item) => typeof item === 'string' && item.trim().length > 0)
-      .map((image, index) => ({
-        id: `${cardId || 'card'}-img-${index + 1}`,
-        label: `Вариант ${index + 1}`,
-        image
-      }));
 
     return {
       glassColors: [...this.defaultGlassColors],
       glassFinishes: [...this.defaultGlassFinishes],
       hardwareColors: [...this.defaultHardwareColors],
       installationOptions:
-        installationFromCard.length > 0
-          ? installationFromCard
-          : this.installationOptionsByCardId[cardId] ?? this.defaultInstallations,
+        this.installationOptionsByCardId[cardId] ?? this.defaultInstallations,
       dimensions: this.dimensionsByCardId[cardId] ?? [
         { key: 'width', label: 'Ширина, мм', min: 300, max: 4000 },
         { key: 'height', label: 'Высота, мм', min: 300, max: 4000 }
