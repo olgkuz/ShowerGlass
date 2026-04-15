@@ -79,34 +79,35 @@ export class CardComponent implements OnInit {
 
   private readonly installationOptionsByCardId: Record<string, SelectOption[]> = {
     '1': [
-      { id: 'door-1', label: 'Вариант 1', image: 'assets/img/cards/door/variant1.jpg' },
-      { id: 'door-2', label: 'Вариант 2', image: 'assets/img/cards/door/variant2.jpg' },
-      { id: 'door-3', label: 'Вариант 3', image: 'assets/img/cards/door/variant3.jpg' }
+      { id: 'door-1', label: 'Вариант 1', image: 'assets/img/cards/door.jpg' },
+      { id: 'door-2', label: 'Вариант 2', image: 'assets/img/cards/door/variant1.jpg' },
+      { id: 'door-3', label: 'Вариант 3', image: 'assets/img/cards/door/variant2.jpg' }
     ],
     '2': [
-      { id: 'proen-1', label: 'Вариант 1', image: 'assets/img/cards/proen/variant1.jpg' },
-      { id: 'proen-2', label: 'Вариант 2', image: 'assets/img/cards/proen/variant2.jpg' },
-      { id: 'proen-3', label: 'Вариант 3', image: 'assets/img/cards/proen/variant3.jpg' }
+      { id: 'proen-1', label: 'Вариант 1', image: 'assets/img/cards/proem.jpg' },
+      { id: 'proen-2', label: 'Вариант 2', image: 'assets/img/cards/proen/variant1.jpg' },
+      { id: 'proen-3', label: 'Вариант 3', image: 'assets/img/cards/proen/variant2.jpg' }
     ],
     '3': [
-      { id: 'corner-1', label: 'Вариант 1', image: 'assets/img/cards/corner/variant1.jpg' },
-      { id: 'corner-2', label: 'Вариант 2', image: 'assets/img/cards/corner/variant2.jpg' },
-      { id: 'corner-3', label: 'Вариант 3', image: 'assets/img/cards/corner/variant3.jpg' }
+      { id: 'corner-1', label: 'Вариант 1', image: 'assets/img/cards/corner.jpg' },
+      { id: 'corner-2', label: 'Вариант 2', image: 'assets/img/cards/corner/variant1.jpg' },
+      { id: 'corner-3', label: 'Вариант 3', image: 'assets/img/cards/corner/variant2.jpg' },
+      { id: 'corner-4', label: 'Вариант 4', image: 'assets/img/cards/corner/variant3.jpg' }
     ],
     '4': [
-      { id: 'trapeze-1', label: 'Вариант 1', image: 'assets/img/cards/trapeze/variant1.jpg' },
-      { id: 'trapeze-2', label: 'Вариант 2', image: 'assets/img/cards/trapeze/variant2.jpg' },
-      { id: 'trapeze-3', label: 'Вариант 3', image: 'assets/img/cards/trapeze/variant3.jpg' }
+      { id: 'trapeze-1', label: 'Вариант 1', image: 'assets/img/cards/trapeze.jpg' },
+      { id: 'trapeze-2', label: 'Вариант 2', image: 'assets/img/cards/trapeze/variant1.jpg' },
+      { id: 'trapeze-3', label: 'Вариант 3', image: 'assets/img/cards/trapeze/variant2.jpg' }
     ],
     '5': [
-      { id: 'sliding-1', label: 'Вариант 1', image: 'assets/img/cards/sliding/variant1.jpg' },
-      { id: 'sliding-2', label: 'Вариант 2', image: 'assets/img/cards/sliding/variant2.jpg' },
-      { id: 'sliding-3', label: 'Вариант 3', image: 'assets/img/cards/sliding/variant3.jpg' }
+      { id: 'sliding-1', label: 'Вариант 1', image: 'assets/img/cards/sliding.jpg' },
+      { id: 'sliding-2', label: 'Вариант 2', image: 'assets/img/cards/sliding/variant1.jpg' },
+      { id: 'sliding-3', label: 'Вариант 3', image: 'assets/img/cards/sliding/variant2.jpg' }
     ],
     '6': [
-      { id: 'slash-1', label: 'Вариант 1', image: 'assets/img/cards/slash/variant1.jpg' },
-      { id: 'slash-2', label: 'Вариант 2', image: 'assets/img/cards/slash/variant2.jpg' },
-      { id: 'slash-3', label: 'Вариант 3', image: 'assets/img/cards/slash/variant3.jpg' }
+      { id: 'slash-1', label: 'Вариант 1', image: 'assets/img/cards/slash.jpg' },
+      { id: 'slash-2', label: 'Вариант 2', image: 'assets/img/cards/slash/variant1.jpg' },
+      { id: 'slash-3', label: 'Вариант 3', image: 'assets/img/cards/slash/variant2.jpg' }
     ]
   };
 

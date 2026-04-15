@@ -131,19 +131,20 @@
 
   @if (isLightboxOpen) {
     <div class="image-lightbox" (click)="closeLightbox()">
-      <button
-        type="button"
-        class="close-lightbox"
-        (click)="closeLightbox(); $event.stopPropagation()"
-        aria-label="Закрыть увеличенное изображение"
-      >
-        ×
-      </button>
-      <img
-        [src]="lightboxImage"
-        alt="Увеличенное изображение"
-        (click)="$event.stopPropagation()"
-      />
+      <div class="lightbox-image-wrapper" (click)="$event.stopPropagation()">
+        <img
+          [src]="lightboxImage"
+          alt="Увеличенное изображение"
+        />
+        <button
+          type="button"
+          class="close-lightbox"
+          (click)="closeLightbox(); $event.stopPropagation()"
+          aria-label="Закрыть увеличенное изображение"
+        >
+          ×
+        </button>
+      </div>
     </div>
   }
 } @else {
