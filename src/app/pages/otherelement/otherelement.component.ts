@@ -46,12 +46,7 @@ export class OtherElementComponent implements OnInit {
   }
 
   getTelegramLink(): string {
-    const baseUrl = 'https://t.me/+79110293030';
-    const name = this.item?.name?.trim();
-    const text = name
-      ? `Здравствуйте! Интересует товар: ${name}`
-      : 'Здравствуйте! Интересует товар.';
-    return `${baseUrl}?text=${encodeURIComponent(text)}`;
+    return 'https://vk.com/zakaz_stekla_spb';
   }
 
   onImgError(event: Event) {

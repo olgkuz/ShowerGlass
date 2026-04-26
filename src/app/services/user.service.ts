@@ -2,7 +2,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
-import { Observable, catchError, tap, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, tap, throwError } from 'rxjs';
 import { AuthResponse, IUser, IUserReg, UserStorage } from '../models/user';
 import { API } from '../shared/api';
 
@@ -11,6 +11,9 @@ export class UserService {
   private readonly TOKEN_KEY = 'auth_token';
   private readonly USER_KEY = 'current_user';
   private readonly NAME_KEY = 'user_name';
+
+  private userSubject = new BehaviorSubject<UserStorage | null>(this.getUser());
+  public user$ = this.userSubject.asObservable();
 
   constructor(
     private http: HttpClient,
@@ -40,14 +43,13 @@ export class UserService {
 
   loginAsAdmin(remember: boolean): void {
     this.saveAuthData('local-admin-token', 'admin', remember);
-    this.setUser(
-      {
-        name: 'admin',
-        email: 'admin@local',
-        id: 'local-admin'
-      },
-      remember
-    );
+    const user = {
+      name: 'admin',
+      email: 'admin@local',
+      id: 'local-admin'
+    };
+    this.setUser(user, remember);
+    this.userSubject.next(user);
     this.router.navigate(['/settings']);
   }
 
@@ -57,14 +59,13 @@ export class UserService {
     remember: boolean
   ): void {
     this.saveAuthData(response.token, name, remember);
-    this.setUser(
-      {
-        name: response.user.name,
-        email: response.user.email,
-        id: response.user.id
-      },
-      remember
-    );
+    const user = {
+      name: response.user.name,
+      email: response.user.email,
+      id: response.user.id
+    };
+    this.setUser(user, remember);
+    this.userSubject.next(user);
 
     const targetRoute =
       response.user.name === 'admin' || response.user.name === 'glassadmin' || response.user.name === 'newadmin'
@@ -111,8 +112,9 @@ export class UserService {
       localStorage.removeItem(key);
       sessionStorage.removeItem(key);
     });
+    this.userSubject.next(null);
     this.showSuccess('Р’С‹ РІС‹С€Р»Рё РёР· Р°РєРєР°СѓРЅС‚Р°');
-    this.router.navigate(['/admin']);
+    this.router.navigate(['/home']);
   }
 
   private handleError(error: any, defaultMessage: string): Observable<never> {

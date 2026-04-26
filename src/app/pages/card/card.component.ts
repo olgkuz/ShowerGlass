@@ -19,6 +19,7 @@ type DimensionField = {
   label: string;
   min?: number;
   max?: number;
+  required?: boolean;
 };
 
 type CardConfigurator = {
@@ -105,9 +106,8 @@ export class CardComponent implements OnInit {
       { id: 'sliding-3', label: 'Вариант 3', image: 'assets/img/cards/sliding/variant2.jpg' }
     ],
     '6': [
-      { id: 'slash-1', label: 'Вариант 1', image: 'assets/img/cards/slash.jpg' },
-      { id: 'slash-2', label: 'Вариант 2', image: 'assets/img/cards/slash/variant1.jpg' },
-      { id: 'slash-3', label: 'Вариант 3', image: 'assets/img/cards/slash/variant2.jpg' }
+      { id: 'slash-1', label: 'Вариант 1', image: 'assets/img/cards/slash/variant1.jpg' },
+      { id: 'slash-2', label: 'Вариант 2', image: 'assets/img/cards/slash/variant2.jpg' }
     ]
   };
 
@@ -132,11 +132,13 @@ export class CardComponent implements OnInit {
     ],
     '5': [
       { key: 'systemWidth', label: 'Ширина системы, мм', min: 1200, max: 3000 },
-      { key: 'height', label: 'Высота, мм', min: 1600, max: 2800 }
+      { key: 'height', label: 'Высота, мм', min: 1600, max: 2800 },
+      { key: 'depth', label: 'Глубина, мм', min: 300, max: 2000, required: false }
     ],
     '6': [
       { key: 'systemWidth', label: 'Ширина системы, мм', min: 900, max: 2800 },
-      { key: 'height', label: 'Высота, мм', min: 1600, max: 3000 }
+      { key: 'height', label: 'Высота, мм', min: 1600, max: 3000 },
+      { key: 'depth', label: 'Глубина, мм', min: 300, max: 2000, required: false }
     ],
     '7': [
       { key: 'openingWidth', label: 'Ширина проема, мм', min: 1200, max: 3000 },
@@ -184,8 +186,7 @@ export class CardComponent implements OnInit {
   }
 
   getTelegramLink(): string {
-    const baseUrl = 'https://t.me/+79110293030';
-    return `${baseUrl}?text=${encodeURIComponent(this.buildTechnicalTaskMessage())}`;
+    return 'https://vk.com/zakaz_stekla_spb';
   }
 
   onEstimateClick(event: Event): void {
@@ -252,7 +253,14 @@ export class CardComponent implements OnInit {
     Object.keys(dimensionsGroup.controls).forEach((key) => dimensionsGroup.removeControl(key));
 
     config.dimensions.forEach((field) => {
-      const validators = [Validators.required, Validators.min(field.min ?? 1)];
+      const validators = [];
+      if (field.required !== false) {
+        validators.push(Validators.required);
+      }
+
+      if (typeof field.min === 'number') {
+        validators.push(Validators.min(field.min));
+      }
       if (typeof field.max === 'number') {
         validators.push(Validators.max(field.max));
       }

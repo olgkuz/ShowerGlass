@@ -6,6 +6,7 @@ import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { UserStorage } from '../../models/user';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -21,6 +22,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   logoutIcon = 'pi pi-user';
   isMobile = window.innerWidth < 768;
   menuVisible = false;
+  private userSubscription: Subscription | null = null;
 
   constructor(
     private userService: UserService,
@@ -31,9 +33,19 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.user = this.userService.getUser();
     this.menuItems = this.initMenuItems();
+
+    this.userSubscription = this.userService.user$.subscribe((user) => {
+      this.user = user;
+      this.menuItems = this.initMenuItems();
+      this.cdr.detectChanges();
+    });
   }
 
-  ngOnDestroy() {}
+  ngOnDestroy() {
+    if (this.userSubscription) {
+      this.userSubscription.unsubscribe();
+    }
+  }
 
   initMenuItems(): MenuItem[] {
     const items: MenuItem[] = [
@@ -43,9 +55,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
       { label: 'Что ещё мы делаем из стекла', routerLink: ['/others'] },
     ];
 
-    if (this.user?.name === 'admin' || this.user?.name === 'glassadmin' || this.user?.name === 'newadmin') {
-      items.push({ label: 'Настройки', routerLink: ['/settings'] });
-    }
     return items;
   }
 

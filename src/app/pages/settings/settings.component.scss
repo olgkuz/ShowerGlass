@@ -16,6 +16,15 @@ p {
   color: #555;
 }
 
+.logout-section {
+  text-align: center;
+  margin-bottom: 2rem;
+
+  .p-button {
+    min-width: 200px;
+  }
+}
+
 p-tabView {
   .p-tabview-nav {
     justify-content: center;

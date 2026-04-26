@@ -1,5 +1,9 @@
 <h2>Панель настроек администратора</h2>
-<p *ngIf="user">Добро пожаловать, {{ user.login }}</p>
+<p *ngIf="user">Добро пожаловать, {{ user.name }}</p>
+
+<div class="logout-section">
+  <p-button label="Выйти из админки" icon="pi pi-sign-out" (click)="logout()" styleClass="p-button-danger"></p-button>
+</div>
 
 <p-tabView>
   <p-tabPanel header="Загрузка статьи">

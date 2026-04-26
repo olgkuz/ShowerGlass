@@ -17,6 +17,10 @@ export class SettingsComponent {
   user: any;
 
   constructor(private userService: UserService) {
-    this.user = this.userService.getUser(); 
+    this.user = this.userService.getUser();
+  }
+
+  logout(): void {
+    this.userService.logout();
   }
 }
