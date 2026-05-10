@@ -186,7 +186,8 @@ export class CardComponent implements OnInit {
   }
 
   getTelegramLink(): string {
-    return 'https://vk.com/zakaz_stekla_spb';
+    const baseUrl = 'https://t.me/+79110293030';
+    return `${baseUrl}?text=${encodeURIComponent(this.buildTechnicalTaskMessage())}`;
   }
 
   onEstimateClick(event: Event): void {
