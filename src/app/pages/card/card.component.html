@@ -2,6 +2,8 @@
   Назад к каталогу
 </button>
 
+<p-toast></p-toast>
+
 @if (loading) {
   <p-progressSpinner></p-progressSpinner>
 } @else if (card) {
@@ -121,6 +123,71 @@
           <i class="pi pi-telegram"></i>
           Отправить ТЗ в Telegram
         </a>
+
+        <button
+          pButton
+          type="button"
+          class="email-estimate-toggle estimate-button"
+          [disabled]="!isReadyForEstimate()"
+          [attr.aria-expanded]="isEmailEstimateOpen"
+          (click)="toggleEmailEstimate()"
+        >
+          <i class="pi pi-envelope"></i>
+          Отправить ТЗ на почту
+        </button>
+
+        @if (isEmailEstimateOpen) {
+          <form
+            class="email-estimate-form"
+            [formGroup]="emailEstimateForm"
+            (ngSubmit)="submitEmailEstimate()"
+            novalidate
+          >
+            <h3>Контакты для расчета</h3>
+
+            <label class="dimension-field">
+              <span>Имя</span>
+              <input type="text" formControlName="name" placeholder="Ваше имя" />
+            </label>
+
+            <label class="dimension-field">
+              <span>Телефон</span>
+              <input
+                type="tel"
+                formControlName="phone"
+                placeholder="Телефон"
+                inputmode="tel"
+                [attr.pattern]="phonePattern"
+              />
+            </label>
+
+            <label class="dimension-field">
+              <span>Комментарий</span>
+              <textarea
+                rows="3"
+                formControlName="comment"
+                placeholder="Комментарий к расчету"
+              ></textarea>
+            </label>
+
+            <label class="email-consent">
+              <input type="checkbox" formControlName="consent" />
+              <span>
+                Даю согласие на обработку персональных данных и ознакомлен с
+                <a routerLink="/policy" target="_blank">политикой обработки данных</a>.
+              </span>
+            </label>
+
+            <button
+              pButton
+              type="submit"
+              class="email-estimate-submit estimate-button"
+              [disabled]="emailEstimateForm.invalid || isEmailEstimateSending"
+            >
+              {{ isEmailEstimateSending ? 'Отправляем...' : 'Отправить ТЗ' }}
+            </button>
+          </form>
+        }
 
         @if (!isReadyForEstimate()) {
           <p class="form-hint">Заполните все пункты и размеры, чтобы отправить ТЗ на расчет.</p>

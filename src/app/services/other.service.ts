@@ -65,7 +65,7 @@ export class OthersService {
     return this.http
       .get<{ others: OtherDto[] }>(this.localOthersUrl)
       .pipe(
-        map((resp) => this.mapList(resp?.others ?? [])),
+        map((resp) => this.mapList(resp?.others ?? [], true)),
         catchError(() => of([]))
       );
   }
@@ -76,15 +76,18 @@ export class OthersService {
     );
   }
 
-  private mapList(list: OtherDto[]): IOther[] {
+  private mapList(list: OtherDto[], useLocalAssets = false): IOther[] {
     return Array.isArray(list)
       ? list
-          .map((dto) => this.mapToClient(dto))
+          .map((dto) => this.mapToClient(dto, useLocalAssets))
           .filter((o): o is IOther => Boolean(o && (o.id || o.name)))
       : [];
   }
 
-  private mapToClient = (dto: OtherDto): IOther | null => {
+  private mapToClient = (
+    dto: OtherDto,
+    useLocalAssets = false
+  ): IOther | null => {
     const doc = (dto as any)?._doc ?? dto;
     const idRaw = (doc as any).id ?? dto.id ?? (doc as any)._id ?? dto._id ?? '';
     const id = typeof idRaw === 'string' ? idRaw.trim() : String(idRaw || '').trim();
@@ -98,6 +101,12 @@ export class OthersService {
         : String(descriptionRaw || '');
     const file = ((doc as any).img ?? dto.img ?? '').trim();
     const uploadsBase = environment.apiUrl.replace(/\/api$/, '/uploads');
+    const localAssetsBase = 'assets/img/others';
+    const defaultImgUrl = file
+      ? useLocalAssets
+        ? `${localAssetsBase}/${file}`
+        : `${uploadsBase}/${file}`
+      : undefined;
 
     return {
       id,
@@ -107,7 +116,7 @@ export class OthersService {
       imgUrl:
         (doc as any).imgUrl ??
         dto.imgUrl ??
-        (file ? `${uploadsBase}/${file}` : undefined),
+        defaultImgUrl,
     };
   };
 

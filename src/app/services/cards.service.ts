@@ -31,6 +31,7 @@ export class CardsService {
   getCards(): Observable<ICards[]> {
     return this.http.get<CardDto[]>(this.cardsApi).pipe(
       map((list) => this.mapList(list)),
+      map((cards) => this.filterExcludedCards(cards)),
       switchMap((cards) =>
         cards.length ? of(cards) : this.loadFromAssets()
       ),
@@ -72,6 +73,11 @@ export class CardsService {
           .map((dto) => this.mapToICard(dto))
           .filter((c): c is ICards => Boolean(c && (c.id || c.name)))
       : [];
+  }
+
+  private filterExcludedCards(cards: ICards[]): ICards[] {
+    const excludedNames = ['Душевая Piuma', 'Стационарное стекло', 'Шторка на ванну'];
+    return cards.filter(card => !excludedNames.includes(card.name));
   }
 
   private mapToICard(dto: CardDto): ICards | null {

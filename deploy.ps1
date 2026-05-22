@@ -3,8 +3,8 @@
 
 $SSH_HOST = '213.171.6.47'
 $SSH_USER = 'root'
-$REMOTE_PATH = '/var/www/steklodush-spb.ru/public_html'
-$BUILD_PATH = 'C:\Users\mail\ShowerGlass\dist\ShowerGlass'
+$REMOTE_PATH = '/var/www/steklodush-spb.ru'
+$BUILD_PATH = 'C:\Users\mail\ShowerGlass\dist\ShowerGlass\browser'
 
 if (-not (Test-Path $BUILD_PATH)) {
     Write-Host 'Build folder not found:' $BUILD_PATH -ForegroundColor Red
@@ -39,7 +39,7 @@ if ($LASTEXITCODE -ne 0) {
 
 Write-Host ''
 Write-Host 'Setting permissions on server...' -ForegroundColor Yellow
-ssh "$SSH_USER@$SSH_HOST" "chmod -R 755 $REMOTE_PATH && echo OK"
+ssh "$SSH_USER@$SSH_HOST" "find $REMOTE_PATH -type d -exec chmod 755 {} \; && find $REMOTE_PATH -type f -exec chmod 644 {} \; && echo OK"
 if ($LASTEXITCODE -ne 0) {
     Write-Host 'Failed to set permissions' -ForegroundColor Red
     exit 1

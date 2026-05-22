@@ -15,6 +15,7 @@ export class MainComponent {
     window.setTimeout(() => button.classList.remove('main-button-pressed'), 220);
     this.scrollToContact();
   }
+  
 
   scrollToContact() {
     const el = document.getElementById('contactform');

@@ -1,9 +1,13 @@
 ﻿import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { ToastModule } from 'primeng/toast';
+import { environment } from '../../../environments/environment';
 import { ICards } from '../../models/cards';
 import { CardsService } from '../../services/cards.service';
 
@@ -33,7 +37,7 @@ type CardConfigurator = {
 @Component({
   selector: 'app-card',
   standalone: true,
-  imports: [ButtonModule, CommonModule, RouterModule, ProgressSpinnerModule, ReactiveFormsModule],
+  imports: [ButtonModule, CommonModule, RouterModule, ProgressSpinnerModule, ReactiveFormsModule, ToastModule],
   templateUrl: './card.component.html',
   styleUrl: './card.component.scss'
 })
@@ -42,8 +46,11 @@ export class CardComponent implements OnInit {
   loading = true;
   isLightboxOpen = false;
   lightboxImage = '';
+  isEmailEstimateOpen = false;
+  isEmailEstimateSending = false;
 
   currentConfig: CardConfigurator | null = null;
+  readonly phonePattern = '^[0-9+() -]+$';
 
   readonly configForm = new FormGroup({
     glassColor: new FormControl<string>('', { nonNullable: true, validators: [Validators.required] }),
@@ -52,6 +59,19 @@ export class CardComponent implements OnInit {
     installationOption: new FormControl<string>('', { nonNullable: true, validators: [Validators.required] }),
     dimensions: new FormGroup({})
   });
+
+  readonly emailEstimateForm = new FormGroup({
+    name: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+    phone: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required, Validators.pattern(this.phonePattern)]
+    }),
+    comment: new FormControl('', { nonNullable: true }),
+    consent: new FormControl(false, { nonNullable: true, validators: [Validators.requiredTrue] })
+  });
+
+  private readonly contactEndpoint =
+    environment.contactEndpoint ?? `${environment.apiUrl}/contact`;
 
   private readonly defaultGlassColors: SelectOption[] = [
     { id: 'clear', label: 'Прозрачное' },
@@ -163,7 +183,9 @@ export class CardComponent implements OnInit {
   constructor(
     private cardService: CardsService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private http: HttpClient,
+    private messageService: MessageService
   ) {}
 
   ngOnInit(): void {
@@ -194,6 +216,59 @@ export class CardComponent implements OnInit {
     if (!this.isReadyForEstimate()) {
       event.preventDefault();
     }
+  }
+
+  toggleEmailEstimate(): void {
+    if (!this.isReadyForEstimate()) {
+      this.configForm.markAllAsTouched();
+      return;
+    }
+
+    this.isEmailEstimateOpen = !this.isEmailEstimateOpen;
+  }
+
+  submitEmailEstimate(): void {
+    if (!this.isReadyForEstimate()) {
+      this.configForm.markAllAsTouched();
+      return;
+    }
+
+    if (this.emailEstimateForm.invalid || this.isEmailEstimateSending) {
+      this.emailEstimateForm.markAllAsTouched();
+      return;
+    }
+
+    const { name, phone, comment } = this.emailEstimateForm.getRawValue();
+    const message = this.buildEmailEstimateMessage(comment);
+
+    this.isEmailEstimateSending = true;
+    this.http.post(this.contactEndpoint, { name, phone, message }).subscribe({
+      next: () => {
+        this.isEmailEstimateSending = false;
+        this.isEmailEstimateOpen = false;
+        this.emailEstimateForm.reset({
+          name: '',
+          phone: '',
+          comment: '',
+          consent: false
+        });
+        this.messageService.add({
+          severity: 'success',
+          summary: 'ТЗ отправлено',
+          detail: 'Заявка с выбранными параметрами отправлена на почту.',
+          life: 4000
+        });
+      },
+      error: () => {
+        this.isEmailEstimateSending = false;
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Не удалось отправить ТЗ',
+          detail: 'Проверьте соединение и попробуйте еще раз.',
+          life: 4000
+        });
+      }
+    });
   }
 
   onImgError(event: Event): void {
@@ -329,6 +404,17 @@ export class CardComponent implements OnInit {
       'Размеры:',
       dimensionsText
     ].join('\n');
+  }
+
+  private buildEmailEstimateMessage(comment: string): string {
+    const messageParts = [this.buildTechnicalTaskMessage()];
+    const trimmedComment = comment.trim();
+
+    if (trimmedComment) {
+      messageParts.push('', 'Комментарий клиента:', trimmedComment);
+    }
+
+    return messageParts.join('\n');
   }
 
   private getSelectedLabel(

@@ -180,7 +180,8 @@
   color: #2f3f50;
 }
 
-.dimension-field input {
+.dimension-field input,
+.dimension-field textarea {
   height: 38px;
   border-radius: 8px;
   border: 1px solid #ccd4de;
@@ -190,7 +191,8 @@
   outline: none;
 }
 
-.dimension-field input:focus {
+.dimension-field input:focus,
+.dimension-field textarea:focus {
   border-color: var.$background;
   box-shadow: 0 0 0 2px rgba(24, 88, 163, 0.16);
 }
@@ -234,6 +236,40 @@ a.telegram-button {
 .estimate-button.disabled {
   opacity: 0.55;
   pointer-events: none;
+}
+
+.email-estimate-form {
+  display: grid;
+  gap: 0.8rem;
+  margin-top: 0.75rem;
+  padding: 0.9rem;
+  border: 1px solid #d8dfe8;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.email-estimate-form h3 {
+  margin: 0;
+}
+
+.email-estimate-form textarea {
+  height: auto;
+  resize: vertical;
+  min-height: 82px;
+  padding: 0.65rem 0.7rem;
+}
+
+.email-consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  font-size: 0.8rem;
+}
+
+.email-consent input {
+  flex: 0 0 auto;
+  margin-top: 0.15rem;
+  accent-color: var.$background;
 }
 
 .form-hint {
