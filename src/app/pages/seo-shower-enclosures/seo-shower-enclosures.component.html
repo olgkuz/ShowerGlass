@@ -1,0 +1,122 @@
+<main class="seo-page">
+  <section class="seo-hero">
+    <img src="assets/img/main-banner-desktop.jpg" alt="Душевое ограждение из стекла на заказ в Санкт-Петербурге" />
+    <div class="seo-hero__content">
+      <h1>
+        <span>Душевые ограждения</span>
+        <span>из стекла на заказ</span>
+        <span>в Санкт-Петербурге</span>
+      </h1>
+      <p>
+        Изготавливаем душевые ограждения из закаленного стекла по индивидуальным размерам:
+        замер, проектирование, производство, доставка и монтаж в СПб и ближайших районах ЛО.
+      </p>
+
+      <div class="seo-hero__actions">
+        <a pButton routerLink="/cards" class="primary-action">Рассчитать по параметрам</a>
+        <a pButton routerLink="/contacts" class="secondary-action">Вызвать мастера на замер</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="trust-strip" aria-label="Преимущества">
+    <div>
+      <strong>15 лет</strong>
+      <span>опыта</span>
+    </div>
+    <div>
+      <strong>2000+</strong>
+      <span>установленных изделий</span>
+    </div>
+    <div>
+      <strong>8-10 мм</strong>
+      <span>закаленное стекло</span>
+    </div>
+    <div>
+      <strong>24 месяца</strong>
+      <span>гарантия</span>
+    </div>
+  </section>
+
+  <section class="seo-section intro-grid">
+    <div>
+      <span class="eyebrow">Изготовление под размер</span>
+      <h2>Стеклянные ограждения для квартир, домов и офисов</h2>
+      <p>
+        Все ограждения изготавливаются из безопасного и прочного закаленного стекла
+        толщиной 8-10 мм. Используем долговечную фурнитуру, рассчитанную на
+        большой вес конструкции и ежедневную эксплуатацию.
+      </p>
+    </div>
+    <ul class="check-list">
+      <li>Точный замер перед изготовлением</li>
+      <li>Фурнитура из нержавеющей стали</li>
+      <li>Прозрачное, осветленное, матовое и тонированное стекло</li>
+      <li>Монтаж под ключ в день доставки</li>
+    </ul>
+  </section>
+
+  <section class="seo-section">
+    <div class="section-head">
+      <span class="eyebrow">Популярные решения</span>
+      <h2>Примеры готовых работ</h2>
+    </div>
+
+    <div class="work-grid">
+      @for (item of workImages; track item.image) {
+        <figure class="work-card">
+          <div class="work-card__media">
+            <img [src]="item.image" [alt]="item.alt" loading="lazy" />
+          </div>
+          <figcaption class="work-card__caption" [class.work-card__caption--empty]="!item.title && !item.text">
+            @if (item.title) {
+              <h3>{{ item.title }}</h3>
+            }
+            @if (item.text) {
+              <p>{{ item.text }}</p>
+            }
+          </figcaption>
+        </figure>
+      }
+    </div>
+  </section>
+
+  <section class="seo-section price-section">
+    <div class="section-head">
+      <h2 class="price-section__title">Примерная стоимость некоторых изделий</h2>
+      <p>Финальная стоимость зависит от размеров, стекла, фурнитуры и сложности монтажа.</p>
+    </div>
+
+    <div class="price-table">
+      @for (row of priceRows; track row.product) {
+        <div class="price-row">
+          <div>
+            <strong>{{ row.product }}</strong>
+            <span>{{ row.details }}</span>
+          </div>
+          <b>{{ row.price }}</b>
+        </div>
+      }
+    </div>
+  </section>
+
+  <section class="seo-section process-section">
+    <div class="section-head">
+      <span class="eyebrow">Как проходит заказ</span>
+      <h2>От заявки до монтажа</h2>
+    </div>
+
+    <ol class="process-list">
+      @for (step of steps; track step; let index = $index) {
+        <li>
+          <span>{{ index + 1 }}</span>
+          <p>{{ step }}</p>
+        </li>
+      }
+    </ol>
+  </section>
+
+  <section class="seo-section contact-section">
+    <app-contactform></app-contactform>
+  </section>
+</main>

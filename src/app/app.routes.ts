@@ -15,6 +15,13 @@ export const routes: Routes = [
           import('./pages/home/home.component').then(m => m.HomeComponent)
       },
       {
+        path: 'dushevye-ograzhdeniya-na-zakaz-spb',
+        loadComponent: () =>
+          import('./pages/seo-shower-enclosures/seo-shower-enclosures.component').then(
+            m => m.SeoShowerEnclosuresComponent
+          )
+      },
+      {
         path: 'cards',
         loadComponent: () =>
           import('./pages/home/cards/cards.component').then(

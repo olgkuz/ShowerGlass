@@ -30,8 +30,18 @@ type CardConfigurator = {
   glassColors: SelectOption[];
   glassFinishes: SelectOption[];
   hardwareColors: SelectOption[];
+  hingeOptions: SelectOption[];
+  handleOptions: SelectOption[];
   installationOptions: SelectOption[];
   dimensions: DimensionField[];
+};
+
+type HardwareDetail = {
+  title: string;
+  description: string[];
+  variantsTitle?: string;
+  variants?: SelectOption[];
+  selectableVariants?: boolean;
 };
 
 @Component({
@@ -46,6 +56,8 @@ export class CardComponent implements OnInit {
   loading = true;
   isLightboxOpen = false;
   lightboxImage = '';
+  activeHardwareDetail: HardwareDetail | null = null;
+  activeHardwareDetailId = '';
   isEmailEstimateOpen = false;
   isEmailEstimateSending = false;
 
@@ -56,6 +68,11 @@ export class CardComponent implements OnInit {
     glassColor: new FormControl<string>('', { nonNullable: true, validators: [Validators.required] }),
     glassFinish: new FormControl<string>('', { nonNullable: true, validators: [Validators.required] }),
     hardwareColor: new FormControl<string>('', { nonNullable: true, validators: [Validators.required] }),
+    hingeOption: new FormControl<string>('', { nonNullable: true, validators: [Validators.required] }),
+    handleOption: new FormControl<string>('', { nonNullable: true, validators: [Validators.required] }),
+    knobVariant: new FormControl<string>('', { nonNullable: true }),
+    barVariant: new FormControl<string>('', { nonNullable: true }),
+    towelHolderVariant: new FormControl<string>('', { nonNullable: true }),
     installationOption: new FormControl<string>('', { nonNullable: true, validators: [Validators.required] }),
     dimensions: new FormGroup({})
   });
@@ -97,6 +114,108 @@ export class CardComponent implements OnInit {
     { id: 'rose-gold', label: 'Розовое золото', hex: '#E6B8A2' },
     { id: 'matte-rose-gold', label: 'Матовое розовое золото', hex: '#C99B7A' }
   ];
+
+  private readonly defaultHingeOptions: SelectOption[] = [
+    { id: 'classic', label: 'Премиум', image: 'assets/img/cards/hinges/hinge-classic.png' },
+    { id: 'flat', label: 'Усиленная', image: 'assets/img/cards/hinges/hinge-flat.png' },
+    { id: 'reinforced', label: 'Классическая', image: 'assets/img/cards/hinges/hinge-reinforced.png' }
+  ];
+
+  private readonly defaultHandleOptions: SelectOption[] = [
+    { id: 'knob', label: 'Ручка-кноб', image: 'assets/img/cards/handles/knob/knob-kvadrat.png' },
+    { id: 'bar', label: 'Ручка-скоба', image: 'assets/img/cards/handles/bar/bar-main.png' },
+    { id: 'towel-holder', label: 'Ручка-держатель полотенца', image: 'assets/img/cards/handles/towel-holder/towel-holder-main.png' }
+  ];
+
+  private readonly hardwareDetailsById: Record<string, HardwareDetail> = {
+    classic: {
+      title: 'Петля Премиум',
+      description: [
+        'Квадратный дизайн.',
+        'Для дверей стеклянных душевых перегородок и ограждений.',
+        'Открывание двери на 180 градусов.',
+        'Регулировка 0° положения.',
+        'Функция самозакрывания от 25 градусов.',
+        'Фиксация в закрытом положении.',
+        'Максимальная нагрузка на две петли: 45 кг.',
+        'Максимальная ширина полотна: 850 мм.'
+      ],
+      variantsTitle: 'Варианты крепления петель',
+      variants: [
+        { id: 'wall-glass-90', label: 'Стена-стекло 90°', image: 'assets/img/cards/hinges/premium/wall-90.png' },
+        { id: 'wall-glass-180', label: 'Стена-стекло 180°', image: 'assets/img/cards/hinges/premium/wall-180.png' }
+      ]
+    },
+    flat: {
+      title: 'Петля Усиленная',
+      description: [
+        'Для дверей стеклянных душевых перегородок и ограждений.',
+        'Открывание двери на 180 градусов.',
+        'Регулировка 0° положения.',
+        'Функция самозакрывания от 25 градусов.',
+        'Фиксация в закрытом положении.',
+        'Максимальная нагрузка на две петли: 45 кг.',
+        'Максимальная ширина полотна: 850 мм.'
+      ]
+    },
+    reinforced: {
+      title: 'Петля Классическая',
+      description: [
+        'Для дверей стеклянных душевых перегородок и ограждений.',
+        'Открывание двери на 180 градусов.',
+        'Максимальная нагрузка на две петли: 40 кг.',
+        'Максимальный размер полотна: 760 х 2000 мм.'
+      ]
+    },
+    knob: {
+      title: 'Ручка-кноб',
+      description: [
+        'Компактная ручка для стеклянных дверей душевых перегородок и ограждений.',
+        'Подходит для минималистичных конструкций, где важно сохранить аккуратный внешний вид.',
+        'Тип и размер ручки подбираются с учетом толщины стекла и конструкции двери.'
+      ],
+      variantsTitle: 'Варианты ручки-кноб',
+      selectableVariants: true,
+      variants: [
+        { id: 'knob-1', label: 'Кноб 1', image: 'assets/img/cards/handles/knob/knob-1.png' },
+        { id: 'knob-2', label: 'Кноб 2', image: 'assets/img/cards/handles/knob/knob-2.png' },
+        { id: 'knob-3', label: 'Кноб 3', image: 'assets/img/cards/handles/knob/knob-3.png' },
+        { id: 'knob-4', label: 'Кноб 4', image: 'assets/img/cards/handles/knob/knob-4.png' }
+      ]
+    },
+    bar: {
+      title: 'Ручка-скоба',
+      description: [
+        'Классический вариант ручки для стеклянных дверей душевых перегородок.',
+        'Удобна для ежедневного использования и хорошо подходит для распашных дверей.',
+        'Длина, форма и цвет ручки подбираются под выбранную фурнитуру.'
+      ],
+      variantsTitle: 'Варианты ручки-скобы',
+      selectableVariants: true,
+      variants: [
+        { id: 'bar-1', label: 'Скоба 1', image: 'assets/img/cards/handles/bar/bar-1.png' },
+        { id: 'bar-2', label: 'Скоба 2', image: 'assets/img/cards/handles/bar/bar-2.png' },
+        { id: 'bar-3', label: 'Скоба 3', image: 'assets/img/cards/handles/bar/bar-3.png' },
+        { id: 'bar-4', label: 'Скоба 4', image: 'assets/img/cards/handles/bar/bar-4.png' }
+      ]
+    },
+    'towel-holder': {
+      title: 'Ручка-держатель полотенца',
+      description: [
+        'Ручка совмещает функцию открывания двери и держателя полотенца.',
+        'Подходит для душевых ограждений, где нужно рационально использовать пространство.',
+        'Размер и исполнение подбираются индивидуально под конструкцию и цвет фурнитуры.'
+      ],
+      variantsTitle: 'Варианты ручки-держателя полотенца',
+      selectableVariants: true,
+      variants: [
+        { id: 'towel-holder-1', label: 'Держатель 1', image: 'assets/img/cards/handles/towel-holder/towel-holder-1.png' },
+        { id: 'towel-holder-2', label: 'Держатель 2', image: 'assets/img/cards/handles/towel-holder/towel-holder-2.png' },
+        { id: 'towel-holder-3', label: 'Держатель 3', image: 'assets/img/cards/handles/towel-holder/towel-holder-3.png' },
+        { id: 'towel-holder-4', label: 'Держатель 4', image: 'assets/img/cards/handles/towel-holder/towel-holder-4.png' }
+      ]
+    }
+  };
 
   private readonly installationOptionsByCardId: Record<string, SelectOption[]> = {
     '1': [
@@ -290,6 +409,56 @@ export class CardComponent implements OnInit {
     this.lightboxImage = '';
   }
 
+  openHardwareDetails(optionId: string, event: Event): void {
+    event.stopPropagation();
+    this.activeHardwareDetailId = optionId;
+    this.activeHardwareDetail = this.hardwareDetailsById[optionId] ?? null;
+  }
+
+  closeHardwareDetails(): void {
+    this.activeHardwareDetail = null;
+    this.activeHardwareDetailId = '';
+  }
+
+  hasHardwareDetails(optionId: string): boolean {
+    return Boolean(this.hardwareDetailsById[optionId]);
+  }
+
+  toggleHardwareVariant(variantId: string, event: Event): void {
+    event.stopPropagation();
+
+    if (
+      this.activeHardwareDetailId === 'knob' ||
+      this.activeHardwareDetailId === 'bar' ||
+      this.activeHardwareDetailId === 'towel-holder'
+    ) {
+      const control =
+        this.activeHardwareDetailId === 'knob'
+          ? this.configForm.controls.knobVariant
+          : this.activeHardwareDetailId === 'bar'
+            ? this.configForm.controls.barVariant
+            : this.configForm.controls.towelHolderVariant;
+      control.setValue(control.value === variantId ? '' : variantId);
+      control.markAsTouched();
+    }
+  }
+
+  isHardwareVariantSelected(variantId: string): boolean {
+    if (this.activeHardwareDetailId === 'knob') {
+      return this.configForm.controls.knobVariant.value === variantId;
+    }
+
+    if (this.activeHardwareDetailId === 'bar') {
+      return this.configForm.controls.barVariant.value === variantId;
+    }
+
+    if (this.activeHardwareDetailId === 'towel-holder') {
+      return this.configForm.controls.towelHolderVariant.value === variantId;
+    }
+
+    return false;
+  }
+
   getMainImage(): string {
     if (this.card?.imgUrl) return this.card.imgUrl;
     if (this.card?.img) return `assets/img/cards/${this.card.img}`;
@@ -304,16 +473,16 @@ export class CardComponent implements OnInit {
     return this.currentConfig?.dimensions ?? [];
   }
 
-  getConfigOptions(type: 'glassColors' | 'glassFinishes' | 'hardwareColors' | 'installationOptions'): SelectOption[] {
+  getConfigOptions(type: 'glassColors' | 'glassFinishes' | 'hardwareColors' | 'hingeOptions' | 'handleOptions' | 'installationOptions'): SelectOption[] {
     return this.currentConfig?.[type] ?? [];
   }
 
-  selectOption(control: 'glassColor' | 'glassFinish' | 'hardwareColor' | 'installationOption', value: string): void {
+  selectOption(control: 'glassColor' | 'glassFinish' | 'hardwareColor' | 'hingeOption' | 'handleOption' | 'installationOption', value: string): void {
     this.configForm.controls[control].setValue(value);
     this.configForm.controls[control].markAsTouched();
   }
 
-  isSelected(control: 'glassColor' | 'glassFinish' | 'hardwareColor' | 'installationOption', value: string): boolean {
+  isSelected(control: 'glassColor' | 'glassFinish' | 'hardwareColor' | 'hingeOption' | 'handleOption' | 'installationOption', value: string): boolean {
     return this.configForm.controls[control].value === value;
   }
 
@@ -351,6 +520,11 @@ export class CardComponent implements OnInit {
       glassColor: '',
       glassFinish: '',
       hardwareColor: '',
+      hingeOption: '',
+      handleOption: '',
+      knobVariant: '',
+      barVariant: '',
+      towelHolderVariant: '',
       installationOption: ''
     });
 
@@ -365,6 +539,8 @@ export class CardComponent implements OnInit {
       glassColors: [...this.defaultGlassColors],
       glassFinishes: [...this.defaultGlassFinishes],
       hardwareColors: [...this.defaultHardwareColors],
+      hingeOptions: [...this.defaultHingeOptions],
+      handleOptions: [...this.defaultHandleOptions],
       installationOptions:
         this.installationOptionsByCardId[cardId] ?? this.defaultInstallations,
       dimensions: this.dimensionsByCardId[cardId] ?? [
@@ -379,6 +555,14 @@ export class CardComponent implements OnInit {
     const glassColor = this.getSelectedLabel('glassColors', this.configForm.controls.glassColor.value);
     const glassFinish = this.getSelectedLabel('glassFinishes', this.configForm.controls.glassFinish.value);
     const hardwareColor = this.getSelectedLabel('hardwareColors', this.configForm.controls.hardwareColor.value);
+    const hinge = this.getSelectedLabel('hingeOptions', this.configForm.controls.hingeOption.value);
+    const handle = this.getSelectedLabel('handleOptions', this.configForm.controls.handleOption.value);
+    const knobVariant = this.getSelectedHardwareVariantLabel('knob', this.configForm.controls.knobVariant.value);
+    const barVariant = this.getSelectedHardwareVariantLabel('bar', this.configForm.controls.barVariant.value);
+    const towelHolderVariant = this.getSelectedHardwareVariantLabel(
+      'towel-holder',
+      this.configForm.controls.towelHolderVariant.value
+    );
     const installation = this.getSelectedLabel('installationOptions', this.configForm.controls.installationOption.value);
 
     const dimensionsText = this.getDimensionFields()
@@ -399,6 +583,11 @@ export class CardComponent implements OnInit {
       `Стекло (цвет): ${glassColor}`,
       `Стекло (поверхность): ${glassFinish}`,
       `Фурнитура (цвет): ${hardwareColor}`,
+      `Петли: ${hinge}`,
+      `Ручка: ${handle}`,
+      `Вариант кноба: ${knobVariant}`,
+      `Вариант скобы: ${barVariant}`,
+      `Вариант держателя полотенца: ${towelHolderVariant}`,
       `Вариант установки: ${installation}`,
       '',
       'Размеры:',
@@ -418,10 +607,15 @@ export class CardComponent implements OnInit {
   }
 
   private getSelectedLabel(
-    type: 'glassColors' | 'glassFinishes' | 'hardwareColors' | 'installationOptions',
+    type: 'glassColors' | 'glassFinishes' | 'hardwareColors' | 'hingeOptions' | 'handleOptions' | 'installationOptions',
     value: string
   ): string {
     const option = this.getConfigOptions(type).find((item) => item.id === value);
+    return option?.label ?? '-';
+  }
+
+  private getSelectedHardwareVariantLabel(detailId: string, value: string): string {
+    const option = this.hardwareDetailsById[detailId]?.variants?.find((item) => item.id === value);
     return option?.label ?? '-';
   }
 }
