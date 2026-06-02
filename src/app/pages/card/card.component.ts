@@ -14,6 +14,7 @@ import { CardsService } from '../../services/cards.service';
 type SelectOption = {
   id: string;
   label: string;
+  subtitle?: string;
   hex?: string;
   image?: string;
 };
@@ -42,6 +43,7 @@ type HardwareDetail = {
   variantsTitle?: string;
   variants?: SelectOption[];
   selectableVariants?: boolean;
+  variantControl?: 'knobVariant' | 'barVariant' | 'towelHolderVariant';
 };
 
 @Component({
@@ -127,6 +129,19 @@ export class CardComponent implements OnInit {
     { id: 'towel-holder', label: 'Ручка-держатель полотенца', image: 'assets/img/cards/handles/towel-holder/towel-holder-main.png' }
   ];
 
+  private readonly hingeOptionsByCardId: Record<string, SelectOption[]> = {
+    '2': [
+      { id: 'proem-hinge-premium', label: 'Премиум', image: 'assets/img/cards/hinges/hinge-classic.png' },
+      { id: 'proem-hinge-reinforced', label: 'Усиленная', image: 'assets/img/cards/hinges/hinge-flat.png' },
+      { id: 'proem-hinge-classic', label: 'Классическая', image: 'assets/img/cards/hinges/hinge-reinforced.png' }
+    ],
+    '3': [
+      { id: 'proem-hinge-premium', label: 'Премиум', image: 'assets/img/cards/hinges/hinge-classic.png' },
+      { id: 'proem-hinge-reinforced', label: 'Усиленная', image: 'assets/img/cards/hinges/hinge-flat.png' },
+      { id: 'proem-hinge-classic', label: 'Классическая', image: 'assets/img/cards/hinges/hinge-reinforced.png' }
+    ]
+  };
+
   private readonly hardwareDetailsById: Record<string, HardwareDetail> = {
     classic: {
       title: 'Петля Премиум',
@@ -176,11 +191,12 @@ export class CardComponent implements OnInit {
       ],
       variantsTitle: 'Варианты ручки-кноб',
       selectableVariants: true,
+      variantControl: 'knobVariant',
       variants: [
-        { id: 'knob-1', label: 'Кноб 1', image: 'assets/img/cards/handles/knob/knob-1.png' },
-        { id: 'knob-2', label: 'Кноб 2', image: 'assets/img/cards/handles/knob/knob-2.png' },
-        { id: 'knob-3', label: 'Кноб 3', image: 'assets/img/cards/handles/knob/knob-3.png' },
-        { id: 'knob-4', label: 'Кноб 4', image: 'assets/img/cards/handles/knob/knob-4.png' }
+        { id: 'knob-1', label: 'Кноб 1', image: 'assets/img/cards/handles/knob/konb-1.png' },
+        { id: 'knob-2', label: 'Кноб 2', image: 'assets/img/cards/handles/knob/konb-2.png' },
+        { id: 'knob-3', label: 'Кноб 3', image: 'assets/img/cards/handles/knob/konb-3.png' },
+        { id: 'knob-4', label: 'Кноб 4', image: 'assets/img/cards/handles/knob/konb-4.png' }
       ]
     },
     bar: {
@@ -192,6 +208,7 @@ export class CardComponent implements OnInit {
       ],
       variantsTitle: 'Варианты ручки-скобы',
       selectableVariants: true,
+      variantControl: 'barVariant',
       variants: [
         { id: 'bar-1', label: 'Скоба 1', image: 'assets/img/cards/handles/bar/bar-1.png' },
         { id: 'bar-2', label: 'Скоба 2', image: 'assets/img/cards/handles/bar/bar-2.png' },
@@ -208,13 +225,67 @@ export class CardComponent implements OnInit {
       ],
       variantsTitle: 'Варианты ручки-держателя полотенца',
       selectableVariants: true,
+      variantControl: 'towelHolderVariant',
       variants: [
         { id: 'towel-holder-1', label: 'Держатель 1', image: 'assets/img/cards/handles/towel-holder/towel-holder-1.png' },
         { id: 'towel-holder-2', label: 'Держатель 2', image: 'assets/img/cards/handles/towel-holder/towel-holder-2.png' },
         { id: 'towel-holder-3', label: 'Держатель 3', image: 'assets/img/cards/handles/towel-holder/towel-holder-3.png' },
         { id: 'towel-holder-4', label: 'Держатель 4', image: 'assets/img/cards/handles/towel-holder/towel-holder-4.png' }
       ]
-    }
+    },
+    'proem-hinge-premium': {
+      title: 'Петля Премиум',
+      description: [
+        'Описание петли для душевой в проем будет добавлено после уточнения модели.',
+        'Для сложных конструкций петли подбираются индивидуально.'
+      ],
+      variantsTitle: 'Варианты крепления петель',
+      variants: [
+        {
+          id: 'proem-premium-variant-1',
+          label: 'Вариант 1',
+          subtitle: 'Стекло-стена 90°',
+          image: 'assets/img/cards/hinges/premium/wall-90.png'
+        },
+        {
+          id: 'proem-premium-glass-180',
+          label: 'Вариант 2',
+          subtitle: 'Стекло-стекло 180°',
+          image: 'assets/img/cards/proem/hinges/premium/glass-180.png'
+        }
+      ]
+    },
+    'proem-hinge-reinforced': {
+      title: 'Петля Усиленная',
+      description: [
+        'Описание усиленной петли для душевой в проем будет добавлено после уточнения модели.'
+      ],
+      variantsTitle: 'Варианты крепления петель',
+      variants: [
+        {
+          id: 'proem-reinforced-glass-180',
+          label: 'Вариант 1',
+          subtitle: 'Стекло-стекло 180°',
+          image: 'assets/img/cards/proem/hinges/reinforced/glass-180.png'
+        }
+      ]
+    },
+    'proem-hinge-classic': {
+      title: 'Петля Классическая',
+      description: [
+        'Описание классической петли для душевой в проем будет добавлено после уточнения модели.'
+      ],
+      variantsTitle: 'Варианты крепления петель',
+      variants: [
+        {
+          id: 'proem-classic-glass-180',
+          label: 'Вариант 1',
+          subtitle: 'Стекло-стекло 180°',
+          image: 'assets/img/cards/proem/hinges/classic/glass-180.png'
+        }
+      ]
+    },
+    
   };
 
   private readonly installationOptionsByCardId: Record<string, SelectOption[]> = {
@@ -427,36 +498,17 @@ export class CardComponent implements OnInit {
   toggleHardwareVariant(variantId: string, event: Event): void {
     event.stopPropagation();
 
-    if (
-      this.activeHardwareDetailId === 'knob' ||
-      this.activeHardwareDetailId === 'bar' ||
-      this.activeHardwareDetailId === 'towel-holder'
-    ) {
-      const control =
-        this.activeHardwareDetailId === 'knob'
-          ? this.configForm.controls.knobVariant
-          : this.activeHardwareDetailId === 'bar'
-            ? this.configForm.controls.barVariant
-            : this.configForm.controls.towelHolderVariant;
-      control.setValue(control.value === variantId ? '' : variantId);
-      control.markAsTouched();
-    }
+    const controlName = this.activeHardwareDetail?.variantControl;
+    if (!controlName) return;
+
+    const control = this.configForm.controls[controlName];
+    control.setValue(control.value === variantId ? '' : variantId);
+    control.markAsTouched();
   }
 
   isHardwareVariantSelected(variantId: string): boolean {
-    if (this.activeHardwareDetailId === 'knob') {
-      return this.configForm.controls.knobVariant.value === variantId;
-    }
-
-    if (this.activeHardwareDetailId === 'bar') {
-      return this.configForm.controls.barVariant.value === variantId;
-    }
-
-    if (this.activeHardwareDetailId === 'towel-holder') {
-      return this.configForm.controls.towelHolderVariant.value === variantId;
-    }
-
-    return false;
+    const controlName = this.activeHardwareDetail?.variantControl;
+    return controlName ? this.configForm.controls[controlName].value === variantId : false;
   }
 
   getMainImage(): string {
@@ -539,7 +591,7 @@ export class CardComponent implements OnInit {
       glassColors: [...this.defaultGlassColors],
       glassFinishes: [...this.defaultGlassFinishes],
       hardwareColors: [...this.defaultHardwareColors],
-      hingeOptions: [...this.defaultHingeOptions],
+      hingeOptions: [...(this.hingeOptionsByCardId[cardId] ?? this.defaultHingeOptions)],
       handleOptions: [...this.defaultHandleOptions],
       installationOptions:
         this.installationOptionsByCardId[cardId] ?? this.defaultInstallations,
@@ -556,12 +608,11 @@ export class CardComponent implements OnInit {
     const glassFinish = this.getSelectedLabel('glassFinishes', this.configForm.controls.glassFinish.value);
     const hardwareColor = this.getSelectedLabel('hardwareColors', this.configForm.controls.hardwareColor.value);
     const hinge = this.getSelectedLabel('hingeOptions', this.configForm.controls.hingeOption.value);
-    const handle = this.getSelectedLabel('handleOptions', this.configForm.controls.handleOption.value);
-    const knobVariant = this.getSelectedHardwareVariantLabel('knob', this.configForm.controls.knobVariant.value);
-    const barVariant = this.getSelectedHardwareVariantLabel('bar', this.configForm.controls.barVariant.value);
-    const towelHolderVariant = this.getSelectedHardwareVariantLabel(
-      'towel-holder',
-      this.configForm.controls.towelHolderVariant.value
+    const handleId = this.configForm.controls.handleOption.value;
+    const handle = this.getSelectedLabel('handleOptions', handleId);
+    const handleVariant = this.getSelectedHardwareVariantLabel(
+      handleId,
+      this.getSelectedHandleVariantValue(handleId)
     );
     const installation = this.getSelectedLabel('installationOptions', this.configForm.controls.installationOption.value);
 
@@ -585,9 +636,7 @@ export class CardComponent implements OnInit {
       `Фурнитура (цвет): ${hardwareColor}`,
       `Петли: ${hinge}`,
       `Ручка: ${handle}`,
-      `Вариант кноба: ${knobVariant}`,
-      `Вариант скобы: ${barVariant}`,
-      `Вариант держателя полотенца: ${towelHolderVariant}`,
+      `Вариант ручки: ${handleVariant}`,
       `Вариант установки: ${installation}`,
       '',
       'Размеры:',
@@ -617,5 +666,10 @@ export class CardComponent implements OnInit {
   private getSelectedHardwareVariantLabel(detailId: string, value: string): string {
     const option = this.hardwareDetailsById[detailId]?.variants?.find((item) => item.id === value);
     return option?.label ?? '-';
+  }
+
+  private getSelectedHandleVariantValue(detailId: string): string {
+    const controlName = this.hardwareDetailsById[detailId]?.variantControl;
+    return controlName ? this.configForm.controls[controlName].value : '';
   }
 }

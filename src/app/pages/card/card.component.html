@@ -309,6 +309,7 @@
                 style="cursor: pointer;"
                 *ngFor="let variant of activeHardwareDetail.variants"
               >
+                <span>{{ variant.label }}</span>
                 <img [src]="variant.image" [alt]="variant.label" loading="lazy" />
                 <span style="display: flex; align-items: center; gap: 0.35rem; padding-bottom: 0.45rem;">
                   <input
@@ -316,7 +317,7 @@
                     [checked]="isHardwareVariantSelected(variant.id)"
                     (change)="toggleHardwareVariant(variant.id, $event)"
                   />
-                  {{ variant.label }}
+                  Выбрать
                 </span>
               </label>
             } @else {
@@ -326,8 +327,11 @@
                 *ngFor="let variant of activeHardwareDetail.variants"
                 (click)="openLightbox(variant.image || ''); closeHardwareDetails(); $event.stopPropagation()"
               >
-                <img [src]="variant.image" [alt]="variant.label" loading="lazy" />
                 <span>{{ variant.label }}</span>
+                <img [src]="variant.image" [alt]="variant.label" loading="lazy" />
+                @if (variant.subtitle) {
+                  <span>{{ variant.subtitle }}</span>
+                }
               </button>
             }
           </div>
