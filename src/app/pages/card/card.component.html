@@ -72,43 +72,50 @@
           </div>
         </div>
 
-        <div class="option-group">
-          <h3>4. Петли</h3>
-          <p class="form-hint">
-            Вариантов петель от разных поставщиков существует множество. Для сложных
-            конструкций петли подбираются индивидуально. Здесь представлены самые
-            популярные модели.
-          </p>
-          <p class="form-hint">Выберите тип петель для вашего изделия</p>
-          <div class="installation-grid hinge-grid">
-            <button
-              type="button"
-              class="installation-item hinge-item"
-              *ngFor="let option of getConfigOptions('hingeOptions')"
-              [class.active]="isSelected('hingeOption', option.id)"
-              (click)="selectOption('hingeOption', option.id)"
-            >
-              <img [src]="option.image" [alt]="option.label" loading="lazy" />
-              <span>{{ option.label }}</span>
-              @if (!hasHardwareDetails(option.id)) {
-                <span
-                  class="zoom-link"
-                  (click)="openLightbox(option.image || ''); $event.stopPropagation()"
-                >
-                  Увеличить
-                </span>
-              }
-              @if (hasHardwareDetails(option.id)) {
-                <span
-                  class="zoom-link"
-                  (click)="openHardwareDetails(option.id, $event)"
-                >
-                  Подробнее
-                </span>
-              }
-            </button>
+        @if (getConfigOptions('hingeOptions').length) {
+          <div class="option-group">
+            <h3>4. Петли</h3>
+            <p class="form-hint">
+              Вариантов петель от разных поставщиков существует множество. Для сложных
+              конструкций петли подбираются индивидуально. Здесь представлены самые
+              популярные модели.
+            </p>
+            <p class="form-hint">Выберите тип петель для вашего изделия</p>
+            <div class="installation-grid hinge-grid">
+              <button
+                type="button"
+                class="installation-item hinge-item"
+                *ngFor="let option of getConfigOptions('hingeOptions')"
+                [class.active]="isSelected('hingeOption', option.id)"
+                (click)="selectOption('hingeOption', option.id)"
+              >
+                <img
+                  [src]="option.image"
+                  [alt]="option.label"
+                  loading="lazy"
+                  (error)="hideBrokenOptionImage($event)"
+                />
+                <span>{{ option.label }}</span>
+                @if (!hasHardwareDetails(option.id)) {
+                  <span
+                    class="zoom-link"
+                    (click)="openLightbox(option.image || ''); $event.stopPropagation()"
+                  >
+                    Увеличить
+                  </span>
+                }
+                @if (hasHardwareDetails(option.id)) {
+                  <span
+                    class="zoom-link"
+                    (click)="openHardwareDetails(option.id, $event)"
+                  >
+                    Подробнее
+                  </span>
+                }
+              </button>
+            </div>
           </div>
-        </div>
+        }
 
         <div class="option-group">
           <h3>5. Ручки</h3>

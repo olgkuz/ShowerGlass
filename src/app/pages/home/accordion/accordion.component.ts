@@ -1,26 +1,37 @@
 import { Component } from '@angular/core';
-import {
-  Accordion,
-  AccordionPanel,
-  AccordionHeader,
-  AccordionContent
-} from 'primeng/accordion';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-accordion',
   standalone: true,
-  imports: [
-    CommonModule,
-    Accordion,
-    AccordionPanel,
-    AccordionHeader,
-    AccordionContent
-  ],
+  imports: [CommonModule],
   templateUrl: './accordion.component.html',
   styleUrls: ['./accordion.component.scss'], // ← исправлено
 })
 export class AccordionComponent {
+  openSteps = new Set<number>([0]);
+
+  formatStepNumber(index: number): string {
+    return String(index + 1).padStart(2, '0');
+  }
+
+  getStepTitle(step: string): string {
+    return step.replace(/^\d+\.\s*/, '');
+  }
+
+  isStepOpen(index: number): boolean {
+    return this.openSteps.has(index);
+  }
+
+  toggleStep(index: number): void {
+    if (this.openSteps.has(index)) {
+      this.openSteps.delete(index);
+      return;
+    }
+
+    this.openSteps.add(index);
+  }
+
   stepsList = [
     {
       step: '1. Предварительный расчет стоимости изделия и работ',

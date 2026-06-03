@@ -5,47 +5,179 @@
   font-family: var.$font-family-base;
 }
 
-.faq-section {
-  padding: 3rem 1rem;
-  max-width: 900px;
+.order-flow {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.85fr) minmax(0, 1.55fr);
+  gap: 2rem;
+  width: min(1040px, 100%);
   margin: 0 auto;
-  font-family: var.$font-family-base;
+  padding: 3.5rem 1rem;
+}
 
-  .section-title {
-    text-align: center;
-    font-size: 2rem;
-    margin-bottom: 2rem;
-    font-weight: 600;
-    color: var.$background;
+.order-flow__intro {
+  align-self: start;
+  position: sticky;
+  top: 88px;
+  padding: 2rem;
+  border-radius: var.$radius-md;
+  background: var.$background;
+  color: var.$text-on-dark;
+
+  span {
+    display: block;
+    margin-bottom: 0.75rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0;
+    opacity: 0.72;
+    text-transform: uppercase;
   }
 
-  ::ng-deep .p-accordion {
-    font-family: var.$font-family-base !important;
-    color: var.$background !important;
+  h2 {
+    margin: 0;
+    font-size: clamp(1.65rem, 2.6vw, 2.2rem);
+    font-weight: 700;
+    line-height: 1.15;
   }
 
-  ::ng-deep .p-accordion-header-link {
-    font-family: var.$font-family-base !important;
-    color: #3c3422 !important;
-    font-weight: 600;
+  p {
+    margin: 1rem 0 0;
+    color: rgb(255 255 255 / 78%);
+    font-size: 1rem;
+    line-height: 1.55;
+  }
+}
+
+.order-flow__steps {
+  border-top: 1px solid rgb(79 71 50 / 16%);
+}
+
+.step {
+  border-bottom: 1px solid rgb(79 71 50 / 16%);
+}
+
+.step__button {
+  display: grid;
+  grid-template-columns: 52px 1fr 32px;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  min-height: 78px;
+  padding: 1rem 0;
+  border: 0;
+  background: transparent;
+  color: var.$background;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.step__button:hover .step__title {
+  color: var.$background-hover;
+}
+
+.step__button:focus-visible {
+  outline: none;
+  box-shadow: var.$focus-ring;
+}
+
+.step__number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgb(79 71 50 / 24%);
+  border-radius: var.$radius-md;
+  background: #fff;
+  color: var.$background;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.step__title {
+  color: var.$background;
+  font-size: 1.08rem;
+  font-weight: 650;
+  line-height: 1.35;
+  transition: color var.$transition-fast;
+}
+
+.step__icon {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  border: 1px solid rgb(79 71 50 / 22%);
+  border-radius: 50%;
+}
+
+.step__icon::before,
+.step__icon::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 12px;
+  height: 1.5px;
+  border-radius: 999px;
+  background: var.$background;
+  transform: translate(-50%, -50%);
+}
+
+.step__icon::after {
+  transform: translate(-50%, -50%) rotate(90deg);
+  transition: opacity var.$transition-fast;
+}
+
+.step--open .step__icon::after {
+  opacity: 0;
+}
+
+.step__content {
+  padding: 0 2.5rem 1.3rem 68px;
+  color: #4d4d4d;
+
+  p {
+    max-width: 720px;
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.65;
+  }
+}
+
+@media (max-width: var.$bp-md) {
+  .order-flow {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 2.5rem 0;
   }
 
-  ::ng-deep .p-accordion-header-link.p-highlight {
-    color: var.$background !important;
+  .order-flow__intro {
+    position: static;
+  }
+}
+
+@media (max-width: var.$bp-xs) {
+  .order-flow__intro {
+    padding: 1.5rem;
   }
 
-  ::ng-deep .p-accordion-content {
-    font-family: var.$font-family-base !important;
-    color: var.$background !important;
-    font-size: 1.125rem !important;
-    line-height: 1.6;
+  .step__button {
+    grid-template-columns: 46px 1fr 28px;
+    gap: 0.75rem;
   }
 
-  ::ng-deep .p-accordion-toggle-icon {
-    color: #3c3422 !important;
+  .step__number {
+    width: 40px;
+    height: 40px;
   }
 
-  ::ng-deep .p-accordion-header-link.p-highlight .p-accordion-toggle-icon {
-    color: var.$background !important;
+  .step__title {
+    font-size: 1rem;
+  }
+
+  .step__content {
+    padding-left: 0;
+    padding-right: 0;
   }
 }

@@ -129,6 +129,14 @@ export class CardComponent implements OnInit {
     { id: 'towel-holder', label: 'Ручка-держатель полотенца', image: 'assets/img/cards/handles/towel-holder/towel-holder-main.png' }
   ];
 
+  private readonly handleOptionsByCardId: Record<string, SelectOption[]> = {
+    '6': [
+      { id: 'knob', label: 'Ручка-кноб', image: 'assets/img/cards/handles/knob/knob-kvadrat.png' },
+      { id: 'bar', label: 'Ручка-скоба', image: 'assets/img/cards/handles/bar/bar-main.png' },
+      { id: 'towel-holder', label: 'Ручка-держатель полотенца', image: 'assets/img/cards/handles/towel-holder/towel-holder-main.png' }
+    ]
+  };
+
   private readonly hingeOptionsByCardId: Record<string, SelectOption[]> = {
     '2': [
       { id: 'proem-hinge-premium', label: 'Премиум', image: 'assets/img/cards/hinges/hinge-classic.png' },
@@ -136,10 +144,16 @@ export class CardComponent implements OnInit {
       { id: 'proem-hinge-classic', label: 'Классическая', image: 'assets/img/cards/hinges/hinge-reinforced.png' }
     ],
     '3': [
-      { id: 'proem-hinge-premium', label: 'Премиум', image: 'assets/img/cards/hinges/hinge-classic.png' },
-      { id: 'proem-hinge-reinforced', label: 'Усиленная', image: 'assets/img/cards/hinges/hinge-flat.png' },
-      { id: 'proem-hinge-classic', label: 'Классическая', image: 'assets/img/cards/hinges/hinge-reinforced.png' }
-    ]
+      { id: 'corner-hinge-premium', label: 'Премиум', image: 'assets/img/cards/hinges/hinge-classic.png' },
+      { id: 'corner-hinge-reinforced', label: 'Усиленная', image: 'assets/img/cards/hinges/hinge-flat.png' },
+      { id: 'corner-hinge-classic', label: 'Классическая', image: 'assets/img/cards/hinges/hinge-reinforced.png' }
+    ],
+    '4': [
+      { id: 'trapeze-hinge-premium', label: 'Премиум', image: 'assets/img/cards/trapeze/hinges/premium/main.png' },
+      { id: 'trapeze-hinge-reinforced', label: 'Усиленная', image: 'assets/img/cards/trapeze/hinges/reinforced/main.png' },
+      { id: 'trapeze-hinge-classic', label: 'Классическая', image: 'assets/img/cards/trapeze/hinges/classic/main.png' }
+    ],
+    '6': []
   };
 
   private readonly hardwareDetailsById: Record<string, HardwareDetail> = {
@@ -255,6 +269,34 @@ export class CardComponent implements OnInit {
         }
       ]
     },
+    'corner-hinge-premium': {
+      title: 'Петля Премиум',
+      description: [
+        'Описание петли для душевого уголка будет добавлено после уточнения модели.',
+        'Для сложных конструкций петли подбираются индивидуально.'
+      ],
+      variantsTitle: 'Варианты крепления петель',
+      variants: [
+        {
+          id: 'corner-premium-variant-1',
+          label: 'Вариант 1',
+          subtitle: 'Стекло-стена 90°',
+          image: 'assets/img/cards/hinges/premium/wall-90.png'
+        },
+        {
+          id: 'corner-premium-glass-180',
+          label: 'Вариант 2',
+          subtitle: 'Стекло-стекло 180°',
+          image: 'assets/img/cards/proem/hinges/premium/glass-180.png'
+        },
+        {
+          id: 'corner-premium-glass-glass-90',
+          label: 'Вариант 3',
+          subtitle: 'Стекло-стекло 90°',
+          image: 'assets/img/cards/corner/hinges/premium/glass-glass-90.png?v=corner-premium-90'
+        }
+      ]
+    },
     'proem-hinge-reinforced': {
       title: 'Петля Усиленная',
       description: [
@@ -267,6 +309,27 @@ export class CardComponent implements OnInit {
           label: 'Вариант 1',
           subtitle: 'Стекло-стекло 180°',
           image: 'assets/img/cards/proem/hinges/reinforced/glass-180.png'
+        }
+      ]
+    },
+    'corner-hinge-reinforced': {
+      title: 'Петля Усиленная',
+      description: [
+        'Описание усиленной петли для душевого уголка будет добавлено после уточнения модели.'
+      ],
+      variantsTitle: 'Варианты крепления петель',
+      variants: [
+        {
+          id: 'corner-reinforced-glass-180',
+          label: 'Вариант 1',
+          subtitle: 'Стекло-стекло 180°',
+          image: 'assets/img/cards/proem/hinges/reinforced/glass-180.png'
+        },
+        {
+          id: 'corner-reinforced-glass-glass-90',
+          label: 'Вариант 2',
+          subtitle: 'Стекло-стекло 90°',
+          image: 'assets/img/cards/corner/hinges/reinforced/glass-glass-90.png?v=corner-reinforced-90'
         }
       ]
     },
@@ -283,6 +346,61 @@ export class CardComponent implements OnInit {
           subtitle: 'Стекло-стекло 180°',
           image: 'assets/img/cards/proem/hinges/classic/glass-180.png'
         }
+      ]
+    },
+    'corner-hinge-classic': {
+      title: 'Петля Классическая',
+      description: [
+        'Описание классической петли для душевого уголка будет добавлено после уточнения модели.'
+      ],
+      variantsTitle: 'Варианты крепления петель',
+      variants: [
+        {
+          id: 'corner-classic-glass-180',
+          label: 'Вариант 1',
+          subtitle: 'Стекло-стекло 180°',
+          image: 'assets/img/cards/proem/hinges/classic/glass-180.png'
+        },
+        {
+          id: 'corner-classic-glass-glass-90',
+          label: 'Вариант 2',
+          subtitle: 'Стекло-стекло 90°',
+          image: 'assets/img/cards/corner/hinges/classic/glass-glass-90.png?v=corner-classic-90'
+        }
+      ]
+    },
+    'trapeze-hinge-premium': {
+      title: 'Петля Премиум',
+      description: [
+        'Квадратный дизайн.',
+        'Для дверей стеклянных душевых перегородок и ограждений.',
+        'Открывание двери на 180 градусов.',
+        'Регулировка 0° положения.',
+        'Функция самозакрывания от 25 градусов.',
+        'Фиксация в закрытом положении.',
+        'Максимальная нагрузка на две петли: 45 кг.',
+        'Максимальная ширина полотна: 850 мм.'
+      ]
+    },
+    'trapeze-hinge-reinforced': {
+      title: 'Петля Усиленная',
+      description: [
+        'Для дверей стеклянных душевых перегородок и ограждений.',
+        'Открывание двери на 180 градусов.',
+        'Регулировка 0° положения.',
+        'Функция самозакрывания от 25 градусов.',
+        'Фиксация в закрытом положении.',
+        'Максимальная нагрузка на две петли: 45 кг.',
+        'Максимальная ширина полотна: 850 мм.'
+      ]
+    },
+    'trapeze-hinge-classic': {
+      title: 'Петля Классическая',
+      description: [
+        'Для дверей стеклянных душевых перегородок и ограждений.',
+        'Открывание двери на 180 градусов.',
+        'Максимальная нагрузка на две петли: 40 кг.',
+        'Максимальный размер полотна: 760 х 2000 мм.'
       ]
     },
     
@@ -470,6 +588,12 @@ export class CardComponent implements OnInit {
     }
   }
 
+  hideBrokenOptionImage(event: Event): void {
+    const imgEl = event.target as HTMLImageElement | null;
+    if (!imgEl) return;
+    imgEl.style.visibility = 'hidden';
+  }
+
   openLightbox(imageUrl: string): void {
     this.lightboxImage = imageUrl;
     this.isLightboxOpen = true;
@@ -580,6 +704,14 @@ export class CardComponent implements OnInit {
       installationOption: ''
     });
 
+    const hingeControl = this.configForm.controls.hingeOption;
+    if (config.hingeOptions.length) {
+      hingeControl.setValidators([Validators.required]);
+    } else {
+      hingeControl.clearValidators();
+    }
+    hingeControl.updateValueAndValidity();
+
     dimensionsGroup.markAsPristine();
     dimensionsGroup.markAsUntouched();
   }
@@ -592,7 +724,7 @@ export class CardComponent implements OnInit {
       glassFinishes: [...this.defaultGlassFinishes],
       hardwareColors: [...this.defaultHardwareColors],
       hingeOptions: [...(this.hingeOptionsByCardId[cardId] ?? this.defaultHingeOptions)],
-      handleOptions: [...this.defaultHandleOptions],
+      handleOptions: [...(this.handleOptionsByCardId[cardId] ?? this.defaultHandleOptions)],
       installationOptions:
         this.installationOptionsByCardId[cardId] ?? this.defaultInstallations,
       dimensions: this.dimensionsByCardId[cardId] ?? [
@@ -627,21 +759,26 @@ export class CardComponent implements OnInit {
       return `Здравствуйте! Интересует расчет по изделию: ${cardName}`;
     }
 
-    return [
+    const messageLines = [
       'Здравствуйте! Прошу рассчитать стоимость по ТЗ:',
       '',
       `Изделие: ${cardName}`,
       `Стекло (цвет): ${glassColor}`,
       `Стекло (поверхность): ${glassFinish}`,
       `Фурнитура (цвет): ${hardwareColor}`,
-      `Петли: ${hinge}`,
       `Ручка: ${handle}`,
       `Вариант ручки: ${handleVariant}`,
       `Вариант установки: ${installation}`,
       '',
       'Размеры:',
       dimensionsText
-    ].join('\n');
+    ];
+
+    if (this.getConfigOptions('hingeOptions').length) {
+      messageLines.splice(6, 0, `Петли: ${hinge}`);
+    }
+
+    return messageLines.join('\n');
   }
 
   private buildEmailEstimateMessage(comment: string): string {

@@ -1,17 +1,33 @@
-<section class="faq-section">
-  <h2 class="section-title">Как заказать душевое ограждение из стекла</h2>
+<section class="order-flow">
+  <div class="order-flow__intro">
+    <span>Этапы работы</span>
+    <h2>Как заказать душевое ограждение из стекла</h2>
+    <p>
+      От предварительного расчета до монтажа: каждый этап фиксируется и
+      согласуется до запуска конструкции в производство.
+    </p>
+  </div>
 
-  <p-accordion [multiple]="true">
-    <p-accordion-panel
+  <div class="order-flow__steps">
+    <article
+      class="step"
       *ngFor="let item of stepsList; let i = index"
-      [value]="'panel-' + i"
+      [class.step--open]="isStepOpen(i)"
     >
-      <p-accordion-header>
-        {{ item.step }}
-      </p-accordion-header>
-      <p-accordion-content>
+      <button
+        type="button"
+        class="step__button"
+        [attr.aria-expanded]="isStepOpen(i)"
+        (click)="toggleStep(i)"
+      >
+        <span class="step__number">{{ formatStepNumber(i) }}</span>
+        <span class="step__title">{{ getStepTitle(item.step) }}</span>
+        <span class="step__icon" aria-hidden="true"></span>
+      </button>
+
+      <div class="step__content" *ngIf="isStepOpen(i)">
         <p>{{ item.text }}</p>
-      </p-accordion-content>
-    </p-accordion-panel>
-  </p-accordion>
+      </div>
+    </article>
+  </div>
 </section>
