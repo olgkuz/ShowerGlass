@@ -45,19 +45,38 @@
 .card-description {
   h2 {
     font-size: 2rem;
-    margin-bottom: 1rem;
+    margin-bottom: 1.25rem;
     color: var.$background;
     word-break: break-word;
   }
 
-  .description-content {
-    font-size: 1.08rem;
-    color: #444;
+  .description-lead {
+    margin: 0;
+    padding-left: 1rem;
+    border-left: 3px solid var.$background;
+    color: #2f3f50;
     line-height: 1.6;
-    overflow-wrap: break-word;
-    max-height: 72vh;
-    overflow-y: auto;
-    padding-right: 0.25rem;
+  }
+
+  .description-section {
+    margin-top: 0.85rem;
+    padding: 0.85rem 0;
+    border-top: 1px solid #e1e6ed;
+
+    h3 {
+      margin: 0 0 0.55rem;
+      color: var.$background;
+      font-size: 1rem;
+    }
+
+    ul {
+      margin: 0;
+      padding-left: 1.1rem;
+    }
+
+    li {
+      margin-bottom: 0.45rem;
+    }
   }
 }
 

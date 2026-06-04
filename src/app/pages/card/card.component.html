@@ -21,7 +21,18 @@
         </div>
         <div class="card-description">
           <h2>{{ card?.name }}</h2>
-          <div class="description-content" [innerHTML]="card?.description || ''"></div>
+          <div class="description-content">
+            <ng-container *ngFor="let section of getDescriptionSections(); let first = first">
+              <p class="description-lead" *ngIf="first">{{ section.items[0] }}</p>
+
+              <section class="description-section" *ngIf="!first">
+                <h3>{{ section.title }}</h3>
+                <ul>
+                  <li *ngFor="let item of section.items">{{ item }}</li>
+                </ul>
+              </section>
+            </ng-container>
+          </div>
         </div>
       </div>
 
@@ -72,7 +83,7 @@
           </div>
         </div>
 
-        @if (getConfigOptions('hingeOptions').length) {
+        @if (shouldShowHingeOptions()) {
           <div class="option-group">
             <h3>4. Петли</h3>
             <p class="form-hint">
@@ -117,6 +128,7 @@
           </div>
         }
 
+        @if (shouldShowHandleOptions()) {
         <div class="option-group">
           <h3>5. Ручки</h3>
           <p class="form-hint">Выберите тип ручки для вашего изделия</p>
@@ -141,6 +153,7 @@
             </button>
           </div>
         </div>
+        }
 
         <div class="option-group">
           <h3>6. Вариант установки</h3>

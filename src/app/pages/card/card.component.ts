@@ -46,6 +46,11 @@ type HardwareDetail = {
   variantControl?: 'knobVariant' | 'barVariant' | 'towelHolderVariant';
 };
 
+type DescriptionSection = {
+  title: string;
+  items: string[];
+};
+
 @Component({
   selector: 'app-card',
   standalone: true,
@@ -445,7 +450,7 @@ export class CardComponent implements OnInit {
       { key: 'height', label: 'Высота двери, мм', min: 1600, max: 3000 }
     ],
     '2': [
-      { key: 'openingWidth', label: 'Ширина проема, мм', min: 500, max: 3000 },
+      { key: 'openingWidth', label: 'Ширина проема, мм', min: 900, max: 3000 },
       { key: 'openingHeight', label: 'Высота проема, мм', min: 1600, max: 3000 }
     ],
     '3': [
@@ -487,6 +492,159 @@ export class CardComponent implements OnInit {
     { id: 'default-b', label: 'Вариант 2', image: 'assets/img/examples/example2.jpg' },
     { id: 'default-c', label: 'Вариант 3', image: 'assets/img/examples/example3.jpg' }
   ];
+
+  private readonly descriptionSectionsByCardId: Record<string, DescriptionSection[]> = {
+    '1': [
+      {
+        title: 'Кратко',
+        items: [
+          'Распашная или складная дверь для душа с надёжными креплениями. Конструкция подбирается под ширину проёма, свободное место внутри и снаружи душевой, а также под сценарий ежедневного использования.'
+        ]
+      },
+      {
+        title: 'Стекло',
+        items: [
+          'Доступные варианты: бесцветное, осветлённое, тонированное серое или бронза.',
+          'Каждый вариант стекла может быть прозрачным или матовым.',
+          'Рекомендуемая толщина стекла: 8 мм.'
+        ]
+      },
+      {
+        title: 'Конструкция и размеры',
+        items: [
+          'Вариант 1: одна дверь в проём. Максимальная ширина двери составляет 850 мм на двух петлях и до 900 мм на трёх петлях. При максимальной ширине рекомендованная высота двери составляет до 2100 мм, при этом итоговое ограничение определяется весом стекла до 45 кг. Для больших дверных проёмов рекомендуется выбирать усиленные петли. Ручки подходят любые; дополнительную функциональность даёт ручка-держатель полотенца.',
+          'Вариант 2: две распашные двери в проём. Такая конструкция рекомендуется, когда в помещении мало места внутри и снаружи душевой. Каждая дверца может быть шириной до 850 мм и высотой до 2100 мм, но чаще используются небольшие дверцы шириной 300-500 мм. Петли премиум и усиленные позволяют открывание внутрь и наружу и имеют фиксацию нулевого положения, поэтому двери не будут проваливаться. Дверцы могут отличаться по ширине: одной можно пользоваться постоянно, а вторую открывать по необходимости. Для таких дверей чаще всего выбирают ручки-кнобы.',
+          'Вариант 3: складная дверь. Для такой конструкции используются специальные петли для дверей типа гармошка, поэтому петли и ручки отдельно не выбираются. Петли складываются под углом 180 градусов, а две ручки с демпфером защищают стекло от повреждений при использовании. Максимальная ширина проёма под такую дверь: 800 мм.'
+        ]
+      },
+      {
+        title: 'Фурнитура',
+        items: [
+          'Петли и ручки подбираются не только по цвету, но и по функциональности.',
+          'Петли могут быть с регулировкой нулевого положения и защитой от протечек; также доступны классические петли и монопетли.',
+          'Все петли изготовлены из латунного сплава.',
+          'Ручки предлагаются в исполнениях: кноб, скоба и ручка-держатель полотенца.',
+          'Материал ручек: нержавеющая сталь или латунь.',
+          'Фурнитура доступна в цветах: хром, матовая нержавейка, чёрный, золото, матовое золото, бронза, оружейная сталь, розовое золото. Возможны матовое и глянцевое исполнения.'
+        ]
+      },
+      {
+        title: 'Герметичность',
+        items: [
+          'По периметру двери устанавливаются прозрачные ПВХ-уплотнители для герметичности конструкции.',
+          'По желанию можно добавить водозащитный порожек.'
+        ]
+      }
+    ],
+    '2': [
+      {
+        title: 'Кратко',
+        items: [
+          'Душевая конструкция, устанавливаемая непосредственно в проём, сочетает максимальную герметичность и минималистичный дизайн. Ширина проёма для такой конструкции может составлять от 900 до 3000 мм.'
+        ]
+      },
+      {
+        title: 'Стекло',
+        items: [
+          'Доступные варианты: бесцветное, осветлённое, тонированное серое или бронза.',
+          'Каждый вариант стекла может быть прозрачным или матовым.',
+          'Рекомендуемая толщина стекла: 8 мм. Для больших проёмов от 2000 мм рекомендуется стекло толщиной 10 мм и усиленная фурнитура.'
+        ]
+      },
+      {
+        title: 'Рама жёсткости',
+        items: [
+          'Сверху для конструкций данного типа предусмотрена рама жёсткости: труба 10 x 30 мм с креплениями к стеклу и к стене.',
+          'Также возможны круглые трубы разных диаметров и трубы квадратного сечения.',
+          'Профиль 10 x 30 мм обычно даёт наибольшую жёсткость при визуальной лёгкости конструкции за счёт своего расположения.'
+        ]
+      },
+      {
+        title: 'Конструкция и размеры',
+        items: [
+          'Вариант 1: одно стационарное полотно и одна дверь. Дверь крепится на стекло, поэтому петли нужно выбирать с креплением стекло-стекло. Открывание у таких дверей обычно делают наружу, так как открывание внутрь часто менее удобно. Подойдут любые ручки и петли, но для габаритных изделий необходимо учитывать вес и размер двери и выбирать усиленные петли. Размер стационарного полотна ограничен в первую очередь возможностью заноса стекла в помещение.',
+          'Вариант 2: дверь крепится на стену на петлях. Для такой схемы нужны петли стена-стекло. Чаще всего такую дверь удобно открывать внутрь. Петли подбираются с учётом габаритов и веса двери. При открывании внутрь наиболее удобна ручка-держатель полотенца, но остальные варианты ручек также подходят.',
+          'Вариант 3: два стационарных полотна и дверь по центру. В этом случае выбираются петли стекло-стекло с учётом веса и размера двери. Открывание возможно как наружу, так и внутрь, в зависимости от планировки помещения и удобства использования. Ручка может быть любой.'
+        ]
+      },
+      {
+        title: 'Фурнитура',
+        items: [
+          'Петли и ручки подбираются не только по цвету, но и по функциональности.',
+          'Петли могут быть с регулировкой нулевого положения и защитой от протечек; также доступны классические петли и монопетли.',
+          'Все петли изготовлены из латунного сплава.',
+          'Ручки предлагаются в исполнениях: кноб, скоба и ручка-держатель полотенца.',
+          'Материал ручек: нержавеющая сталь или латунь.',
+          'Фурнитура доступна в цветах: хром, матовая нержавейка, чёрный, золото, матовое золото, бронза, оружейная сталь, розовое золото. Возможны матовое и глянцевое исполнения.'
+        ]
+      },
+      {
+        title: 'Герметичность',
+        items: [
+          'По периметру двери устанавливаются прозрачные ПВХ-уплотнители для герметичности конструкции.',
+          'По желанию можно добавить водозащитный порожек.'
+        ]
+      }
+    ],
+    '3': [
+      {
+        title: 'Кратко',
+        items: [
+          'Душевой угол из закалённого безопасного стекла подходит для компактных и нестандартных ванных комнат. Конструкция собирается из стационарных полотен и распашной двери, а схема крепления подбирается под планировку помещения и размеры проёма.'
+        ]
+      },
+      {
+        title: 'Стекло',
+        items: [
+          'Доступные варианты: бесцветное, осветлённое, тонированное серое или бронза.',
+          'Каждый вариант стекла может быть прозрачным или матовым.',
+          'Для душевого угла рекомендуется стекло толщиной 10 мм, так как оно даёт конструкции большую жёсткость. Также возможно исполнение из стекла толщиной 8 мм.'
+        ]
+      },
+      {
+        title: 'Рама жёсткости',
+        items: [
+          'Сверху для конструкций данного типа может быть предусмотрена рама жёсткости: труба 10 x 30 мм с креплениями к стеклу и к стене.',
+          'Также возможны круглые трубы разных диаметров и трубы квадратного сечения.',
+          'Профиль 10 x 30 мм обычно даёт наибольшую жёсткость при визуальной лёгкости конструкции за счёт своего расположения.'
+        ]
+      },
+      {
+        title: 'Конструкция и размеры',
+        items: [
+          'Вариант 1: дверь на петлях стекло-стекло. Открывание наружу на 90 градусов. Петли выбираются с учётом габаритов и веса двери.',
+          'Вариант 2: петля стекло-стекло 90 градусов с креплением на угол. Открывание наружу. Такая схема подходит, когда дверь должна работать от углового стационарного полотна.',
+          'Вариант 3: петля стена-стекло 90 градусов. Дверь крепится на стену, а стационарное полотно формирует вторую сторону душевого угла.',
+          'Вариант 4: петли на стену. Максимальный размер по фасаду рекомендуется до 900 мм. Для всех вариантов петли нужно выбирать в соответствии с габаритами конструкции, а ручки подойдут любые.',
+          'Также возможно предусмотреть вариант с двумя дверями, которые будут смыкаться на углу.'
+        ]
+      },
+      {
+        title: 'Фурнитура',
+        items: [
+          'Петли и ручки подбираются не только по цвету, но и по функциональности.',
+          'Петли могут быть с регулировкой нулевого положения и защитой от протечек; также доступны классические петли и монопетли.',
+          'Все петли изготовлены из латунного сплава.',
+          'Ручки предлагаются в исполнениях: кноб, скоба и ручка-держатель полотенца.',
+          'Материал ручек: нержавеющая сталь или латунь.',
+          'Фурнитура доступна в цветах: хром, матовая нержавейка, чёрный, золото, матовое золото, бронза, оружейная сталь, розовое золото. Возможны матовое и глянцевое исполнения.'
+        ]
+      },
+      {
+        title: 'Герметичность',
+        items: [
+          'По периметру двери предусмотрены уплотнители из прозрачного ПВХ для обеспечения герметичности конструкции.',
+          'По желанию может быть установлен водозащитный порожек для дополнительной герметичности.'
+        ]
+      },
+      {
+        title: 'Индивидуальные решения',
+        items: [
+          'Также возможны индивидуальные решения: вырезы под инсталляцию, скошенные углы под мансарду и другие нестандартные формы.'
+        ]
+      }
+    ]
+  };
 
   constructor(
     private cardService: CardsService,
@@ -649,6 +807,68 @@ export class CardComponent implements OnInit {
     return this.currentConfig?.dimensions ?? [];
   }
 
+  getDescriptionSections(): DescriptionSection[] {
+    const structuredDescription = this.descriptionSectionsByCardId[this.card?.id ?? ''];
+    if (structuredDescription) return structuredDescription;
+
+    const description = this.card?.description?.trim();
+    if (!description) return [];
+
+    const sentences = description
+      .replace(/<[^>]*>/g, ' ')
+      .split(/(?<=[.!?])\s+/)
+      .map((item) => item.trim())
+      .filter(Boolean);
+
+    if (!sentences.length) return [];
+
+    const sections: DescriptionSection[] = [
+      { title: 'Кратко', items: [sentences[0]] }
+    ];
+
+    const groups: Record<string, string[]> = {
+      'Стекло': [],
+      'Конструкция и размеры': [],
+      'Фурнитура': [],
+      'Герметичность': [],
+      'Индивидуальные решения': []
+    };
+
+    sentences.slice(1).forEach((sentence) => {
+      const lower = sentence.toLowerCase();
+
+      if (this.matchesAny(lower, ['стекло', 'толщин'])) {
+        groups['Стекло'].push(sentence);
+        return;
+      }
+
+      if (this.matchesAny(lower, ['фурнитур', 'петл', 'ручк', 'цветах', 'цвета:', 'материал ручек'])) {
+        groups['Фурнитура'].push(sentence);
+        return;
+      }
+
+      if (this.matchesAny(lower, ['уплотн', 'герметич', 'порожек', 'периметр'])) {
+        groups['Герметичность'].push(sentence);
+        return;
+      }
+
+      if (this.matchesAny(lower, ['индивидуаль', 'вырез', 'скошен', 'нестандарт'])) {
+        groups['Индивидуальные решения'].push(sentence);
+        return;
+      }
+
+      groups['Конструкция и размеры'].push(sentence);
+    });
+
+    Object.entries(groups).forEach(([title, items]) => {
+      if (items.length) {
+        sections.push({ title, items });
+      }
+    });
+
+    return sections;
+  }
+
   getConfigOptions(type: 'glassColors' | 'glassFinishes' | 'hardwareColors' | 'hingeOptions' | 'handleOptions' | 'installationOptions'): SelectOption[] {
     return this.currentConfig?.[type] ?? [];
   }
@@ -656,6 +876,10 @@ export class CardComponent implements OnInit {
   selectOption(control: 'glassColor' | 'glassFinish' | 'hardwareColor' | 'hingeOption' | 'handleOption' | 'installationOption', value: string): void {
     this.configForm.controls[control].setValue(value);
     this.configForm.controls[control].markAsTouched();
+
+    if (control === 'installationOption') {
+      this.updateHardwareValidators();
+    }
   }
 
   isSelected(control: 'glassColor' | 'glassFinish' | 'hardwareColor' | 'hingeOption' | 'handleOption' | 'installationOption', value: string): boolean {
@@ -664,6 +888,14 @@ export class CardComponent implements OnInit {
 
   isReadyForEstimate(): boolean {
     return this.configForm.valid;
+  }
+
+  shouldShowHingeOptions(): boolean {
+    return Boolean(this.getConfigOptions('hingeOptions').length) && !this.isFoldableDoorSelected();
+  }
+
+  shouldShowHandleOptions(): boolean {
+    return Boolean(this.getConfigOptions('handleOptions').length) && !this.isFoldableDoorSelected();
   }
 
   private applyCardConfig(): void {
@@ -704,13 +936,7 @@ export class CardComponent implements OnInit {
       installationOption: ''
     });
 
-    const hingeControl = this.configForm.controls.hingeOption;
-    if (config.hingeOptions.length) {
-      hingeControl.setValidators([Validators.required]);
-    } else {
-      hingeControl.clearValidators();
-    }
-    hingeControl.updateValueAndValidity();
+    this.updateHardwareValidators();
 
     dimensionsGroup.markAsPristine();
     dimensionsGroup.markAsUntouched();
@@ -766,15 +992,17 @@ export class CardComponent implements OnInit {
       `Стекло (цвет): ${glassColor}`,
       `Стекло (поверхность): ${glassFinish}`,
       `Фурнитура (цвет): ${hardwareColor}`,
-      `Ручка: ${handle}`,
-      `Вариант ручки: ${handleVariant}`,
       `Вариант установки: ${installation}`,
       '',
       'Размеры:',
       dimensionsText
     ];
 
-    if (this.getConfigOptions('hingeOptions').length) {
+    if (this.shouldShowHandleOptions()) {
+      messageLines.splice(6, 0, `Ручка: ${handle}`, `Вариант ручки: ${handleVariant}`);
+    }
+
+    if (this.shouldShowHingeOptions()) {
       messageLines.splice(6, 0, `Петли: ${hinge}`);
     }
 
@@ -808,5 +1036,37 @@ export class CardComponent implements OnInit {
   private getSelectedHandleVariantValue(detailId: string): string {
     const controlName = this.hardwareDetailsById[detailId]?.variantControl;
     return controlName ? this.configForm.controls[controlName].value : '';
+  }
+
+  private updateHardwareValidators(): void {
+    const hingeControl = this.configForm.controls.hingeOption;
+    const handleControl = this.configForm.controls.handleOption;
+
+    if (this.shouldShowHingeOptions()) {
+      hingeControl.setValidators([Validators.required]);
+    } else {
+      hingeControl.clearValidators();
+      hingeControl.setValue('');
+    }
+    hingeControl.updateValueAndValidity();
+
+    if (this.shouldShowHandleOptions()) {
+      handleControl.setValidators([Validators.required]);
+    } else {
+      handleControl.clearValidators();
+      handleControl.setValue('');
+      this.configForm.controls.knobVariant.setValue('');
+      this.configForm.controls.barVariant.setValue('');
+      this.configForm.controls.towelHolderVariant.setValue('');
+    }
+    handleControl.updateValueAndValidity();
+  }
+
+  private isFoldableDoorSelected(): boolean {
+    return this.card?.id === '1' && this.configForm.controls.installationOption.value === 'door-3';
+  }
+
+  private matchesAny(value: string, needles: string[]): boolean {
+    return needles.some((needle) => value.includes(needle));
   }
 }
