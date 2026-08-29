@@ -14,6 +14,7 @@ import { TextareaModule } from 'primeng/textarea';
 import { environment } from '../../../environments/environment';
 import { UserStorage } from '../../models/user';
 import { UserService } from '../../services/user.service';
+import { MetrikaService } from '../../services/metrika.service';
 
 @Component({
   selector: 'app-designer',
@@ -43,7 +44,8 @@ export class DesignerComponent {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
+    private metrika: MetrikaService
   ) {
     this.user = this.userService.getUser();
   }
@@ -99,6 +101,7 @@ export class DesignerComponent {
       .post(`${environment.apiUrl}/designers/upload`, formData, options)
       .subscribe({
         next: () => {
+          this.metrika.reachGoal('contact_form_success');
           alert('Заявка успешно отправлена. Мы свяжемся с вами в ближайшее время.');
           this.designerForm.reset();
           this.selectedFile = null;
@@ -111,5 +114,9 @@ export class DesignerComponent {
           alert(`Ошибка при отправке заявки: ${errorMessage}`);
         }
       });
+  }
+
+  trackWhatsAppClick(): void {
+    this.metrika.reachGoal('whatsapp_click');
   }
 }

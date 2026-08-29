@@ -5,6 +5,7 @@ import { ButtonModule } from 'primeng/button';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { IOther } from '../../models/other';
 import { OthersService } from '../../services/other.service';
+import { MetrikaService } from '../../services/metrika.service';
 
 @Component({
   selector: 'app-otherelement',
@@ -20,7 +21,8 @@ export class OtherElementComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private service: OthersService
+    private service: OthersService,
+    private metrika: MetrikaService
   ) {}
 
   ngOnInit(): void {
@@ -52,6 +54,10 @@ export class OtherElementComponent implements OnInit {
       ? `Здравствуйте! Интересует товар: ${name}`
       : 'Здравствуйте! Интересует товар.';
     return `${baseUrl}?text=${encodeURIComponent(text)}`;
+  }
+
+  trackTelegramClick(): void {
+    this.metrika.reachGoal('telegram_click');
   }
 
   onImgError(event: Event) {

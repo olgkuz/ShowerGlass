@@ -1,0 +1,60 @@
+[1m[33mComponent HMR has been enabled, see https://angular.dev/hmr for more info.[39m[22m
+[1m[33mThe 'reqHandler' export in 'server.ts' is either undefined or does not provide a recognized request handler. Using the internal SSR middleware instead.[39m[22m
+[1m[33mNG02801: Angular detected that `HttpClient` is not configured to use `fetch` APIs. It's strongly recommended to enable `fetch` for applications that use Server-Side Rendering for better performance and compatibility. To enable `fetch`, add the `withFetch()` to the `provideHttpClient()` call at the root of the application.[39m[22m
+[1m[31mError: Unable to parse HTML; parse5 error code disallowed-content-in-noscript-in-head
+ at C:/Users/mail/ShowerGlass/.angular/vite-root/ShowerGlass/privacy-policy:66:13
+64 |      });
+65 |    </script>
+66 |    <noscript><div><img src="https://mc.yandex.ru/watch/110022252" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+   |              ^^^^^
+67 |    <noscript><div><img src="https://mc.yandex.ru/watch/110022680" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+68 |    <!-- /Yandex.Metrika counter -->
+    at handleParseError (file:///C:/Users/mail/ShowerGlass/node_modules/@angular/build/node_modules/vite/dist/node/chunks/dep-DbCvTk3B.js:41819:9)
+    at Parser.onParseError (file:///C:/Users/mail/ShowerGlass/node_modules/@angular/build/node_modules/vite/dist/node/chunks/dep-DbCvTk3B.js:41732:7)
+    at Parser._err (file:///C:/Users/mail/ShowerGlass/node_modules/@angular/build/node_modules/vite/dist/node/chunks/dep-CvfTChi5.js:5133:14)
+    at tokenInHeadNoScript (file:///C:/Users/mail/ShowerGlass/node_modules/@angular/build/node_modules/vite/dist/node/chunks/dep-CvfTChi5.js:6510:7)
+    at startTagInHeadNoScript (file:///C:/Users/mail/ShowerGlass/node_modules/@angular/build/node_modules/vite/dist/node/chunks/dep-CvfTChi5.js:6488:13)
+    at Parser._startTagOutsideForeignContent (file:///C:/Users/mail/ShowerGlass/node_modules/@angular/build/node_modules/vite/dist/node/chunks/dep-CvfTChi5.js:5840:17)
+    at Parser._processStartTag (file:///C:/Users/mail/ShowerGlass/node_modules/@angular/build/node_modules/vite/dist/node/chunks/dep-CvfTChi5.js:5817:18)
+    at Parser.onStartTag (file:///C:/Users/mail/ShowerGlass/node_modules/@angular/build/node_modules/vite/dist/node/chunks/dep-CvfTChi5.js:5796:14)
+    at Tokenizer.emitCurrentTagToken (file:///C:/Users/mail/ShowerGlass/node_modules/@angular/build/node_modules/vite/dist/node/chunks/dep-CvfTChi5.js:1697:26)
+    at Tokenizer._stateTagName (file:///C:/Users/mail/ShowerGlass/node_modules/@angular/build/node_modules/vite/dist/node/chunks/dep-CvfTChi5.js:2314:22)[39m[22m
+[1m[31m[31mX [41;31m[[41;97mERROR[41;31m][0m [1mNG5002: Incomplete block "list". If you meant to write the @ character, you should use the "&#64;" HTML entity instead.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/personal-data-consent/personal-data-consent.component.html:60:42:
+[37m      60 │ ... адрес электронной[32m по[37mчты: kuznecovao@list.ru.
+         ╵                      [32m~~~[0m
+
+  Error occurs in the template of component PersonalDataConsentComponent.
+
+    src/app/pages/personal-data-consent/personal-data-consent.component.ts:8:15:
+[37m      8 │   templateUrl: [32m'./personal-data-consent.component.html'[37m,
+        ╵                [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mNG5002: Incomplete block "list". If you meant to write the @ character, you should use the "&#64;" HTML entity instead.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/privacypolicy/privacyPolicy.component.html:18:14:
+[37m      18 │     kuznecovao[32m@list[37m.ru.
+         ╵               [32m~~~~~[0m
+
+  Error occurs in the template of component PrivacyPolicyComponent.
+
+    src/app/pages/privacypolicy/privacyPolicy.component.ts:8:15:
+[37m      8 │   templateUrl: [32m'./privacyPolicy.component.html'[37m,
+        ╵                [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mNG5002: Incomplete block "list". If you meant to write the @ character, you should use the "&#64;" HTML entity instead.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/pages/privacypolicy/privacyPolicy.component.html:105:14:
+[37m      105 │     kuznecovao[32m@list[37m.ru. В обращении рекоменду�...
+          ╵               [32m~~~~~[0m
+
+  Error occurs in the template of component PrivacyPolicyComponent.
+
+    src/app/pages/privacypolicy/privacyPolicy.component.ts:8:15:
+[37m      8 │   templateUrl: [32m'./privacyPolicy.component.html'[37m,
+        ╵                [32m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+[39m[22m

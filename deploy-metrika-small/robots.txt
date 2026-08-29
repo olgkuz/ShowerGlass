@@ -1,0 +1,5 @@
+﻿User-agent: *
+Allow: /
+
+Sitemap: https://www.steklodush-spb.ru/sitemap.xml
+Host: www.steklodush-spb.ru

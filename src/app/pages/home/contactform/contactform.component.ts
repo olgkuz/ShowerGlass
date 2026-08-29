@@ -15,6 +15,8 @@ import { environment } from '../../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { CheckboxModule } from 'primeng/checkbox';
 import { tap } from 'rxjs';
+import { MetrikaService } from '../../../services/metrika.service';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-contactform',
@@ -27,6 +29,7 @@ import { tap } from 'rxjs';
     ButtonModule,
     ToastModule,
     CheckboxModule,
+    RouterModule,
   ],
   templateUrl: './contactform.component.html',
   styleUrl: './contactform.component.scss',
@@ -36,7 +39,6 @@ export class ContactformComponent {
   private readonly contactEndpoint =
     environment.contactEndpoint ?? `${environment.apiUrl}/contact`;
 
-  // Разрешаем только цифры, плюс, пробелы, скобки и дефисы
   // Allow digits, plus, parentheses, spaces and hyphens only.
   phonePattern = '^[0-9+() -]+$';
 
@@ -52,10 +54,16 @@ export class ContactformComponent {
 
   constructor(
     private messageService: MessageService,
-    private http: HttpClient
+    private http: HttpClient,
+    private metrika: MetrikaService
   ) {}
 
   submitForm() {
+    if (this.contactForm.invalid) {
+      this.contactForm.markAllAsTouched();
+      return;
+    }
+
     if (this.contactForm.valid) {
       const { name, phone, message } = this.contactForm.value;
       const formData = { name, phone, message };
@@ -65,6 +73,7 @@ export class ContactformComponent {
         .pipe(tap(() => this.contactForm.reset({ consent: false })))
         .subscribe({
           next: () => {
+            this.metrika.reachGoal('contact_form_success');
             this.messageService.add({
               severity: 'success',
               summary: 'Заявка отправлена',

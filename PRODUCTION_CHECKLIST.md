@@ -3,11 +3,11 @@
 Status: [ ] pending  [x] done  [n/a]
 
 ## Build & Deploy
-- [ ] `wrangler.toml` removed from repo (Pages only).
+- [ ] Production build is deployed to `/var/www/steklodush-spb.ru` on Timeweb.
 - [ ] `npm run build` succeeds locally.
 - [ ] `dist/` is not committed (ignored).
-- [ ] Cloudflare Pages deploy succeeds on `main`/`master`.
-- [ ] No build warnings in Pages logs.
+- [ ] Nginx serves the Angular build and falls back to `/index.html` for client routes.
+- [ ] No recurring errors in nginx and application service logs.
 
 ## Domain & Redirects
 - [ ] `http://steklodush-spb.ru` redirects to `https://www.steklodush-spb.ru/` (301).

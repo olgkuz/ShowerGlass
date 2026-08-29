@@ -2,7 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { filter } from 'rxjs/operators';
-import { Subscription } from 'rxjs';
+import { asapScheduler, Subscription } from 'rxjs';
+import { observeOn } from 'rxjs/operators';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
@@ -43,9 +44,11 @@ export class LayoutComponent implements OnInit, OnDestroy {
         this.updateAside(event.urlAfterRedirects);
       });
 
-    this.loaderSub = this.loaderService.loader$.subscribe(val => {
+    this.loaderSub = this.loaderService.loader$
+      .pipe(observeOn(asapScheduler))
+      .subscribe(val => {
       this.isLoading = val;
-    });
+      });
   }
 
   ngOnDestroy(): void {
@@ -61,4 +64,3 @@ export class LayoutComponent implements OnInit, OnDestroy {
     this.showAside = /^\/card\/[^/]+$/.test(url);
   }
 }
-

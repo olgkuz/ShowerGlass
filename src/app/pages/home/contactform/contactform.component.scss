@@ -102,6 +102,23 @@
       }
     }
 
+    .policy-note {
+      margin: -0.75rem 0 1.5rem;
+      color: #555;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      text-align: left;
+
+      a {
+        color: var.$background;
+        text-decoration: underline;
+
+        &:hover {
+          opacity: 0.8;
+        }
+      }
+    }
+
     ::ng-deep button.p-button {
       width: 100%;
       background-color: var.$background;

@@ -16,9 +16,11 @@
           <ng-template pTemplate="header">
             <img
               [alt]="item.name"
-              [src]="item.img ? ('assets/img/cards/' + item.img) : (item.imgUrl || '')"
+              [src]="cardImageSource(item)"
               (error)="onImgError($event, item)"
               loading="lazy"
+              width="600"
+              height="600"
             />
           </ng-template>
 

@@ -3,8 +3,9 @@ import { RouterOutlet } from '@angular/router';
 import { LoaderService } from './services/loader.service';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { AsyncPipe, CommonModule } from '@angular/common';
-import { Observable, tap } from 'rxjs';
-import { ChangeDetectorRef } from '@angular/core';
+import { asapScheduler, Observable, observeOn } from 'rxjs';
+import { Router } from '@angular/router';
+import { MetrikaService } from './services/metrika.service';
 
 @Component({
   selector: 'app-root',
@@ -14,14 +15,14 @@ import { ChangeDetectorRef } from '@angular/core';
   styleUrl: './app.scss'
 })
 export class App {
-  protected title = 'ShowerGlass';
+  protected title = 'Душевые из стекла на заказ';
   loader$: Observable<boolean>;
 
   constructor(
-  private loaderService: LoaderService,
-  private cdr: ChangeDetectorRef 
+    private loaderService: LoaderService,
+    router: Router,
+    metrika: MetrikaService
 ) {
-  this.loader$ = this.loaderService.loader$.pipe(
-    tap(() => this.cdr.detectChanges()) // ← принудительно проверяем изменения
-  );
+  this.loader$ = this.loaderService.loader$.pipe(observeOn(asapScheduler));
+  metrika.startPageViewTracking(router);
 }}

@@ -4,6 +4,7 @@ import { Meta, Title } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { ContactformComponent } from '../home/contactform/contactform.component';
+import { MetrikaService } from '../../services/metrika.service';
 
 type WorkImage = {
   image: string;
@@ -26,7 +27,7 @@ type PriceRow = {
   styleUrl: './seo-shower-enclosures.component.scss'
 })
 export class SeoShowerEnclosuresComponent implements OnInit, OnDestroy {
-  readonly canonicalUrl = 'https://www.steklodush-spb.ru/dushevye-ograzhdeniya-na-zakaz-spb';
+  readonly canonicalUrl = 'https://www.steklodush-spb.ru/dushevye-ograzhdeniya-na-zakaz-spb/';
 
   readonly workImages: WorkImage[] = [
     {
@@ -106,7 +107,7 @@ export class SeoShowerEnclosuresComponent implements OnInit, OnDestroy {
       '@type': 'LocalBusiness',
       name: 'СтеклоДуш СПб',
       url: 'https://www.steklodush-spb.ru',
-      image: 'https://www.steklodush-spb.ru/assets/img/main-banner-desktop.jpg',
+      image: 'https://www.steklodush-spb.ru/assets/img/main-banner-desktop.webp',
       telephone: '+7-911-029-30-30',
       areaServed: ['Санкт-Петербург', 'Ленинградская область'],
       priceRange: '₽₽'
@@ -115,7 +116,7 @@ export class SeoShowerEnclosuresComponent implements OnInit, OnDestroy {
       '@context': 'https://schema.org',
       '@type': 'Service',
       name: 'Душевые ограждения на заказ в СПб',
-      serviceType: 'Изготовление и монтаж душевых ограждений из стекла',
+      serviceType: 'Изготовление и монтаж душевых ограждений, душевых перегородок и стеклянных перегородок в душ',
       provider: {
         '@type': 'LocalBusiness',
         name: 'СтеклоДуш СПб'
@@ -133,7 +134,7 @@ export class SeoShowerEnclosuresComponent implements OnInit, OnDestroy {
           '@type': 'ListItem',
           position: 1,
           name: 'Главная',
-          item: 'https://www.steklodush-spb.ru/home'
+          item: 'https://www.steklodush-spb.ru/'
         },
         {
           '@type': 'ListItem',
@@ -151,18 +152,19 @@ export class SeoShowerEnclosuresComponent implements OnInit, OnDestroy {
   constructor(
     private readonly title: Title,
     private readonly meta: Meta,
-    @Inject(DOCUMENT) private readonly document: Document
+    @Inject(DOCUMENT) private readonly document: Document,
+    private readonly metrika: MetrikaService
   ) {}
 
   ngOnInit(): void {
     this.title.setTitle('Душевые ограждения на заказ в СПб | СтеклоДуш');
     this.meta.updateTag({
       name: 'description',
-      content: 'Душевые ограждения из закаленного стекла на заказ в Санкт-Петербурге. Замер, изготовление по размерам, доставка, монтаж и гарантия.'
+      content: 'Душевые ограждения и душевые перегородки из стекла на заказ в Санкт-Петербурге. Изготовление по индивидуальным размерам, замер, доставка и монтаж.'
     });
     this.meta.updateTag({
       name: 'keywords',
-      content: 'душевые ограждения на заказ спб, стеклянные душевые ограждения, душевые двери из стекла, душевые перегородки спб'
+      content: 'душевые ограждения на заказ спб, душевые перегородки, стеклянные перегородки в душ, стеклянные душевые ограждения, душевые двери из стекла, изготовление душевых ограждений, монтаж душевых ограждений'
     });
     this.setCanonical();
     this.setStructuredData();
@@ -171,6 +173,10 @@ export class SeoShowerEnclosuresComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.canonicalElement?.remove();
     this.schemaElement?.remove();
+  }
+
+  trackGoal(target: string): void {
+    this.metrika.reachGoal(target);
   }
 
   private setCanonical(): void {

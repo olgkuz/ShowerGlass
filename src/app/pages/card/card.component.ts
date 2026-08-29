@@ -10,6 +10,7 @@ import { ToastModule } from 'primeng/toast';
 import { environment } from '../../../environments/environment';
 import { ICards } from '../../models/cards';
 import { CardsService } from '../../services/cards.service';
+import { MetrikaService } from '../../services/metrika.service';
 
 type SelectOption = {
   id: string;
@@ -735,7 +736,8 @@ export class CardComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private http: HttpClient,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private metrika: MetrikaService
   ) {}
 
   ngOnInit(): void {
@@ -765,7 +767,9 @@ export class CardComponent implements OnInit {
   onEstimateClick(event: Event): void {
     if (!this.isReadyForEstimate()) {
       event.preventDefault();
+      return;
     }
+    this.metrika.reachGoal('telegram_click');
   }
 
   toggleEmailEstimate(): void {

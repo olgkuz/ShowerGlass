@@ -10,9 +10,15 @@ export const routes: Routes = [
       import('./layout/layout.component').then(m => m.LayoutComponent),
     children: [
       {
-        path: 'home',
+        path: '',
+        pathMatch: 'full',
         loadComponent: () =>
           import('./pages/home/home.component').then(m => m.HomeComponent)
+      },
+      {
+        path: 'home',
+        redirectTo: '',
+        pathMatch: 'full'
       },
       {
         path: 'dushevye-ograzhdeniya-na-zakaz-spb',
@@ -60,6 +66,13 @@ export const routes: Routes = [
           )
       },
       {
+        path: 'personal-data-consent',
+        loadComponent: () =>
+          import('./pages/personal-data-consent/personal-data-consent.component').then(
+            m => m.PersonalDataConsentComponent
+          )
+      },
+      {
         path: 'others',
         loadComponent: () =>
           import('./pages/others/others.component').then(
@@ -84,7 +97,6 @@ export const routes: Routes = [
           return user?.name === 'admin' || user?.name === 'glassadmin' || user?.name === 'newadmin';
         }]
       },
-      { path: '', redirectTo: 'home', pathMatch: 'full' }
     ]
   },
   {
@@ -110,7 +122,7 @@ export const routes: Routes = [
   //     ),
   //   canActivate: [authGuard]
   // },
-  { path: '**', redirectTo: 'home' }
+  { path: '**', redirectTo: '' }
 ];
 
 

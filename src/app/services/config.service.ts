@@ -1,7 +1,8 @@
 import { HttpClient } from "@angular/common/http";
-import { Observable, tap } from "rxjs";
+import { Observable, of, tap } from "rxjs";
 import { API } from "../shared/api";
-import { Injectable } from "@angular/core";
+import { Inject, Injectable, PLATFORM_ID } from "@angular/core";
+import { isPlatformServer } from "@angular/common";
 
 @Injectable ({
     providedIn:'root'
@@ -10,9 +11,17 @@ import { Injectable } from "@angular/core";
 export class ConfigService {
     static config: any;
 
-    constructor ( private http: HttpClient ) {}
+    constructor (
+        private http: HttpClient,
+        @Inject(PLATFORM_ID) private platformId: object
+    ) {}
 
     loadObservable(): Observable<any> {
+        if (isPlatformServer(this.platformId)) {
+            ConfigService.config = { version: "1.0.0", rules: [] };
+            return of(ConfigService.config);
+        }
+
         const jsonFile = `${API.config}`;
         return this.http.get(jsonFile).pipe(
 

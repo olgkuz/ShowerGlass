@@ -1,13 +1,12 @@
-﻿import { Component, OnDestroy, OnInit, HostListener, ChangeDetectorRef } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { ChangeDetectorRef, Component, HostListener, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
+import { Router } from '@angular/router';
+import { MenuItem } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { MenubarModule } from 'primeng/menubar';
-import { MenuItem } from 'primeng/api';
-import { UserService } from '../../services/user.service';
-import { Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { UserStorage } from '../../models/user';
 import { Subscription } from 'rxjs';
-
+import { UserStorage } from '../../models/user';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-header',
@@ -20,17 +19,19 @@ export class HeaderComponent implements OnInit, OnDestroy {
   menuItems: MenuItem[] = [];
   user: UserStorage | null = null;
   logoutIcon = 'pi pi-user';
-  isMobile = window.innerWidth < 768;
+  isMobile = false;
   menuVisible = false;
   private userSubscription: Subscription | null = null;
 
   constructor(
     private userService: UserService,
     private router: Router,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    @Inject(PLATFORM_ID) private platformId: object
   ) {}
 
   ngOnInit(): void {
+    this.checkScreenSize();
     this.user = this.userService.getUser();
     this.menuItems = this.initMenuItems();
 
@@ -73,6 +74,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   private checkScreenSize(): void {
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+
     const next = window.innerWidth < 768;
     if (next !== this.isMobile) {
       setTimeout(() => {
@@ -82,5 +87,3 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
   }
 }
-
-

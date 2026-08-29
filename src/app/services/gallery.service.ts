@@ -20,7 +20,14 @@ type GalleryCardDto = {
   providedIn: 'root',
 })
 export class GalleryService {
-  private readonly apiUrl = `${environment.apiUrl}/cards`;
+  // The gallery must show the real completed works in every build, including
+  // local development where the general API normally points to localhost.
+  private readonly isLocalPreview =
+    typeof window !== 'undefined' &&
+    ['localhost', '127.0.0.1'].includes(window.location.hostname);
+  private readonly apiUrl = this.isLocalPreview
+    ? '/gallery-api/cards'
+    : `${environment.apiUrl}/cards`;
   private readonly localCardsUrl = 'assets/img/cards/cards.json';
   constructor(private http: HttpClient) {}
 
@@ -43,7 +50,7 @@ export class GalleryService {
   private mapCard(dto: GalleryCardDto): IGalleryCard {
     const doc = (dto as any)?._doc ?? dto;
     const file = (doc as any).img ?? dto.img ?? '';
-    const uploadsBase = environment.apiUrl.replace(/\/api$/, '/uploads');
+    const uploadsBase = 'https://api.steklodush-spb.ru/uploads';
 
     return {
       id: (doc as any).id ?? dto.id ?? (doc as any)._id ?? dto._id ?? '',

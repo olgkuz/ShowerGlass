@@ -1,15 +1,28 @@
 <section class="main-banner">
   <div class="main-grid">
     <div class="main-image">
-      <img class="main-image-desktop" src="/assets/img/main-banner-desktop.jpg" alt="Душевые ограждения" />
-      <img src="/assets/img/main-banner.jpg" alt="Душевые ограждения" />
+      <picture>
+        <source
+          media="(min-width: 576px)"
+          srcset="/assets/img/main-banner-desktop.webp"
+          width="1672"
+          height="941"
+        />
+        <img
+          src="/assets/img/main-banner.webp"
+          alt="Душевые ограждения"
+          width="742"
+          height="990"
+          fetchpriority="high"
+        />
+      </picture>
 
       <!-- Добавлено для мобильной версии -->
       <div class="main-overlay-mobile">
-        <div class="title-mobile">
+        <h1 class="title-mobile">
           ДУШЕВЫЕ ОГРАЖДЕНИЯ<br />
           ИЗ СТЕКЛА НА ЗАКАЗ
-        </div>
+        </h1>
         <button
           #mobileMeasureBtn
           pButton

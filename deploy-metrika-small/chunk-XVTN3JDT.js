@@ -1,0 +1,1 @@
+import{R as r,j as t}from"./chunk-MOM3FHHG.js";var a=class e{loaderSubject=new t(!1);loader$=this.loaderSubject.asObservable();constructor(){}setLoader(o){this.loaderSubject.next(o)}static \u0275fac=function(c){return new(c||e)};static \u0275prov=r({token:e,factory:e.\u0275fac,providedIn:"root"})};export{a};

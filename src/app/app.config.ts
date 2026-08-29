@@ -4,9 +4,10 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeng/themes/aura';
 import { routes } from './app.routes';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withFetch } from '@angular/common/http';
 import { ConfigService } from './services/config.service';
 import { MessageService } from 'primeng/api';
+import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 
 function initializeApp(config:ConfigService) {
   return config.loadObservable();
@@ -23,7 +24,7 @@ export const appConfig: ApplicationConfig = {
                 preset: Aura
             }
         }),
-        provideHttpClient(),
+        provideHttpClient(withFetch()), provideClientHydration(withEventReplay()),
 
   ]
 };

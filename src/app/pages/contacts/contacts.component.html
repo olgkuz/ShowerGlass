@@ -7,11 +7,11 @@
       <i class="pi pi-phone contact-icon"></i>
       <h3>Телефон</h3>
       <p>{{ phone }}</p>
-      <!-- Активная кнопка вызова -->
       <a
         pButton
         class="p-button-text"
         [href]="'tel:' + phoneTel"
+        (click)="trackGoal('phone_click')"
         label="Позвонить"
         aria-label="Позвонить"
       ></a>
@@ -21,7 +21,6 @@
       <i class="pi pi-envelope contact-icon"></i>
       <h3>Email</h3>
       <p>{{ email }}</p>
-      <!-- Активная кнопка отправки письма -->
       <a
         pButton
         class="p-button-text"
@@ -34,8 +33,7 @@
     <div class="contact-card">
       <i class="pi pi-map-marker contact-icon"></i>
       <h3>Адрес</h3>
-      <p>г. Санкт-Петербург , ул. Железноводская , д. 3</p>
-      <!-- Активная кнопка карты -->
+      <p>г. Санкт-Петербург, ул. Железноводская, д. 3</p>
       <a
         pButton
         class="p-button-text"
@@ -49,8 +47,6 @@
   </div>
 
   <div class="contacts-content">
-    <!-- Вставляем готовую реактивную форму -->
     <app-contactform></app-contactform>
   </div>
 </div>
-

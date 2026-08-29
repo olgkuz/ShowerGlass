@@ -43,12 +43,17 @@ export class CardsComponent implements OnInit {
     }, 160);
   }
 
+  cardImageSource(item: ICards): string {
+    if (!item.img) return item.imgUrl || '';
+
+    const optimizedFile = item.img.replace(/\.(?:jpe?g|png)$/i, '.webp');
+    return `assets/img/cards/${optimizedFile}`;
+  }
+
   onImgError(event: Event, item: ICards) {
     const imgEl = event.target as HTMLImageElement | null;
     if (!imgEl || imgEl.dataset['fallbackApplied'] === '1') return;
     imgEl.dataset['fallbackApplied'] = '1';
-    if (item.imgUrl) {
-      imgEl.src = item.imgUrl;
-    }
+    imgEl.src = item.imgUrl || (item.img ? `assets/img/cards/${item.img}` : '');
   }
 }

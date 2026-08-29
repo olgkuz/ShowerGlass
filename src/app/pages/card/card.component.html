@@ -256,10 +256,20 @@
             <label class="email-consent">
               <input type="checkbox" formControlName="consent" />
               <span>
-                Даю согласие на обработку персональных данных и ознакомлен с
-                <a routerLink="/policy" target="_blank">политикой обработки данных</a>.
+                Я даю согласие на обработку персональных данных в соответствии с
+                <a routerLink="/personal-data-consent" target="_blank">
+                  Согласием на обработку персональных данных
+                </a>.
               </span>
             </label>
+
+            <p class="form-hint">
+              С
+              <a routerLink="/privacy-policy" target="_blank">
+                Политикой в отношении обработки персональных данных
+              </a>
+              можно ознакомиться по ссылке.
+            </p>
 
             <button
               pButton

@@ -1,0 +1,1 @@
+import{N as s}from"./chunk-GHTZULAB.js";var r=s.apiUrl,i={auth:`${r}/users/login`,reg:`${r}/users/register`,cards:`${r}/cards`,card:`${r}/cards/`,config:"/config/config.json",articles:`${r}/articles`,articleById:e=>`${r}/articles/${e}`};export{i as a};
