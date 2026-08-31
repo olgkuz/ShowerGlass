@@ -5,8 +5,10 @@ html, body {
   padding: 0;
   box-sizing: border-box;
   font-family: var.$font-family-base; /* Roboto */
-  color: var.$background; /* #4F4732 */
+  color: var.$background; /* #3A3D39 */
   background-color: #fff;
+  max-width: 100%;
+  overflow-x: clip;
 }
 
 *, *::before, *::after {

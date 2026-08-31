@@ -22,6 +22,8 @@
   object-fit: contain;
   border-radius: 4px;
   display: block;
+  // Та же цветокоррекция, что и на странице «Что ещё мы делаем из стекла».
+  filter: grayscale(0.1) saturate(0.8) contrast(1.05) brightness(0.96);
 }
 
 .card-description {

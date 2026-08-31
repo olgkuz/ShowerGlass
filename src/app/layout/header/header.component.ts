@@ -73,12 +73,20 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.checkScreenSize();
   }
 
+  @HostListener('document:keydown.escape')
+  closeMenuOnEscape(): void {
+    this.menuVisible = false;
+  }
+
   private checkScreenSize(): void {
     if (!isPlatformBrowser(this.platformId)) {
       return;
     }
 
     const next = window.innerWidth < 768;
+    if (!next) {
+      this.menuVisible = false;
+    }
     if (next !== this.isMobile) {
       setTimeout(() => {
         this.isMobile = next;

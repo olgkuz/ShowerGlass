@@ -45,9 +45,20 @@
     max-width: 980px;
     aspect-ratio: 1536 / 1024;
     overflow: hidden;
-    background: #241f16;
+    background: var.$background;
     border-radius: var.$radius-md;
     box-shadow: 0 18px 42px rgb(0 0 0 / 22%);
+
+    // Единый оттенок тёплой оружейной стали для всей мозаики.
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgb(58 61 57 / 22%);
+      mix-blend-mode: color;
+      pointer-events: none;
+      z-index: 2;
+    }
   }
 
   &__part {
@@ -59,6 +70,7 @@
     will-change: transform, opacity;
     user-select: none;
     -webkit-user-drag: none;
+    filter: grayscale(0.1) saturate(0.78) contrast(1.05) brightness(0.95);
   }
 
   &__part--main {
@@ -87,6 +99,8 @@
     top: calc(869 / 1024 * 100%);
     width: 100%;
     height: calc(155 / 1024 * 100%);
+    // Нижняя полоса должна быть графитовой, а золотые пиктограммы — сохраниться.
+    filter: grayscale(0.14) saturate(0.64) contrast(1.08) brightness(0.88);
   }
 }
 

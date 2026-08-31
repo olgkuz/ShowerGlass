@@ -11,6 +11,8 @@ import { MetrikaService } from '../../services/metrika.service';
   styleUrls: ['./footer.component.scss'],
 })
 export class FooterComponent {
+  readonly currentYear = new Date().getFullYear();
+
   constructor(private readonly metrika: MetrikaService) {}
 
   trackGoal(target: string): void {

@@ -131,5 +131,23 @@
         opacity: 0.9;
       }
     }
+
+    .submit-result {
+      margin: 1rem 0 0;
+      padding: 0.75rem 1rem;
+      border-radius: var.$radius-sm;
+      font-weight: 600;
+      text-align: left;
+
+      &--success {
+        color: #14532d;
+        background: #dcfce7;
+      }
+
+      &--error {
+        color: #7f1d1d;
+        background: #fee2e2;
+      }
+    }
   }
 }

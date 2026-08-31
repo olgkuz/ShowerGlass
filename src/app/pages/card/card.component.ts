@@ -796,7 +796,7 @@ export class CardComponent implements OnInit {
     const message = this.buildEmailEstimateMessage(comment);
 
     this.isEmailEstimateSending = true;
-    this.http.post(this.contactEndpoint, { name, phone, message }).subscribe({
+    this.http.post(this.contactEndpoint, { name, phone, message, source: 'card' }).subscribe({
       next: () => {
         this.isEmailEstimateSending = false;
         this.isEmailEstimateOpen = false;

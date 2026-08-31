@@ -12,11 +12,10 @@ import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { environment } from '../../../../environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { CheckboxModule } from 'primeng/checkbox';
-import { tap } from 'rxjs';
 import { MetrikaService } from '../../../services/metrika.service';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-contactform',
@@ -41,6 +40,9 @@ export class ContactformComponent {
 
   // Allow digits, plus, parentheses, spaces and hyphens only.
   phonePattern = '^[0-9+() -]+$';
+  isSubmitting = false;
+  submitStatus: 'idle' | 'success' | 'error' = 'idle';
+  submitMessage = '';
 
   contactForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
@@ -55,24 +57,38 @@ export class ContactformComponent {
   constructor(
     private messageService: MessageService,
     private http: HttpClient,
-    private metrika: MetrikaService
+    private metrika: MetrikaService,
+    private router: Router
   ) {}
 
+  private getFormSource(): 'home' | 'contacts' | 'seo' {
+    if (this.router.url.startsWith('/contacts')) return 'contacts';
+    if (this.router.url.startsWith('/dushevye-ograzhdeniya')) return 'seo';
+    return 'home';
+  }
+
   submitForm() {
-    if (this.contactForm.invalid) {
+    if (this.contactForm.invalid || this.isSubmitting) {
       this.contactForm.markAllAsTouched();
       return;
     }
 
     if (this.contactForm.valid) {
       const { name, phone, message } = this.contactForm.value;
-      const formData = { name, phone, message };
+      const formData = { name, phone, message, source: this.getFormSource() };
+
+      this.isSubmitting = true;
+      this.submitStatus = 'idle';
+      this.submitMessage = '';
 
       this.http
         .post(this.contactEndpoint, formData)
-        .pipe(tap(() => this.contactForm.reset({ consent: false })))
         .subscribe({
           next: () => {
+            this.isSubmitting = false;
+            this.contactForm.reset({ consent: false });
+            this.submitStatus = 'success';
+            this.submitMessage = 'Заявка отправлена. Мы получили ваши контакты и свяжемся с вами.';
             this.metrika.reachGoal('contact_form_success');
             this.messageService.add({
               severity: 'success',
@@ -82,7 +98,12 @@ export class ContactformComponent {
               life: 4000,
             });
           },
-          error: () => {
+          error: (error: HttpErrorResponse) => {
+            this.isSubmitting = false;
+            this.submitStatus = 'error';
+            this.submitMessage = error.status === 429
+              ? 'Слишком много попыток. Подождите 10 минут и отправьте заявку снова.'
+              : 'Заявка не отправлена. Проверьте телефон и соединение, затем повторите попытку.';
             this.messageService.add({
               severity: 'error',
               summary: 'Не удалось отправить',

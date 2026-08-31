@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1000" viewBox="0 0 1000 1000">
+  <title>СтеклоКонтур — знак СК на чёрном фоне</title>
+  <rect width="1000" height="1000" fill="#11110F"/>
+  <g id="mark" transform="translate(165 130) scale(1.7)">
+    <rect x="20" y="70" width="150" height="260" fill="none" stroke="#B88632" stroke-width="10"/>
+    <path d="M205 45 L310 95 L310 300 L205 360 Z" fill="none" stroke="#B88632" stroke-width="10"/>
+    <path d="M310 95 H350 V330" fill="none" stroke="#B88632" stroke-width="10"/>
+    <rect x="163" y="116" width="20" height="45" fill="#B88632"/>
+    <rect x="163" y="244" width="20" height="45" fill="#B88632"/>
+    <text x="32" y="299" fill="#F7F3EA" font-family="Montserrat, Arial, sans-serif" font-size="240" font-weight="700">С</text>
+    <text x="218" y="299" fill="#F7F3EA" font-family="Montserrat, Arial, sans-serif" font-size="225" font-weight="700">К</text>
+  </g>
+</svg>

@@ -1,8 +1,16 @@
 <div class="layout-header">
 
   <!-- Бургер  -->
-  <div class="burger-menu" *ngIf="isMobile">
-    <button pButton type="button" icon="pi pi-bars" (click)="menuVisible = !menuVisible"></button>
+  <div class="burger-menu">
+    <button
+      pButton
+      type="button"
+      icon="pi pi-bars"
+      aria-label="Открыть меню"
+      [attr.aria-expanded]="menuVisible"
+      (click)="menuVisible = !menuVisible"
+    ></button>
+    <div class="burger-backdrop" *ngIf="menuVisible" (click)="menuVisible = false"></div>
     <div class="burger-panel" *ngIf="menuVisible">
       <ul>
         <li *ngFor="let item of menuItems" (click)="navigate(item.routerLink)">
@@ -12,8 +20,34 @@
     </div>
   </div>
 
+  <button
+    class="layout-header__brand"
+    type="button"
+    aria-label="СтеклоКонтур — перейти на главную страницу"
+    (click)="navigate(['/home'])"
+  >
+    <img
+      class="layout-header__logo layout-header__logo--desktop"
+      src="assets/img/logo/steklokontur-header-desktop-compact.png"
+      width="912"
+      height="220"
+      alt="СтеклоКонтур"
+      decoding="async"
+      fetchpriority="high"
+    >
+    <img
+      class="layout-header__logo layout-header__logo--mobile"
+      src="assets/img/logo/steklokontur-header-mobile.png"
+      width="256"
+      height="256"
+      alt=""
+      decoding="async"
+      fetchpriority="high"
+    >
+  </button>
+
   <!-- Меню десктоп -->
-  <div class="layout-header__menu" *ngIf="!isMobile">
+  <div class="layout-header__menu">
     <p-menubar [model]="menuItems"></p-menubar>
   </div>
 

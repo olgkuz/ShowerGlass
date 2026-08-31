@@ -89,8 +89,8 @@
 
         &:focus {
           outline: none;
-          border-color: #4F4732;
-          box-shadow: 0 0 0 3px rgba(79, 71, 50, 0.15);
+          border-color: #3A3D39;
+          box-shadow: 0 0 0 3px rgba(58, 61, 57, 0.15);
         }
 
         &.ng-invalid.ng-touched {
@@ -126,9 +126,9 @@
     gap: 0.5rem;
 
     &.is-dragover {
-      border-color: #4F4732;
+      border-color: #3A3D39;
       background-color: #f5f3ef;
-      box-shadow: 0 4px 12px rgba(79, 71, 50, 0.1);
+      box-shadow: 0 4px 12px rgba(58, 61, 57, 0.1);
     }
 
     p {

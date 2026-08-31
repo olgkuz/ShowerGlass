@@ -1,3 +1,20 @@
+<section class="mobile-hero-carousel" aria-label="Основные изделия из стекла" (touchstart)="onTouchStart($event)" (touchend)="onTouchEnd($event)">
+  <div class="mobile-hero-carousel__slide" *ngFor="let slide of heroSlides; let i = index" [class.is-active]="i === activeSlide" [attr.aria-hidden]="i !== activeSlide">
+    <img [src]="slide.image" [alt]="slide.title" [attr.loading]="i === 0 ? 'eager' : 'lazy'" [attr.fetchpriority]="i === 0 ? 'high' : 'low'" />
+    <div class="mobile-hero-carousel__shade"></div>
+    <div class="mobile-hero-carousel__content">
+      <h1>{{ slide.title }}</h1>
+      <p>{{ slide.text }}</p>
+      <a pButton [routerLink]="slide.link" class="mobile-hero-carousel__button">{{ slide.button }}</a>
+    </div>
+  </div>
+  <button type="button" class="mobile-hero-carousel__arrow mobile-hero-carousel__arrow--prev" (click)="previousSlide(); $event.stopPropagation()" aria-label="Предыдущий слайд">‹</button>
+  <button type="button" class="mobile-hero-carousel__arrow mobile-hero-carousel__arrow--next" (click)="nextSlide(); $event.stopPropagation()" aria-label="Следующий слайд">›</button>
+  <div class="mobile-hero-carousel__dots" role="tablist" aria-label="Слайды">
+    <button *ngFor="let slide of heroSlides; let i = index" type="button" role="tab" [attr.aria-selected]="i === activeSlide" [class.is-active]="i === activeSlide" (click)="setSlide(i); $event.stopPropagation()" [attr.aria-label]="'Слайд ' + (i + 1)"></button>
+  </div>
+</section>
+
 <section class="main-banner">
   <div class="main-grid">
     <div class="main-image">

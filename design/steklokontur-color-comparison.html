@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>СтеклоКонтур — сравнение палитр</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 40px;
+      color: #252525;
+      background: #f4f3f0;
+      font-family: Arial, sans-serif;
+    }
+    h1 { margin: 0 0 8px; font-size: 28px; }
+    .intro { margin: 0 0 28px; color: #606060; }
+    .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; }
+    .sample { overflow: hidden; background: #fff; border-radius: 14px; box-shadow: 0 4px 20px rgb(0 0 0 / 10%); }
+    .sample__title { padding: 14px 16px; font-size: 16px; font-weight: 700; }
+    .sample__code { margin-left: 8px; color: #777; font-size: 13px; font-weight: 400; }
+    .header { display: flex; align-items: center; height: 66px; padding: 8px 14px; gap: 18px; }
+    .header img { width: 180px; height: auto; }
+    .nav { display: flex; gap: 15px; margin-left: auto; color: #fff; font-size: 13px; }
+    .hero { padding: 32px 28px; min-height: 250px; background: linear-gradient(135deg, #fafafa, #e9e7e1); }
+    .eyebrow { margin-bottom: 10px; color: var(--accent); font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+    .hero h2 { max-width: 290px; margin: 0 0 14px; color: var(--brand); font-size: 30px; line-height: 1.08; }
+    .hero p { max-width: 320px; margin: 0 0 22px; color: #565656; line-height: 1.45; }
+    .hero button { padding: 12px 18px; color: #fff; background: var(--brand); border: 1px solid var(--brand); border-radius: 7px; font-size: 14px; font-weight: 700; }
+    .footer { display: flex; align-items: center; justify-content: space-between; gap: 10px; min-height: 74px; padding: 14px 18px; color: #fff; font-size: 12px; }
+    .footer strong { display: block; margin-bottom: 5px; font-size: 14px; }
+    .badge { padding: 7px 9px; border: 1px solid rgb(255 255 255 / 48%); border-radius: 999px; white-space: nowrap; }
+    .olive { --brand: #4f4732; --accent: #b88632; }
+    .steel { --brand: #30363a; --accent: #d9a94f; }
+    .warm-steel { --brand: #3a3d39; --accent: #d9a94f; }
+    .olive .header, .olive .footer { background: #4f4732; }
+    .steel .header, .steel .footer { background: #30363a; }
+    .warm-steel .header, .warm-steel .footer { background: #3a3d39; }
+    @media (max-width: 980px) { .grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <h1>СтеклоКонтур — сравнение палитр</h1>
+  <p class="intro">Сравнение header, кнопки и подвала на одном наборе элементов.</p>
+  <main class="grid">
+    <section class="sample olive">
+      <div class="sample__title">Текущая оливковая <span class="sample__code">#4F4732</span></div>
+      <div class="header"><img src="../src/assets/img/logo/steklokontur-header-desktop-compact.png" alt="СтеклоКонтур"><nav class="nav"><span>Главная</span><span>Галерея</span><span>Контакты</span></nav></div>
+      <div class="hero"><div class="eyebrow">СтеклоКонтур</div><h2>Изделия из стекла на заказ</h2><p>Душевые ограждения, перегородки, двери и лестничные ограждения.</p><button>Рассчитать проект</button></div>
+      <div class="footer"><div><strong>СтеклоКонтур</strong>Изделия из стекла на заказ</div><span class="badge">+7 911 029-30-30</span></div>
+    </section>
+    <section class="sample steel">
+      <div class="sample__title">Оружейная сталь <span class="sample__code">#30363A</span></div>
+      <div class="header"><img src="../src/assets/img/logo/steklokontur-header-desktop-compact.png" alt="СтеклоКонтур"><nav class="nav"><span>Главная</span><span>Галерея</span><span>Контакты</span></nav></div>
+      <div class="hero"><div class="eyebrow">СтеклоКонтур</div><h2>Изделия из стекла на заказ</h2><p>Душевые ограждения, перегородки, двери и лестничные ограждения.</p><button>Рассчитать проект</button></div>
+      <div class="footer"><div><strong>СтеклоКонтур</strong>Изделия из стекла на заказ</div><span class="badge">+7 911 029-30-30</span></div>
+    </section>
+    <section class="sample warm-steel">
+      <div class="sample__title">Тёплая оружейная сталь <span class="sample__code">#3A3D39</span></div>
+      <div class="header"><img src="../src/assets/img/logo/steklokontur-header-desktop-compact.png" alt="СтеклоКонтур"><nav class="nav"><span>Главная</span><span>Галерея</span><span>Контакты</span></nav></div>
+      <div class="hero"><div class="eyebrow">СтеклоКонтур</div><h2>Изделия из стекла на заказ</h2><p>Душевые ограждения, перегородки, двери и лестничные ограждения.</p><button>Рассчитать проект</button></div>
+      <div class="footer"><div><strong>СтеклоКонтур</strong>Изделия из стекла на заказ</div><span class="badge">+7 911 029-30-30</span></div>
+    </section>
+  </main>
+</body>
+</html>

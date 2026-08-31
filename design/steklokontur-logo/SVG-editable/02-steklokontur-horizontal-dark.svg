@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="500" viewBox="0 0 1600 500">
+  <title>СтеклоКонтур — горизонтальный логотип на чёрном фоне</title>
+  <rect width="1600" height="500" fill="#11110F"/>
+  <g id="mark" transform="translate(60 55)">
+    <rect x="20" y="70" width="150" height="260" fill="none" stroke="#B88632" stroke-width="10"/>
+    <path d="M205 45 L310 95 L310 300 L205 360 Z" fill="none" stroke="#B88632" stroke-width="10"/>
+    <path d="M310 95 H350 V330" fill="none" stroke="#B88632" stroke-width="10"/>
+    <rect x="163" y="116" width="20" height="45" fill="#B88632"/>
+    <rect x="163" y="244" width="20" height="45" fill="#B88632"/>
+    <text x="32" y="299" fill="#F7F3EA" font-family="Montserrat, Arial, sans-serif" font-size="240" font-weight="700">С</text>
+    <text x="218" y="299" fill="#F7F3EA" font-family="Montserrat, Arial, sans-serif" font-size="225" font-weight="700">К</text>
+  </g>
+  <g id="wordmark" font-family="Montserrat, Arial, sans-serif">
+    <text x="510" y="225" font-size="122" font-weight="700"><tspan fill="#F7F3EA">Стекло</tspan><tspan fill="#D9A94F">Контур</tspan></text>
+    <line x1="515" y1="270" x2="1480" y2="270" stroke="#B88632" stroke-width="5"/>
+    <text x="520" y="332" fill="#F7F3EA" font-size="30" font-weight="600" letter-spacing="12">ИЗДЕЛИЯ ИЗ СТЕКЛА НА ЗАКАЗ</text>
+  </g>
+</svg>

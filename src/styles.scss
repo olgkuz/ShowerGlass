@@ -4,15 +4,15 @@
 @use './app/styles/variables.scss';
 
 :root {
-  --color-brand: #4f4732;
-  --color-brand-hover: #62583f;
+  --color-brand: #3a3d39;
+  --color-brand-hover: #4a4e49;
   --color-surface: #ffffff;
   --color-surface-muted: #f6f6f6;
   --color-border-muted: #cccccc;
   --color-text-on-dark: #ffffff;
   --radius-md: 8px;
   --shadow-soft: 0 8px 18px rgb(0 0 0 / 20%);
-  --focus-ring: 0 0 0 3px rgb(79 71 50 / 30%);
+  --focus-ring: 0 0 0 3px rgb(58 61 57 / 30%);
 
   --p-text-color: var(--color-brand);
   --p-content-text-color: var(--color-brand);
@@ -21,7 +21,13 @@
 }
 
 body {
-  color: var(--p-text-color, #4f4732);
+  color: var(--p-text-color, #3a3d39);
+}
+
+// Нейтральная цветокоррекция для отдельного файла slash, который используется
+// в некоторых карточках напрямую, вне стилей card-компонента.
+img[src*="cards/slash/variant1.webp"] {
+  filter: grayscale(0.14) saturate(0.84) contrast(1.03) brightness(0.99);
 }
 
 :where(a, button, [role='button'], input, textarea, select, .p-button):focus-visible {

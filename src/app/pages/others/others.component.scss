@@ -65,7 +65,13 @@
       object-fit: cover;
       border-radius: 8px;
       margin-bottom: 0;
+      // Лёгкая тёплая цветокоррекция, согласованная с палитрой сайта.
+      // Более графитовая подача для концепта «тёплая оружейная сталь».
+      filter: grayscale(0.1) saturate(0.8) contrast(1.05) brightness(0.96);
+      transition: filter 0.25s ease;
     }
+
+    &:hover img { filter: grayscale(0.06) saturate(0.86) contrast(1.04) brightness(0.98); }
 
     .card-title {
       font-size: 1.25rem;

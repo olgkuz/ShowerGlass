@@ -19,3 +19,14 @@
     color: var.$text-on-dark;
   }
 }
+
+@media (max-width: 575px) {
+  .home-mosaic,
+  .home-examples {
+    display: none;
+  }
+
+  :host ::ng-deep .container {
+    margin-top: 1.25rem !important;
+  }
+}

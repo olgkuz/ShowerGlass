@@ -7,6 +7,8 @@
 }
 
 .layout-header {
+  width: 100%;
+  box-sizing: border-box;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -16,14 +18,40 @@
   height: 100%;
   padding: 4px 6px;
   font-family: var.$font-family-base;
+
+  &__brand {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+  }
+
+  &__logo {
+    display: block;
+    width: auto;
+    object-fit: contain;
+
+    &--desktop {
+      height: clamp(38px, 3.4vw, 48px);
+    }
+
+    &--mobile {
+      display: none;
+    }
+  }
   
 
   &__menu {
     flex: 1;
+    min-width: 0;
 
     ::ng-deep .p-menubar {
       background: #fff;
-      border: 1px solid rgb(79 71 50 / 18%);
+      border: 1px solid rgb(58 61 57 / 18%);
       border-radius: var.$radius-md;
       padding: 0.2rem 0.35rem;
       color: var.$background;
@@ -47,7 +75,7 @@
     ::ng-deep .p-menubar-item-link:hover,
     ::ng-deep .p-menubar-item.p-focus > .p-menubar-item-content > .p-menubar-item-link,
     ::ng-deep .p-menubar-item.p-menubar-item-active > .p-menubar-item-content > .p-menubar-item-link {
-      background: rgb(79 71 50 / 10%);
+      background: rgb(58 61 57 / 10%);
       color: var.$background;
     }
   }
@@ -55,6 +83,8 @@
   &__right-block {
     display: flex;
     align-items: center;
+    flex: 0 0 auto;
+    margin-left: auto;
     padding-right: 12px;
 
     ::ng-deep button.p-button {
@@ -71,8 +101,9 @@
 }
 
 .burger-menu {
-  display: flex;
+  display: none;
   align-items: center;
+  flex: 0 0 auto;
 
   ::ng-deep .p-button {
     background: #fff;
@@ -90,13 +121,15 @@
   }
 
   .burger-panel {
-    position: absolute;
+    position: fixed;
     top: 60px;
-    left: 10px;
+    left: 0;
+    width: min(320px, calc(100vw - 32px));
     background: white;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     border-radius: 6px;
-    z-index: 1000;
+    z-index: 1002;
+    overflow: hidden;
 
     ul {
       list-style: none;
@@ -111,6 +144,7 @@
         font-weight: 500;
         line-height: 1.35;
         border-bottom: 1px solid #e0e0e0;
+        overflow-wrap: anywhere;
 
         &:last-child {
           border-bottom: none;
@@ -120,6 +154,54 @@
           background-color: #f2f2f2;
         }
       }
+    }
+  }
+
+  .burger-backdrop {
+    position: fixed;
+    inset: 60px 0 0;
+    z-index: 1001;
+    background: rgb(0 0 0 / 28%);
+  }
+}
+
+@media (max-width: 767px) {
+  .layout-header {
+    position: relative;
+
+    &__brand {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    &__logo--desktop {
+      display: block;
+      width: min(178px, 48vw);
+      height: auto;
+      max-height: 46px;
+    }
+
+    &__logo--mobile { display: none; }
+  }
+
+  .burger-menu {
+    display: flex;
+  }
+
+  .layout-header__menu {
+    display: none;
+  }
+
+  .layout-header__right-block {
+    display: flex;
+    padding-right: 2px;
+
+    ::ng-deep button.p-button {
+      padding: 0.4rem 0.45rem;
+      font-size: 0.85rem;
+      white-space: nowrap;
     }
   }
 }

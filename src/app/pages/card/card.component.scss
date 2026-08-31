@@ -39,6 +39,8 @@
     cursor: zoom-in;
     background: #f5f5f5;
     padding: 1rem;
+    // Согласуем изображения карточек с тёплой оружейно-стальной палитрой hero-блоков.
+    filter: grayscale(0.05) saturate(0.86) contrast(1.03) brightness(0.98);
   }
 }
 
@@ -158,6 +160,14 @@
   width: 100%;
   height: 78px;
   object-fit: cover;
+  filter: grayscale(0.05) saturate(0.86) contrast(1.03) brightness(0.98);
+}
+
+// Светлые фотографии slash не должны уходить в розовый оттенок:
+// для них сохраняем нейтральные стены и белую сантехнику.
+.card-image img[src*="/slash/"],
+.installation-item img[src*="/slash/"] {
+  filter: saturate(0.9) contrast(1.03) brightness(0.99);
 }
 
 .hinge-item img {

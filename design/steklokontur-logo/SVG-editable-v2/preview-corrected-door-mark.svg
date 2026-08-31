@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="500" viewBox="0 0 1600 500">
+  <title>СтеклоКонтур — исправленный знак с открытой дверью</title>
+  <rect width="1600" height="500" fill="#4F4732"/>
+  <g id="open-door-monogram" transform="translate(55 45)">
+    <!-- Неподвижная стеклянная панель с буквой С -->
+    <rect x="20" y="70" width="168" height="280" rx="2" fill="#FFFFFF" fill-opacity="0.035" stroke="#D9A94F" stroke-width="9"/>
+    <path d="M157 137 C128 112 78 119 57 158 C33 203 43 268 86 294 C111 309 139 305 158 288"
+          fill="none" stroke="#FFFFFF" stroke-width="43" stroke-linecap="square"/>
+
+    <!-- Открытая створка: её стойка и диагонали одновременно образуют букву К -->
+    <path d="M222 42 L378 108 L378 302 L222 372 Z" fill="#FFFFFF" fill-opacity="0.045" stroke="#D9A94F" stroke-width="9" stroke-linejoin="miter"/>
+    <path d="M232 78 L232 336" fill="none" stroke="#FFFFFF" stroke-width="27" stroke-linecap="square"/>
+    <path d="M241 207 L349 122 M241 207 L349 291" fill="none" stroke="#FFFFFF" stroke-width="31" stroke-linecap="square" stroke-linejoin="miter"/>
+
+    <!-- Петли и ручка усиливают чтение открытой двери -->
+    <rect x="183" y="119" width="48" height="35" rx="3" fill="#D9A94F"/>
+    <rect x="183" y="269" width="48" height="35" rx="3" fill="#D9A94F"/>
+    <circle cx="352" cy="207" r="7" fill="#D9A94F"/>
+  </g>
+  <g id="wordmark" font-family="Montserrat, Arial, sans-serif">
+    <text x="510" y="225" font-size="122" font-weight="700"><tspan fill="#FFFFFF">Стекло</tspan><tspan fill="#D9A94F">Контур</tspan></text>
+    <line x1="515" y1="270" x2="1480" y2="270" stroke="#D9A94F" stroke-width="5"/>
+    <text x="520" y="332" fill="#FFFFFF" font-size="30" font-weight="600" letter-spacing="12">ИЗДЕЛИЯ ИЗ СТЕКЛА НА ЗАКАЗ</text>
+  </g>
+</svg>

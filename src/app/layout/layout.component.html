@@ -1,5 +1,12 @@
 <app-header class="layout-header"></app-header>
 
+<div *ngIf="networkProblem && !networkNoticeDismissed" class="network-warning" role="alert">
+  <span>Не удалось связаться с сервером. Проверьте интернет, попробуйте отключить VPN или сменить сеть.</span>
+  <button type="button" (click)="dismissNetworkNotice()" aria-label="Закрыть уведомление о соединении">
+    Закрыть
+  </button>
+</div>
+
 <div *ngIf="isLoading" class="global-loader">
   <p-progressSpinner styleClass="custom-spinner"></p-progressSpinner>
 </div>

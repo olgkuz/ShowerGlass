@@ -58,7 +58,19 @@
       pButton
       type="submit"
       label="Отправить"
-      [disabled]="contactForm.invalid"
+      [loading]="isSubmitting"
+      [disabled]="contactForm.invalid || isSubmitting"
     ></button>
+
+    <p
+      *ngIf="submitStatus !== 'idle'"
+      class="submit-result"
+      [class.submit-result--success]="submitStatus === 'success'"
+      [class.submit-result--error]="submitStatus === 'error'"
+      role="status"
+      aria-live="polite"
+    >
+      {{ submitMessage }}
+    </p>
   </form>
 </section>
